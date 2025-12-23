@@ -23,6 +23,10 @@ export class RecommendationService {
             .sort((a, b) => b.score - a.score)
             .slice(0, 3);
 
+        if (topPicks.length === 0) {
+            return [];
+        }
+
             const resultsWithExplanation = await Promise.all(topPicks.map(async pick => {
                 const prompt = `Act as a Metal music expert. Explain why the band "${pick.band.name}" is a good recommendation for a user who likes: ${input.favoriteBands.join(', ')} and is looking for a mood described as: "${input.targetMood}". Provide a concise explanation.`;
 
@@ -31,7 +35,7 @@ export class RecommendationService {
                 return {
                     band: pick.band,
                     score: pick.score,
-                    explanation,
+                    explanation: explanation.trim(),
                 };
             }) );
         return resultsWithExplanation;
