@@ -1,15 +1,25 @@
-﻿import express from "express";
-import cors from "cors";
+﻿import path from "path";
+import * as fs from 'fs';
+import { Band } from './domain/types';
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+async function bootstrap() {
 
-app.get("/health", (_req, res) => {
-  res.json({ ok: true, service: "api", time: new Date().toISOString() });
-});
+  console.log('MetallicAI API started');
 
-const PORT = Number(process.env.PORT ?? 4000);
-app.listen(PORT, () => {
-  console.log(`API listening on http://localhost:${PORT}`);
-});
+  try {
+    const dataPath = path.resolve(__dirname, 'data', 'bands.json');
+
+    if (!fs.existsSync(dataPath)) {
+      throw new Error(`Data file not found at path: ${dataPath}`);
+    }
+
+    const rawData = fs.readFileSync(dataPath, 'utf-8');
+    const bands: Band[] = JSON.parse(rawData);
+
+    console.log(`Loaded ${bands.length} bands from data file.`);
+  } catch (error) {
+    console.error('Error loading bands data:', error);
+  }
+}
+
+bootstrap();

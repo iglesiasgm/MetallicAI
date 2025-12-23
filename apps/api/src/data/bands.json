@@ -1,0 +1,18 @@
+[
+  {
+    "id": "1",
+    "name": "Gojira",
+    "subgenres": ["Technical Death Metal", "Groove Metal"],
+    "moods": ["Heavy", "Ecological", "Spiritual"],
+    "features": ["Pick Scrapes", "Double Bass", "Chugging Riffs"],
+    "description": "French metal giants known for their precise rhythm and heavy, atmospheric soundscapes."
+  },
+  {
+    "id": "2",
+    "name": "Opeth",
+    "subgenres": ["Progressive Death Metal", "Progressive Rock"],
+    "moods": ["Melancholic", "Complex", "Atmospheric"],
+    "features": ["Growls", "Clean Vocals", "Acoustic Passages"],
+    "description": "Legendary Swedish band known for blending death metal aggression with 70s prog rock beauty."
+  }
+]
