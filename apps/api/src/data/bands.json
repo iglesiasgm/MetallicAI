@@ -14,5 +14,101 @@
     "moods": ["Melancholic", "Complex", "Atmospheric"],
     "features": ["Growls", "Clean Vocals", "Acoustic Passages"],
     "description": "Legendary Swedish band known for blending death metal aggression with 70s prog rock beauty."
+  },
+  {
+    "id": "1",
+    "name": "Black Sabbath",
+    "subgenres": ["Heavy Metal", "Doom Metal"],
+    "moods": ["Dark", "Ominous", "Slow", "Occult"],
+    "features": ["Doomy Riffs", "Blues Influences", "Clean Vocals"],
+    "description": "The godfathers of heavy metal. Known for creating the genre with slow, heavy, and ominous sounds that explore dark and occult themes."
+  },
+  {
+    "id": "2",
+    "name": "Iron Maiden",
+    "subgenres": ["Heavy Metal", "NWOBHM"],
+    "moods": ["Epic", "Heroic", "Energetic", "Historical"],
+    "features": ["Galloping Bass", "Twin Guitars", "Operatic Vocals"],
+    "description": "British legends known for their galloping rhythm, melodic guitar harmonies, and lyrics based on history, literature, and film."
+  },
+  {
+    "id": "3",
+    "name": "Metallica",
+    "subgenres": ["Thrash Metal", "Heavy Metal"],
+    "moods": ["Aggressive", "Angry", "Fast"],
+    "features": ["Downpicking", "Fast Riffs", "Wah Solos", "Complex Structures"],
+    "description": "The biggest metal band in history. Pioneers of Thrash Metal, characterized by fast tempos, instrumentals, and aggressive musicianship."
+  },
+  {
+    "id": "4",
+    "name": "Death",
+    "subgenres": ["Death Metal", "Progressive Death Metal"],
+    "moods": ["Brutal", "Technical", "Philosophical"],
+    "features": ["Growls", "Complex Song Structures", "High Tempo", "Technical Guitar"],
+    "description": "Pioneers of Death Metal who evolved the genre from raw brutality to sophisticated technicality and philosophical lyrics."
+  },
+  {
+    "id": "5",
+    "name": "Opeth",
+    "subgenres": ["Progressive Death Metal", "Progressive Rock"],
+    "moods": ["Melancholic", "Complex", "Atmospheric", "Autumnal"],
+    "features": ["Growls", "Clean Vocals", "Acoustic Passages", "Long Songs"],
+    "description": "Masters of contrast, blending brutal death metal with beautiful acoustic progressive rock to create a unique melancholic atmosphere."
+  },
+  {
+    "id": "6",
+    "name": "Gojira",
+    "subgenres": ["Technical Death Metal", "Groove Metal", "Progressive Metal"],
+    "moods": ["Heavy", "Ecological", "Spiritual", "Intense"],
+    "features": ["Pick Scrapes", "Double Bass", "Chugging Riffs", "Whammy Pedal"],
+    "description": "French metal giants known for their precise rhythm, environmental themes, and ability to mix heaviness with ethereal atmospheres."
+  },
+  {
+    "id": "7",
+    "name": "Nightwish",
+    "subgenres": ["Symphonic Metal", "Power Metal"],
+    "moods": ["Cinematic", "Fantasy", "Emotional", "Grand"],
+    "features": ["Operatic Female Vocals", "Orchestration", "Keyboards", "Choirs"],
+    "description": "A Finnish band that combines heavy metal with movie-score orchestration and operatic vocals, creating a massive fantasy sound."
+  },
+  {
+    "id": "8",
+    "name": "Tool",
+    "subgenres": ["Progressive Metal", "Alternative Metal"],
+    "moods": ["Psychedelic", "Mathematical", "Spiritual", "Introspective"],
+    "features": ["Polyrhythms", "Odd Time Signatures", "Bass Driven", "Visual Arts"],
+    "description": "A band known for their complex mathematical rhythms, spiritual lyrics, and visual artistry, creating a trance-like heavy experience."
+  },
+  {
+    "id": "9",
+    "name": "Rammstein",
+    "subgenres": ["Industrial Metal", "Neue Deutsche Härte"],
+    "moods": ["Mechanical", "Martial", "Controversial", "Powerful"],
+    "features": ["German Lyrics", "Electronic Beats", "Simple Heavy Riffs", "Synthesizers"],
+    "description": "German industrial machine known for their marching rhythms, electronic elements, and provocative lyrics."
+  },
+  {
+    "id": "10",
+    "name": "Slipknot",
+    "subgenres": ["Nu Metal", "Alternative Metal"],
+    "moods": ["Chaotic", "Angry", "Cathartic", "Insane"],
+    "features": ["Percussion", "Masks", "Turntables", "Aggressive Vocals"],
+    "description": "A 9-member chaos machine from Iowa, known for their aggressive nu-metal sound, masks, and intense live energy."
+  },
+  {
+    "id": "11",
+    "name": "Lorna Shore",
+    "subgenres": ["Deathcore", "Symphonic Deathcore"],
+    "moods": ["Demonic", "Overwhelming", "Hellish"],
+    "features": ["Pig Squeals", "Massive Breakdowns", "Orchestral Backing", "Inhuman Vocals"],
+    "description": "Modern extreme metal leaders, mixing massive breakdowns with orchestral elements and vocal techniques that sound inhuman."
+  },
+  {
+    "id": "12",
+    "name": "Sleep Token",
+    "subgenres": ["Progressive Metal", "Alternative R&B", "Djent"],
+    "moods": ["Sexy", "Sad", "Mysterious", "Worship"],
+    "features": ["Low Tuned Guitars", "Pop Vocals", "Trap Beats", "Piano"],
+    "description": "An anonymous masked collective that blends heavy metal breakdowns with soulful pop, R&B, and atmospheric electronics."
   }
 ]

@@ -1,9 +1,9 @@
 import 'dotenv/config';
 
 export const envs = {
-    openAiApiKey: process.env.OPENAI_API_KEY || '',
+    geminiApiKey: process.env.GEMINI_API_KEY || '',
 };
 
-if (!envs.openAiApiKey) {
-    throw new Error('Missing OPENAI_API_KEY in environment variables');
+if (!envs.geminiApiKey) {
+    throw new Error('Missing GEMINI_API_KEY in environment variables');
 }
