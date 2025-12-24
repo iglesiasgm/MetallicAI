@@ -12,20 +12,20 @@ El sistema utiliza **Búsqueda Vectorial (Embeddings)** para encontrar similitud
 
 ## 🛠️ Requisitos Previos
 
-1.  Node.js (v18 o superior).
-2.  pnpm (recomendado) o npm.
-3.  Una **API Key** de [Google AI Studio](https://aistudio.google.com/).
+1. Node.js (v18 o superior).
+2. pnpm (recomendado) o npm.
+3. Una **API Key** de [Google AI Studio](https://aistudio.google.com/).
 
 ## ⚙️ Configuración e Instalación
 
-1.  **Instalar dependencias:**
+1. **Instalar dependencias:**
     Desde la raíz del monorepo:
 
     ```bash
     pnpm install
     ```
 
-2.  **Configurar Variables de Entorno:**
+2. **Configurar Variables de Entorno:**
     Crea un archivo `.env` dentro de `apps/api/`:
     ```env
     # apps/api/.env
@@ -42,7 +42,7 @@ Levanta el servidor en el puerto `3001` con recarga automática (hot-reload).
 pnpm --filter api run dev
 ```
 
-#### Nota sobre el Cache: La primera vez que inicies, el sistema tardará unos segundos en generar los vectores para todas las bandas. Se creará automáticamente un archivo bands-with-vectors.json en apps/api/src/data. Los siguientes arranques serán instantáneos leyendo desde ahí.
+#### Nota sobre el Cache: La primera vez que inicies, el sistema tardará unos segundos en generar los vectores para todas las bandas. Se creará automáticamente un archivo bands-with-vectors.json en apps/api/src/data. Los siguientes arranques serán instantáneos leyendo desde ahí
 
 ## 💡 Chequeo de Modelos (Utilidad)
 
@@ -66,7 +66,7 @@ pnpm --filter api exec ts-node src/check-models.ts
 **Body (JSON)**:
 
 ```JSON
-Invoke-RestMethod -Method Post -Uri "http://localhost:3001/recommend" -ContentType "application/json" -Body '{
+{
   "favoriteBands": ["Metallica", "Iron Maiden"],
   "targetMood": "Quiero algo atmosférico, lento y muy pesado, estilo doom metal"
 }'
