@@ -39,7 +39,17 @@ export function BandTagsInput({ value, onChange }: Props) {
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={(e) => e.key === "Enter" && addBand()}
         placeholder="Agregar banda y presionar Enter"
-        className="w-full p-3 rounded-lg border"
+        className="w-[420px]
+          h-[48px]
+          rounded-xl
+          border border-neutral-600
+          bg-black/40
+          text-white
+          px-4
+          placeholder-neutral-400
+          focus:outline-none
+          focus:ring-2
+          focus:ring-red-600"
       />
     </div>
   );
