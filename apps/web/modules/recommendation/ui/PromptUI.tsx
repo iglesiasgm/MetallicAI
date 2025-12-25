@@ -28,8 +28,20 @@ export default function PromptUI() {
         targetMood: mood,
       });
 
+      console.log("recommendations raw:", recommendations);
+      console.log("first item:", recommendations?.[0]);
+      console.log(
+        "typeof band:",
+        typeof recommendations?.[0]?.band,
+        recommendations?.[0]?.band
+      );
+
       const text = recommendations
-        .map((r) => `🎸 ${r.band}\n${r.explanation}\n`)
+
+        .map(
+          (r: any) =>
+            `🎸 ${r.band?.name ?? "Banda desconocida"}\n${r.explanation}\n`
+        )
         .join("\n");
 
       setResponse(text);
