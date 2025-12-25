@@ -7,6 +7,7 @@ import { getRecommendations } from "../application/getRecommendations";
 import { BandTagsInput } from "./BandTagsInput";
 import { MoodInput } from "./MoodInput";
 import { RecommendationResponse } from "./RecommendationResponse";
+import { env } from "@/shared/config/env";
 
 export default function PromptUI() {
   const [bands, setBands] = useState<string[]>([]);
@@ -17,6 +18,8 @@ export default function PromptUI() {
   async function handleRecommend() {
     setLoading(true);
     setResponse("");
+
+    console.log("API_URL:", (env as any).API_URL);
 
     try {
       const repo = new RecommendationApiRepository();
@@ -58,8 +61,8 @@ export default function PromptUI() {
           w-[420px]
           py-4
           rounded-xl
-          bg-black
-          hover:bg-neutral-900
+          bg-red-800
+          hover:bg-red-900
           transition
           text-white
           font-semibold

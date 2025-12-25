@@ -14,30 +14,36 @@ export default function HeroIntro({ onStart }: Props) {
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="text-center z-10"
     >
-      <h1 className="text-6xl md:text-7xl font-bold text-white mb-4">
-        MetallicAI
-      </h1>
+      <div>
+        <div>
+          <img src="/icon.png" alt="Logo" className="mx-auto mb-8 w-70 h-80" />
+        </div>
+        <div className="mt-8">
+          <p
+            style={{ fontFamily: "HeroDesc" }}
+            className="text-neutral-300 max-w-2xl mx-auto mb-10 text-6xl"
+          >
+            No sabes que banda escuchar hoy?
+          </p>
 
-      <p className="text-neutral-300 max-w-xl mx-auto mb-10">
-        Un recomendador inteligente de bandas de metal basado en mood,
-        influencias y sensaciones.
-      </p>
-
-      <button
-        onClick={onStart}
-        className="
+          <button
+            onClick={onStart}
+            className="
           px-10 py-4
-          rounded-full
-          bg-red-700
-          hover:bg-red-600
+          border border-red-900 border-4
+          rounded-md
+          bg-black
+          hover:bg-red-950
           transition
           text-white
           font-semibold
           tracking-wide
         "
-      >
-        Comenzar
-      </button>
+          >
+            Comenzar
+          </button>
+        </div>
+      </div>
     </motion.div>
   );
 }

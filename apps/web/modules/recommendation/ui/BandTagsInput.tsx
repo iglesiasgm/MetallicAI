@@ -26,7 +26,7 @@ export function BandTagsInput({ value, onChange }: Props) {
         {value.map((band) => (
           <span
             key={band}
-            className="px-3 py-1 bg-gray-200 rounded-full flex items-center gap-2"
+            className="px-3 py-1 bg-red-800 rounded-full flex items-center gap-2 text-white"
           >
             {band}
             <button onClick={() => removeBand(band)}>✕</button>
@@ -43,7 +43,7 @@ export function BandTagsInput({ value, onChange }: Props) {
           h-[48px]
           rounded-xl
           border border-neutral-600
-          bg-black/40
+          bg-black/60
           text-white
           px-4
           placeholder-neutral-400

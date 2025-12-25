@@ -17,7 +17,7 @@ export function MoodInput({ value, onChange }: Props) {
           overflow-y-auto
           rounded-xl
           border border-neutral-600
-          bg-black/40
+          bg-black/60
           text-white
           p-4
           placeholder-neutral-400
