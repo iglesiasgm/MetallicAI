@@ -1,4 +1,4 @@
-import { Band, UserInput, RecommendationResult } from "../domain/types";
+import { Band, UserInput, RecommendationResult, LanguageCode } from "../domain/types";
 import { GeminiService } from "./gemini.service";
 import { cosineSimilarity, jaccardSimilarity } from "../utils/math";
 
@@ -15,6 +15,14 @@ const CONTROVERSIAL_POSER_BANDS = new Set(
     "burzum",
   ].map((s) => s.toLowerCase())
 );
+
+const OFFLINE_MESSAGES: Record<LanguageCode, string> = {
+  es: "Recomendación matemática por coincidencia de estilos (Modo Offline).",
+  en: "Mathematical recommendation based on style matching (Offline Mode).",
+  it: "Raccomandazione basata sulla corrispondenza di stile (Modalità Offline).",
+  de: "Mathematische Empfehlung basierend auf Stilübereinstimmung (Offline-Modus).",
+  pt: "Recomendação matemática baseada em correspondência de estilo (Modo Offline)."
+};
 
 function stripCodeFences(s: string) {
   return s.replace(/```json/gi, "```").replace(/```/g, "").trim();
@@ -115,9 +123,22 @@ export class RecommendationService {
       };
     });
 
+    const languageInstructionMap: Record<LanguageCode, string> = {
+      es: "ESPAÑOL (Latam neutro), usa jerga metalera en español (bardo, riffs).",
+      en: "ENGLISH, use metalhead slang (riffs, shredding, brutal).",
+      it: "ITALIANO, usa slang metal (pesante, oscuro).",
+      de: "DEUTSCH, use metal slang.",
+      pt: "PORTUGUÊS, use gírias de metal."
+    };
+
+    const langInstruction = languageInstructionMap[input.language] || languageInstructionMap['es'];
+
     const megaPrompt = `
-Eres "EL METALERO TRUE" (Latam neutro), como si fueras un metalero veterano dueño de una disquera que huele a cebolla.
-Hablas en ESPAÑOL (Latam neutro), tuteas, y recomendás metal con actitud real.
+Eres "EL METALERO TRUE", como si fueras un metalero veterano dueño de una disquera que huele a cebolla.
+
+IDIOMA OBLIGATORIO DE RESPUESTA: ${langInstruction}
+
+TAREA: Recomendar bandas de metal basándote en el mood y las bandas favoritas del usuario.
 Sos anti-poser: si detectas vibra poser/tik tok/“me hice metalero ayer”, lo marcás con sarcasmo leve usando la palabra "poser".
 Pero: nada de amenazas, nada de discriminación a grupos protegidos, nada de política. Solo bardo metalero y música, aunque puedes hacer uso del GORE y del SATANISMO, eso está más que permitido.
 
@@ -125,7 +146,6 @@ OBJETIVO:
 Generá una mini-explicación por cada banda recomendada (3). El nombre de la banda ya se muestra aparte: NO lo repitas.
 
 REGLAS DE ESTILO:
-- Español (Latam neutro), tuteo.
 - Soná humano, metalero, con jerga: riffs, breakdown, oscuro, épico, crudo, blast beats, guturales, sucio, asqueroso, distorsionado, voces rasposas, satanismo etc.
 - Máximo 2 oraciones por explicación.
 - Máximo 220 caracteres por explicación.
@@ -173,8 +193,14 @@ BANDAS A EXPLICAR (usa estos datos, pero NO repitas el nombre):
     return topPicks.map(({ band, score }) => {
       const { embedding, ...bandData } = band as any;
       const id = String((band as any).id ?? band.name);
-      const fallback = `Riffs y actitud para tu mood; si sos poser te vas a asustar. Dale play y bancala.`;
-      const explanation = explanationById.get(id) ?? fallback;
+      const fallbackMap: Record<LanguageCode, string> = {
+        es: "Riffs brutales para tu mood. Dale play.",
+        en: "Brutal riffs for your mood. Just play it.",
+        it: "Riffs brutali per il tuo umore. Ascolta.",
+        de: "Brutale Riffs für deine Stimmung.",
+        pt: "Riffs brutais para o seu humor."
+      };
+      const explanation = explanationById.get(id) ?? fallbackMap[input.language];
 
       return {
         band: bandData,
@@ -182,6 +208,8 @@ BANDAS A EXPLICAR (usa estos datos, pero NO repitas el nombre):
         explanation: explanation.trim(),
       };
     });
+
+
   }
 
   private runJaccardStrategy(input: UserInput): RecommendationResult[] {
@@ -217,15 +245,14 @@ BANDAS A EXPLICAR (usa estos datos, pero NO repitas el nombre):
       .sort((a, b) => b.score - a.score)
       .slice(0, 3);
 
+      const staticExplanation = OFFLINE_MESSAGES[input.language] ?? OFFLINE_MESSAGES['es'];
+
     return topPicks.map((item) => {
       const { embedding, ...bandData } = item.band as any;
-      
-      const staticExplanation = `Recomendada matemáticamente por coincidencia de estilos (${item.band.subgenres.join(", ")}).`;
-
       return {
         band: bandData,
         score: item.score,
-        explanation: staticExplanation,
+        explanation: `${staticExplanation} (${item.band.subgenres.join(", ")}).`,
       };
     });
   }
