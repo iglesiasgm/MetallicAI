@@ -8,13 +8,15 @@ El sistema utiliza **Búsqueda Vectorial (Embeddings)** para encontrar similitud
 - **Runtime:** Node.js + TypeScript
 - **Framework:** Fastify (Servidor HTTP rápido y ligero)
 - **AI Core:** Google Gemini (`text-embedding-004` para vectores, `gemini-2.5-flash` para chat)
-- **Algoritmo:** Similitud del Coseno (Custom implementation)
+- **Algoritmo:** Similitud del Coseno (Custom implementation) y Jaccard Strategy
+- **Storage:** Qdrant Vector DB
 
 ## 🛠️ Requisitos Previos
 
-1. Node.js (v18 o superior).
-2. pnpm (recomendado) o npm.
-3. Una **API Key** de [Google AI Studio](https://aistudio.google.com/).
+1. [Docker](https://www.docker.com/) y Docker Compose.
+2. [Node.js](https://nodejs.org/) (versión LTS recomendada).
+3. pnpm (recomendado) o npm.
+4. Una **API Key** de [Google AI Studio](https://aistudio.google.com/).
 
 ## ⚙️ Configuración e Instalación
 
@@ -41,10 +43,27 @@ Levanta el servidor en el puerto `3001` con recarga automática (hot-reload).
 ```bash
 pnpm --filter api run dev
 ```
+ ### Base de datos
 
-#### Nota sobre el Cache: La primera vez que inicies, el sistema tardará unos segundos en generar los vectores para todas las bandas. Se creará automáticamente un archivo bands-with-vectors.json en apps/api/src/data. Los siguientes arranques serán instantáneos leyendo desde ahí
+ Utiliza Docker Compose para iniciar el servicio de BD (Qdrant)
 
-## 💡 Chequeo de Modelos (Utilidad)
+ ```bash
+ # Levantar los servicios en segundo plano
+docker-compose up -d
+```
+
+## Procedimientos Auxiliares
+
+### Migracion de datos a la BD
+
+Una vez configurada la BD, y las dependencias instaladas `npm install`, ejecuta el script para migrar la estructura y cargar los datos iniciales:
+
+ ```bash
+pnpm --filter api exec ts-node src/scripts/seed-db.ts
+```
+
+El dashboard de la BD estara disponible desde:
+`http://localhost:6333/dashboard#/datasets`
 
 ### Chequeo de modelos (Utilidad)
 
@@ -91,10 +110,42 @@ pnpm --filter api exec ts-node src/check-models.ts
 }
 ```
 
-## 📂 Estructura del proyecto
+- `GET /bands`
+  Endpoint para traer todas las bandas disponibles.
+  
+- `GET /bands:id`
+  Endpoint para obtener todos los datos de una banda seleccionada
+  **Respuesta (JSON)**:
 
-- `src/data/bands.json`: Catálogo maestro de bandas.
-- `src/services/gemini.service.ts`: Comunicación con Google AI.
-- `src/services/recommendation.service.ts`: Lógica de filtrado y ranking.
-- `src/utils/math.ts`: Cálculo matemático de vectores.
-- `src/main.ts`: Punto de entrada del servidor Fastify.
+```JSON
+{
+  "id":"1",
+  "name":"Gojira",
+  "subgenres":["Technical Death Metal","Groove Metal"],
+  "moods":["Heavy","Ecological","Spiritual"],
+  "features":["Pick Scrapes","Double Bass","Chugging Riffs"],
+  "description":"French metal giants known for their precise rhythm and heavy, atmospheric soundscapes."
+}
+```
+
+
+## 📂 Estructura del proyecto (BACKEND)
+
+api
+├── 📂 src
+│   ├── 📂 config           # Configuración de envs y conexión a DB
+│   │   └── envs.ts     # Variables de entorno
+│   ├── 📂 domain           # Definición de esquemas de Base de Datos
+│   │   └── types.ts
+│   ├── 📂 services         # Lógica de negocio pura
+│   │   ├── openai.service.ts       # Comunicación con API de IA (Embeddings)
+│   │   └── recommendation.service.ts # Lógica de similitud de cosenos y Jaccard
+│   ├── 📂 utils
+│   │   └── math.ts         # Cálculos vectoriales
+│   ├── 📂 scripts          # Scripts de mantenimiento
+│   │   └── seed-db.ts # Migración: JSON -> Base de Datos
+│   │   └── check-models.ts # Verificacion de modelos disponibles para la API KEY brindada
+│   ├── 📂 data          # Archivos estáticos / Seeds
+│   │   └── bands.json          # Datos semilla originales
+│   └── main.ts             # Punto de entrada del servidor
+

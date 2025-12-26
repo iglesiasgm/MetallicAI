@@ -1,76 +1,24 @@
 ﻿import 'dotenv/config';
-import * as path from 'path';
-import * as fs from 'fs';
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
-import { Band, UserInput } from './domain/types';
+import { QdrantClient } from '@qdrant/js-client-rest';
 import { GeminiService } from './services/gemini.service';
 import { RecommendationService } from './services/recommendation.service';
+import { UserInput } from './domain/types';
 
 async function bootstrap() {
   const server = Fastify({ logger: true });
 
   try {
-    const dataPath = path.resolve(__dirname, 'data', 'bands.json');
-    const cachePath = path.resolve(__dirname, 'data', 'bands-with-vectors.json');
-    
-    let bands: Band[] = [];
-    const aiService = new GeminiService();
-
-    if (fs.existsSync(cachePath)) {
-      console.log("Loading bands from CACHE");
-      const rawData = fs.readFileSync(cachePath, 'utf-8');
-      bands = JSON.parse(rawData);
-    } else {
-      console.log("CACHE not found. Loading raw data and generating vectors");
-      if (!fs.existsSync(dataPath)) { throw new Error(`Data file not found at: ${dataPath}`); }
-      
-      const rawData = fs.readFileSync(dataPath, 'utf-8');
-      bands = JSON.parse(rawData);
-
-      let changesMade = false;
-      for (const band of bands) {
-        if (!band.embedding) {
-          process.stdout.write(`   - Vectorizing: ${band.name}... `);
-          const context = `${band.name}. ${band.description}. Subgenres: ${band.subgenres.join(', ')}. Moods: ${band.moods.join(', ')}. Features: ${band.features.join(', ')}.`;
-          band.embedding = await aiService.getEmbedding(context);
-          console.log('Done.');
-          changesMade = true;
-        }
-      }
-
-      if (changesMade) {
-        console.log("Saving bands with embeddings to CACHE for future runs...");
-        fs.writeFileSync(cachePath, JSON.stringify(bands, null, 2));
-      }
-    }
-
-    const recommender = new RecommendationService(aiService, bands);
-
     await server.register(cors, { origin: '*' });
 
-    server.get('/', async () => {
-      return { status: 'online', bandsLoaded: bands.length };
-    });
+    const aiService = new GeminiService();
+    const qdrant = new QdrantClient({ url: 'http://localhost:6333' });
+    
+    const recommender = new RecommendationService(aiService, qdrant);
 
-    server.get('/bands', async (request, reply) => {
-      const lightCatalog = bands.map(band => ({
-        id : band.id,
-        name: band.name,
-        subgenres: band.subgenres,  
-      }));
-
-      return lightCatalog;
-    });
-
-    server.get<{ Params: { name: string } }>('/bands/:name', async (request, reply) => {
-      const requestedName = decodeURIComponent(request.params.name).toLowerCase();
-      const band = bands.find(b => b.name.toLowerCase() === requestedName);
-      if (!band) {
-        return reply.status(404).send({ error: 'Band not found' });
-      }
-      const { embedding, ...bandData } = band;
-      return bandData;
+    server.get('/', async () => { 
+      return { status: 'online', db: 'Qdrant Vector Database' }; 
     });
 
     server.post<{ Body: UserInput }>('/recommend', async (request, reply) => {
@@ -79,8 +27,54 @@ async function bootstrap() {
       return { recommendations };
     });
 
-    await server.listen({ port: 3001 });
-    console.log('Server running on http://localhost:3001');
+    server.get<{ Querystring: { page?: number; limit?: number; search?: string } }>('/bands', async (request, reply) => {
+      const limit = Number(request.query.limit) || 20;
+      const page = Number(request.query.page || 1);
+      const offset = (page - 1) * limit;
+
+      const filter = request.query.search ? {
+        should: [
+            { key: "name", match: { text: request.query.search } } 
+        ]
+      } : undefined;
+
+      const result = await qdrant.scroll('bands', {
+        limit: limit,
+        offset: offset as any, 
+        filter: filter,
+        with_vector: false,
+        with_payload: true 
+      });
+
+      return result.points.map(p => ({
+        id: p.id,
+        ...(p.payload as any)
+      }));
+    });
+
+
+server.get<{ Params: { id: string } }>('/bands/:id', async (request, reply) => {
+      const { id } = request.params;
+      const numericId = parseInt(id);
+
+      if (isNaN(numericId)) {
+        return reply.code(400).send({ error: "Invalid ID" });
+      }
+      
+      const result = await qdrant.retrieve('bands', {
+        ids: [numericId],
+        with_vector: false
+      });
+
+      if (result.length === 0) {
+        return reply.code(404).send({ error: "Band not found" });
+      }
+
+      return { id: result[0].id, ...result[0].payload };
+    });
+
+    await server.listen({ port: 3001, host: '0.0.0.0' });
+    console.log('Server running on http://localhost:3001 using Qdrant');
 
   } catch (error) {
     server.log.error(error);

@@ -5,7 +5,13 @@ export interface Band {
   moods: string[]; 
   features: string[];
   description: string; 
+  members: Member[];
   embedding?: number[]; 
+}
+export interface Member {
+  name: string;
+  role: string; 
+  period?: string; 
 }
 
 export interface UserInput {

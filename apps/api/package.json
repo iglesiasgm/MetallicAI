@@ -26,6 +26,7 @@
   "dependencies": {
     "@fastify/cors": "^11.2.0",
     "@google/generative-ai": "^0.24.1",
+    "@qdrant/js-client-rest": "^1.16.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
