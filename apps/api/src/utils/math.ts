@@ -19,3 +19,21 @@ export function cosineSimilarity(vecA: number[], vecB: number[]): number {
 
     return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
 }
+
+export function jaccardSimilarity(setA: string[], setB: string[]): number {
+  const a = new Set(setA.map(s => s.toLowerCase().trim()));
+  const b = new Set(setB.map(s => s.toLowerCase().trim()));
+
+  let intersectionCount = 0;
+  a.forEach(item => {
+    if (b.has(item)) {
+      intersectionCount++;
+    }
+  });
+
+  const unionCount = a.size + b.size - intersectionCount;
+
+  if (unionCount === 0) return 0;
+
+  return intersectionCount / unionCount;
+}
