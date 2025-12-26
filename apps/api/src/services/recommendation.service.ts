@@ -1,6 +1,6 @@
-import { Band, UserInput, RecommendationResult } from "../domain/types";
+import { Band, UserInput, RecommendationResult, LanguageCode } from "../domain/types";
 import { GeminiService } from "./gemini.service";
-import { cosineSimilarity } from "../utils/math";
+import { cosineSimilarity, jaccardSimilarity } from "../utils/math";
 
 type ExplanationItem = { id: string; explanation: string };
 
@@ -11,18 +11,21 @@ const CONTROVERSIAL_POSER_BANDS = new Set(
     "deftones",
     "slipknot",
     "limp bizkit",
-    // ojo: mayhem/burzum son polémicas por mil cosas; no entremos en política/propaganda,
-    // pero sí pueden disparar el "poser" si el usuario viene desde trends.
     "mayhem",
     "burzum",
   ].map((s) => s.toLowerCase())
 );
 
+const OFFLINE_MESSAGES: Record<LanguageCode, string> = {
+  es: "Recomendación matemática por coincidencia de estilos (Modo Offline).",
+  en: "Mathematical recommendation based on style matching (Offline Mode).",
+  it: "Raccomandazione basata sulla corrispondenza di stile (Modalità Offline).",
+  de: "Mathematische Empfehlung basierend auf Stilübereinstimmung (Offline-Modus).",
+  pt: "Recomendação matemática baseada em correspondência de estilo (Modo Offline)."
+};
+
 function stripCodeFences(s: string) {
-  return s
-    .replace(/```json/gi, "```")
-    .replace(/```/g, "")
-    .trim();
+  return s.replace(/```json/gi, "```").replace(/```/g, "").trim();
 }
 
 function extractJsonArray(s: string) {
@@ -47,7 +50,6 @@ function safeParseExplanationArray(raw: string): ExplanationItem[] | null {
       if (!id || !explanation) continue;
       items.push({ id, explanation });
     }
-
     return items.length ? items : null;
   } catch {
     return null;
@@ -64,7 +66,16 @@ export class RecommendationService {
   constructor(private aiService: GeminiService, private catalog: Band[]) {}
 
   async getRecommendations(input: UserInput): Promise<RecommendationResult[]> {
-    // Embedding: mantenelo corto pero útil (incluye favoritos para perfilar mejor)
+    try {
+      console.log("Trying AI-based recommendation strategy");
+      return await this.runAiStrategy(input);
+    } catch (error) {
+      console.error("AI recommendation failed, trying Jaccard strategy", error);
+      return this.runJaccardStrategy(input);
+    }
+  }
+
+  private async runAiStrategy(input: UserInput): Promise<RecommendationResult[]> {
     const userProfileText = `Metal recs. Mood: ${
       input.targetMood
     }. Favorites: ${input.favoriteBands.join(", ")}.`;
@@ -83,8 +94,7 @@ export class RecommendationService {
 
     const filteredBands = scoredBands.filter((item) => {
       const bandName = item.band.name.toLowerCase().trim();
-      const isFavorite = normalizedFavorites.includes(bandName);
-      return !isFavorite;
+      return !normalizedFavorites.includes(bandName);
     });
 
     const topPicks = filteredBands
@@ -93,12 +103,10 @@ export class RecommendationService {
 
     if (topPicks.length === 0) return [];
 
-    // Preparamos datos compactos para bajar tokens
     const bandsForPrompt = topPicks.map(({ band }) => {
       const nameLower = band.name.toLowerCase().trim();
       const poserRisk =
         CONTROVERSIAL_POSER_BANDS.has(nameLower) ||
-        // heurística suave: si es muy "trendy" por features (si tu catálogo las trae)
         (Array.isArray((band as any).features) &&
           (band as any).features.some((f: string) =>
             String(f).toLowerCase().includes("tiktok")
@@ -110,16 +118,27 @@ export class RecommendationService {
         subgenres: (band.subgenres ?? []).slice(0, 4),
         moods: ((band as any).moods ?? []).slice(0, 4),
         features: ((band as any).features ?? []).slice(0, 6),
-        // descripción recortada para ahorrar tokens
         description: clampText(band.description ?? "", 180),
         poserRisk,
       };
     });
 
-    // Prompt único (1 llamada) -> JSON
+    const languageInstructionMap: Record<LanguageCode, string> = {
+      es: "ESPAÑOL (Latam neutro), usa jerga metalera en español (bardo, riffs).",
+      en: "ENGLISH, use metalhead slang (riffs, shredding, brutal).",
+      it: "ITALIANO, usa slang metal (pesante, oscuro).",
+      de: "DEUTSCH, use metal slang.",
+      pt: "PORTUGUÊS, use gírias de metal."
+    };
+
+    const langInstruction = languageInstructionMap[input.language] || languageInstructionMap['es'];
+
     const megaPrompt = `
-Eres "EL METALERO TRUE" (Latam neutro), como si fueras un metalero veterano dueño de una disquera que huele a cebolla.
-Hablas en ESPAÑOL (Latam neutro), tuteas, y recomendás metal con actitud real.
+Eres "EL METALERO TRUE", como si fueras un metalero veterano dueño de una disquera que huele a cebolla.
+
+IDIOMA OBLIGATORIO DE RESPUESTA: ${langInstruction}
+
+TAREA: Recomendar bandas de metal basándote en el mood y las bandas favoritas del usuario.
 Sos anti-poser: si detectas vibra poser/tik tok/“me hice metalero ayer”, lo marcás con sarcasmo leve usando la palabra "poser".
 Pero: nada de amenazas, nada de discriminación a grupos protegidos, nada de política. Solo bardo metalero y música, aunque puedes hacer uso del GORE y del SATANISMO, eso está más que permitido.
 
@@ -127,7 +146,6 @@ OBJETIVO:
 Generá una mini-explicación por cada banda recomendada (3). El nombre de la banda ya se muestra aparte: NO lo repitas.
 
 REGLAS DE ESTILO:
-- Español (Latam neutro), tuteo.
 - Soná humano, metalero, con jerga: riffs, breakdown, oscuro, épico, crudo, blast beats, guturales, sucio, asqueroso, distorsionado, voces rasposas, satanismo etc.
 - Máximo 2 oraciones por explicación.
 - Máximo 220 caracteres por explicación.
@@ -160,25 +178,29 @@ DATOS DEL USUARIO:
 - favoritos: ${input.favoriteBands.join(", ")}
 
 BANDAS A EXPLICAR (usa estos datos, pero NO repitas el nombre):
-${JSON.stringify(bandsForPrompt)}
-`.trim();
+      ${JSON.stringify(bandsForPrompt)}
+    `.trim();
 
+    
     const raw = await this.aiService.generateExplanation(megaPrompt);
     const parsed = safeParseExplanationArray(raw);
 
-    // Map por id para asignar explicaciones
     const explanationById = new Map<string, string>();
     if (parsed) {
       for (const it of parsed) explanationById.set(it.id, it.explanation);
     }
 
-    const results: RecommendationResult[] = topPicks.map(({ band, score }) => {
+    return topPicks.map(({ band, score }) => {
       const { embedding, ...bandData } = band as any;
       const id = String((band as any).id ?? band.name);
-
-      // fallback muy corto si el JSON vino raro (no hacemos 3 llamadas extra para no gastar tokens)
-      const fallback = `Riffs y actitud para tu mood; si sos poser te vas a asustar. Dale play y bancala.`;
-      const explanation = explanationById.get(id) ?? fallback;
+      const fallbackMap: Record<LanguageCode, string> = {
+        es: "Riffs brutales para tu mood. Dale play.",
+        en: "Brutal riffs for your mood. Just play it.",
+        it: "Riffs brutali per il tuo umore. Ascolta.",
+        de: "Brutale Riffs für deine Stimmung.",
+        pt: "Riffs brutais para o seu humor."
+      };
+      const explanation = explanationById.get(id) ?? fallbackMap[input.language];
 
       return {
         band: bandData,
@@ -187,6 +209,51 @@ ${JSON.stringify(bandsForPrompt)}
       };
     });
 
-    return results;
+
+  }
+
+  private runJaccardStrategy(input: UserInput): RecommendationResult[] {
+    const userTags = new Set<string>();
+
+    input.favoriteBands.forEach((favName) => {
+      const found = this.catalog.find(
+        (b) => b.name.toLowerCase() === favName.toLowerCase().trim()
+      );
+      if (found) {
+        found.subgenres.forEach((s) => userTags.add(s));
+        found.moods.forEach((m) => userTags.add(m));
+      }
+    });
+
+    input.targetMood.split(" ").forEach((word) => {
+      if (word.length > 3) userTags.add(word);
+    });
+
+    const userTagsArray = Array.from(userTags);
+    const normalizedFavorites = input.favoriteBands.map((b) => b.toLowerCase().trim());
+
+    const scoredBands = this.catalog.map((band) => {
+      const bandTags = [...band.subgenres, ...band.moods];
+      if (band.features) bandTags.push(...band.features);
+
+      const score = jaccardSimilarity(userTagsArray, bandTags);
+      return { band, score };
+    });
+
+    const topPicks = scoredBands
+      .filter((item) => !normalizedFavorites.includes(item.band.name.toLowerCase().trim()))
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 3);
+
+      const staticExplanation = OFFLINE_MESSAGES[input.language] ?? OFFLINE_MESSAGES['es'];
+
+    return topPicks.map((item) => {
+      const { embedding, ...bandData } = item.band as any;
+      return {
+        band: bandData,
+        score: item.score,
+        explanation: `${staticExplanation} (${item.band.subgenres.join(", ")}).`,
+      };
+    });
   }
 }
