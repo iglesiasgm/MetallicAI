@@ -1578,7 +1578,7 @@
     ]
   },
   {
-    "id": "1",
+    "id": "3",
     "name": "Black Sabbath",
     "subgenres": [
       "Heavy Metal",
@@ -2368,7 +2368,7 @@
     ]
   },
   {
-    "id": "2",
+    "id": "4",
     "name": "Iron Maiden",
     "subgenres": [
       "Heavy Metal",
@@ -3158,7 +3158,7 @@
     ]
   },
   {
-    "id": "3",
+    "id": "5",
     "name": "Metallica",
     "subgenres": [
       "Thrash Metal",
@@ -3948,7 +3948,7 @@
     ]
   },
   {
-    "id": "4",
+    "id": "6",
     "name": "Death",
     "subgenres": [
       "Death Metal",
@@ -4738,7 +4738,7 @@
     ]
   },
   {
-    "id": "5",
+    "id": "7",
     "name": "Opeth",
     "subgenres": [
       "Progressive Death Metal",
@@ -5529,7 +5529,7 @@
     ]
   },
   {
-    "id": "6",
+    "id": "8",
     "name": "Gojira",
     "subgenres": [
       "Technical Death Metal",
@@ -6321,7 +6321,7 @@
     ]
   },
   {
-    "id": "7",
+    "id": "9",
     "name": "Nightwish",
     "subgenres": [
       "Symphonic Metal",
@@ -7112,7 +7112,7 @@
     ]
   },
   {
-    "id": "8",
+    "id": "10",
     "name": "Tool",
     "subgenres": [
       "Progressive Metal",
@@ -7903,7 +7903,7 @@
     ]
   },
   {
-    "id": "9",
+    "id": "11",
     "name": "Rammstein",
     "subgenres": [
       "Industrial Metal",
@@ -8694,7 +8694,7 @@
     ]
   },
   {
-    "id": "10",
+    "id": "12",
     "name": "Slipknot",
     "subgenres": [
       "Nu Metal",
@@ -9485,7 +9485,7 @@
     ]
   },
   {
-    "id": "11",
+    "id": "13",
     "name": "Lorna Shore",
     "subgenres": [
       "Deathcore",
@@ -10275,7 +10275,7 @@
     ]
   },
   {
-    "id": "12",
+    "id": "14",
     "name": "Sleep Token",
     "subgenres": [
       "Progressive Metal",

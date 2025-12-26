@@ -53,6 +53,26 @@ async function bootstrap() {
       return { status: 'online', bandsLoaded: bands.length };
     });
 
+    server.get('/bands', async (request, reply) => {
+      const lightCatalog = bands.map(band => ({
+        id : band.id,
+        name: band.name,
+        subgenres: band.subgenres,  
+      }));
+
+      return lightCatalog;
+    });
+
+    server.get<{ Params: { name: string } }>('/bands/:name', async (request, reply) => {
+      const requestedName = decodeURIComponent(request.params.name).toLowerCase();
+      const band = bands.find(b => b.name.toLowerCase() === requestedName);
+      if (!band) {
+        return reply.status(404).send({ error: 'Band not found' });
+      }
+      const { embedding, ...bandData } = band;
+      return bandData;
+    });
+
     server.post<{ Body: UserInput }>('/recommend', async (request, reply) => {
       const userInput = request.body;
       const recommendations = await recommender.getRecommendations(userInput);
