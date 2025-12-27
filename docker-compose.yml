@@ -1,0 +1,10 @@
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: metallic-qdrant
+    ports:
+      - "6333:6333" # Puerto HTTP API
+      - "6334:6334" # Puerto GRPC (interno)
+    volumes:
+      - ./qdrant_data:/qdrant/storage
+    restart: always
