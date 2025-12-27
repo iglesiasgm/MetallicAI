@@ -1,4 +1,4 @@
-import { Lang } from "../ui/LanguageTabs";
+import { Lang } from "../ui/LanguageDropdown";
 import { Recommendation } from "./Recommendation";
 
 export interface RecommendationRepository {

@@ -4,11 +4,11 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { RecommendationApiRepository } from "../infraestructure/RecommendationApiRepository";
 import { getRecommendations } from "../application/getRecommendations";
-import { BandTagsInput } from "./BandTagsInput";
+import { BandTagsChips, BandTagsField } from "./BandTagsInput";
 import { MoodInput } from "./MoodInput";
 import { RecommendationResponse } from "./RecommendationResponse";
 import { env } from "@/shared/config/env";
-import { Lang, LanguageTabs } from "./LanguageTabs";
+import { Lang, LanguageDropdown } from "./LanguageDropdown";
 
 const PLACEHOLDERS: Record<Lang, { tags: string; mood: string }> = {
   es: {
@@ -85,10 +85,28 @@ export default function PromptUI() {
       transition={{ duration: 0.5 }}
       className="flex flex-col items-center gap-4 z-10"
     >
-      <LanguageTabs value={lang} onChange={setLang} />
-      {/* Input bandas */}
+      <div className="w-[420px]">
+        <div className="mb-2">
+          <BandTagsChips
+            value={bands}
+            onRemove={(band) => setBands(bands.filter((b) => b !== band))}
+          />
+        </div>
 
-      <BandTagsInput value={bands} onChange={setBands} placeholder={ph.tags} />
+        <div className="flex items-center gap-[5px]">
+          <div className="shrink-0">
+            <LanguageDropdown value={lang} onChange={setLang} />
+          </div>
+
+          <div className="flex-1">
+            <BandTagsField
+              value={bands}
+              placeholder={ph.tags}
+              onAdd={(band) => setBands([...bands, band])}
+            />
+          </div>
+        </div>
+      </div>
       <MoodInput value={mood} onChange={setMood} placeholder={ph.mood} />
 
       {/* Botón */}

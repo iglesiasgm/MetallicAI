@@ -1,5 +1,5 @@
 import { RecommendationRepository } from "../domain/RecommendationRepository";
-import { Lang } from "../ui/LanguageTabs";
+import { Lang } from "../ui/LanguageDropdown";
 
 export async function getRecommendations(
   repository: RecommendationRepository,
