@@ -5,7 +5,29 @@
     "subgenres": ["Technical Death Metal", "Groove Metal"],
     "moods": ["Heavy", "Ecological", "Spiritual"],
     "features": ["Pick Scrapes", "Double Bass", "Chugging Riffs"],
-    "description": "French metal giants known for their precise rhythm and heavy, atmospheric soundscapes."
+    "description": "French metal giants known for their precise rhythm and heavy, atmospheric soundscapes.",
+    "members": [
+      {
+        "name": "Joe Duplantier",
+        "role": "Vocals, Guitar",
+        "period": "1996-present"
+      },
+      {
+        "name": "Mario Duplantier",
+        "role": "Drums",
+        "period": "1996-present"
+      },
+      {
+        "name": "Christian Andreu",
+        "role": "Guitar",
+        "period": "1996-present"
+      },
+      {
+        "name": "Jean-Michel Labadie",
+        "role": "Bass",
+        "period": "2000-present"
+      }
+    ]
   },
   {
     "id": "2",
@@ -13,7 +35,34 @@
     "subgenres": ["Progressive Death Metal", "Progressive Rock"],
     "moods": ["Melancholic", "Complex", "Atmospheric"],
     "features": ["Growls", "Clean Vocals", "Acoustic Passages"],
-    "description": "Legendary Swedish band known for blending death metal aggression with 70s prog rock beauty."
+    "description": "Legendary Swedish band known for blending death metal aggression with 70s prog rock beauty.",
+    "members": [
+      {
+        "name": "Mikael Åkerfeldt",
+        "role": "Vocals, Guitar",
+        "period": "1990-present"
+      },
+      {
+        "name": "Fredrik Åkesson",
+        "role": "Guitar",
+        "period": "2007-present"
+      },
+      {
+        "name": "Martín Méndez",
+        "role": "Bass",
+        "period": "1997-present"
+      },
+      {
+        "name": "Sami Karppinen",
+        "role": "Drums",
+        "period": "2021-present"
+      },
+      {
+        "name": "Joakim Svalberg",
+        "role": "Keyboards",
+        "period": "2011-present"
+      }
+    ]
   },
   {
     "id": "3",
@@ -21,7 +70,34 @@
     "subgenres": ["Heavy Metal", "Doom Metal"],
     "moods": ["Dark", "Ominous", "Slow", "Occult"],
     "features": ["Doomy Riffs", "Blues Influences", "Clean Vocals"],
-    "description": "The godfathers of heavy metal. Known for creating the genre with slow, heavy, and ominous sounds that explore dark and occult themes."
+    "description": "The godfathers of heavy metal. Known for creating the genre with slow, heavy, and ominous sounds that explore dark and occult themes.",
+    "members": [
+      {
+        "name": "Ozzy Osbourne",
+        "role": "Vocals",
+        "period": "1968-1979, 1997-2006"
+      },
+      {
+        "name": "Tony Iommi",
+        "role": "Guitar",
+        "period": "1968-2017"
+      },
+      {
+        "name": "Geezer Butler",
+        "role": "Bass",
+        "period": "1968-2017"
+      },
+      {
+        "name": "Bill Ward",
+        "role": "Drums",
+        "period": "1968-1980, 1983-1984, 1997-2006"
+      },
+      {
+        "name": "Ronnie James Dio",
+        "role": "Vocals",
+        "period": "1979-1982, 1991-1992"
+      }
+    ]
   },
   {
     "id": "4",
@@ -29,7 +105,49 @@
     "subgenres": ["Heavy Metal", "NWOBHM"],
     "moods": ["Epic", "Heroic", "Energetic", "Historical"],
     "features": ["Galloping Bass", "Twin Guitars", "Operatic Vocals"],
-    "description": "British legends known for their galloping rhythm, melodic guitar harmonies, and lyrics based on history, literature, and film."
+    "description": "British legends known for their galloping rhythm, melodic guitar harmonies, and lyrics based on history, literature, and film.",
+    "members": [
+      {
+        "name": "Bruce Dickinson",
+        "role": "Vocals",
+        "period": "1981-1993, 1999-present"
+      },
+      {
+        "name": "Steve Harris",
+        "role": "Bass",
+        "period": "1975-present"
+      },
+      {
+        "name": "Dave Murray",
+        "role": "Guitar",
+        "period": "1976-present"
+      },
+      {
+        "name": "Adrian Smith",
+        "role": "Guitar",
+        "period": "1980-1990, 1999-present"
+      },
+      {
+        "name": "Janick Gers",
+        "role": "Guitar",
+        "period": "1990-present"
+      },
+      {
+        "name": "Nicko McBrain",
+        "role": "Drums",
+        "period": "1982-present"
+      },
+      {
+        "name": "Clive Burr",
+        "role": "Drums",
+        "period": "1979-1982"
+      },
+      {
+        "name": "Paul Di'Anno",
+        "role": "Vocals",
+        "period": "1978-1981"
+      }
+    ]
   },
   {
     "id": "5",
@@ -42,7 +160,55 @@
       "Wah Solos",
       "Complex Structures"
     ],
-    "description": "The biggest metal band in history. Pioneers of Thrash Metal, characterized by fast tempos, instrumentals, and aggressive musicianship."
+    "description": "The biggest metal band in history. Pioneers of Thrash Metal, characterized by fast tempos, instrumentals, and aggressive musicianship.",
+    "members": [
+      {
+        "name": "James Hetfield",
+        "role": "Vocals, Rhythm Guitar",
+        "period": "1981-present"
+      },
+      {
+        "name": "Lars Ulrich",
+        "role": "Drums",
+        "period": "1981-present"
+      },
+      {
+        "name": "Kirk Hammett",
+        "role": "Lead Guitar",
+        "period": "1983-present"
+      },
+      {
+        "name": "Robert Trujillo",
+        "role": "Bass",
+        "period": "2003-present"
+      },
+      {
+        "name": "Cliff Burton",
+        "role": "Bass",
+        "period": "1982-1986"
+      },
+      {
+        "name": "Jason Newsted",
+        "role": "Bass",
+        "period": "1986-2001"
+      },
+      {
+        "name": "Dave Mustaine",
+        "role": "Lead Guitar",
+        "period": "1981-1983"
+      },
+      {
+        "name": "Ron McGovney",
+        "role": "Bass",
+        "period": "1981-1982"
+      },
+
+      {
+        "name": "John Marshall",
+        "role": "Lead Guitar",
+        "period": "1982"
+      }
+    ]
   },
   {
     "id": "6",
@@ -55,28 +221,141 @@
       "High Tempo",
       "Technical Guitar"
     ],
-    "description": "Pioneers of Death Metal who evolved the genre from raw brutality to sophisticated technicality and philosophical lyrics."
+    "description": "Pioneers of Death Metal who evolved the genre from raw brutality to sophisticated technicality and philosophical lyrics.",
+    "members": [
+      {
+        "name": "Chuck Schuldiner",
+        "role": "Vocals, Guitar",
+        "period": "1984-2001"
+      },
+      {
+        "name": "Scott Clendenin",
+        "role": "Bass",
+        "period": "1997-2001"
+      },
+      {
+        "name": "Shannon Hamm",
+        "role": "Guitar",
+        "period": "1996-2001"
+      },
+      {
+        "name": "Richard Christy",
+        "role": "Drums",
+        "period": "1996-2001"
+      },
+      {
+        "name": "Steve DiGiorgio",
+        "role": "Bass",
+        "period": "1991-1995, 1997"
+      },
+      {
+        "name": "Gene Hoglan",
+        "role": "Drums",
+        "period": "1991-1995"
+      },
+      {
+        "name": "Paul Masvidal",
+        "role": "Guitar",
+        "period": "1991-1993"
+      },
+      {
+        "name": "Bobby Koelble",
+        "role": "Guitar",
+        "period": "1993-1996"
+      }
+    ]
   },
   {
     "id": "7",
-    "name": "Opeth",
-    "subgenres": ["Progressive Death Metal", "Progressive Rock"],
-    "moods": ["Melancholic", "Complex", "Atmospheric", "Autumnal"],
-    "features": ["Growls", "Clean Vocals", "Acoustic Passages", "Long Songs"],
-    "description": "Masters of contrast, blending brutal death metal with beautiful acoustic progressive rock to create a unique melancholic atmosphere."
+    "name": "System of a Down",
+    "subgenres": ["Nu Metal", "Alternative Metal"],
+    "moods": ["Chaotic", "Political", "Energetic", "Melodic", "Bizarre"],
+    "features": [
+      "Unusual Time Signatures",
+      "Dynamic Vocals",
+      "Middle Eastern Influences",
+      "Abrupt Tempo Changes"
+    ],
+    "description": "Armenian-American band known for their unique blend of heavy riffs, melodic vocals, and politically charged lyrics.",
+    "members": [
+      {
+        "name": "Serj Tankian",
+        "role": "Vocals, Keyboards",
+        "period": "1994-present"
+      },
+      {
+        "name": "Daron Malakian",
+        "role": "Guitar, Vocals",
+        "period": "1994-present"
+      },
+      {
+        "name": "Shavo Odadjian",
+        "role": "Bass",
+        "period": "1994-present"
+      },
+      {
+        "name": "John Dolmayan",
+        "role": "Drums",
+        "period": "1997-present"
+      },
+      {
+        "name": "Andy Khachaturian",
+        "role": "Drums",
+        "period": "1994-1997"
+      }
+    ]
   },
   {
     "id": "8",
-    "name": "Gojira",
-    "subgenres": ["Technical Death Metal", "Groove Metal", "Progressive Metal"],
-    "moods": ["Heavy", "Ecological", "Spiritual", "Intense"],
-    "features": [
-      "Pick Scrapes",
-      "Double Bass",
-      "Chugging Riffs",
-      "Whammy Pedal"
+    "name": "Korn",
+    "subgenres": ["Nu Metal", "Alternative Metal"],
+    "moods": [
+      "Dark",
+      "Aggressive",
+      "Emotional",
+      "Depressive",
+      "Autodestructive",
+      "Angry"
     ],
-    "description": "French metal giants known for their precise rhythm, environmental themes, and ability to mix heaviness with ethereal atmospheres."
+    "features": [
+      "7-String Guitars",
+      "Down-tuned Riffs",
+      "Hip-Hop Influences",
+      "Bass Slapping"
+    ],
+    "description": "A pioneering nu-metal band known for their downtuned guitars, aggressive sound, and emotional lyrics dealing with personal struggles.",
+    "members": [
+      {
+        "name": "Jonathan Davis",
+        "role": "Vocals",
+        "period": "1993-present"
+      },
+      {
+        "name": "James 'Munky' Shaffer",
+        "role": "Guitar",
+        "period": "1993-present"
+      },
+      {
+        "name": "Brian 'Head' Welch",
+        "role": "Guitar",
+        "period": "1993-2005, 2013-present"
+      },
+      {
+        "name": "Reginald 'Fieldy' Arvizu",
+        "role": "Bass",
+        "period": "1993-present"
+      },
+      {
+        "name": "Ray Luzier",
+        "role": "Drums",
+        "period": "2007-present"
+      },
+      {
+        "name": "David Silveria",
+        "role": "Drums",
+        "period": "1993-2006"
+      }
+    ]
   },
   {
     "id": "9",
@@ -89,7 +368,39 @@
       "Keyboards",
       "Choirs"
     ],
-    "description": "A Finnish band that combines heavy metal with movie-score orchestration and operatic vocals, creating a massive fantasy sound."
+    "description": "A Finnish band that combines heavy metal with movie-score orchestration and operatic vocals, creating a massive fantasy sound.",
+    "members": [
+      {
+        "name": "Tuomas Holopainen",
+        "role": "Keyboards, Composer",
+        "period": "1996-present"
+      },
+      {
+        "name": "Emppu Vuorinen",
+        "role": "Guitar",
+        "period": "1996-present"
+      },
+      {
+        "name": "Marko Hietala",
+        "role": "Bass, Vocals",
+        "period": "2001-2021"
+      },
+      {
+        "name": "Floor Jansen",
+        "role": "Vocals",
+        "period": "2013-present"
+      },
+      {
+        "name": "Jukka Nevalainen",
+        "role": "Drums",
+        "period": "1996-2014"
+      },
+      {
+        "name": "Kai Hahto",
+        "role": "Drums",
+        "period": "2014-present"
+      }
+    ]
   },
   {
     "id": "10",
@@ -102,7 +413,34 @@
       "Bass Driven",
       "Visual Arts"
     ],
-    "description": "A band known for their complex mathematical rhythms, spiritual lyrics, and visual artistry, creating a trance-like heavy experience."
+    "description": "A band known for their complex mathematical rhythms, spiritual lyrics, and visual artistry, creating a trance-like heavy experience.",
+    "members": [
+      {
+        "name": "Maynard James Keenan",
+        "role": "Vocals",
+        "period": "1990-present"
+      },
+      {
+        "name": "Adam Jones",
+        "role": "Guitar",
+        "period": "1990-present"
+      },
+      {
+        "name": "Justin Chancellor",
+        "role": "Bass",
+        "period": "1995-present"
+      },
+      {
+        "name": "Danny Carey",
+        "role": "Drums",
+        "period": "1990-present"
+      },
+      {
+        "name": "Paul D'Amour",
+        "role": "Bass",
+        "period": "1990-1995"
+      }
+    ]
   },
   {
     "id": "11",
@@ -115,7 +453,39 @@
       "Simple Heavy Riffs",
       "Synthesizers"
     ],
-    "description": "German industrial machine known for their marching rhythms, electronic elements, and provocative lyrics."
+    "description": "German industrial machine known for their marching rhythms, electronic elements, and provocative lyrics.",
+    "members": [
+      {
+        "name": "Till Lindemann",
+        "role": "Vocals",
+        "period": "1994-present"
+      },
+      {
+        "name": "Richard Z. Kruspe",
+        "role": "Guitar",
+        "period": "1994-present"
+      },
+      {
+        "name": "Paul Landers",
+        "role": "Guitar",
+        "period": "1994-present"
+      },
+      {
+        "name": "Oliver Riedel",
+        "role": "Bass",
+        "period": "1994-present"
+      },
+      {
+        "name": "Christoph Schneider",
+        "role": "Drums",
+        "period": "1994-present"
+      },
+      {
+        "name": "Christian 'Flake' Lorenz",
+        "role": "Keyboards",
+        "period": "1994-present"
+      }
+    ]
   },
   {
     "id": "12",
@@ -123,7 +493,69 @@
     "subgenres": ["Nu Metal", "Alternative Metal"],
     "moods": ["Chaotic", "Angry", "Cathartic", "Insane"],
     "features": ["Percussion", "Masks", "Turntables", "Aggressive Vocals"],
-    "description": "A 9-member chaos machine from Iowa, known for their aggressive nu-metal sound, masks, and intense live energy."
+    "description": "A 9-member chaos machine from Iowa, known for their aggressive nu-metal sound, masks, and intense live energy.",
+    "members": [
+      {
+        "name": "Corey Taylor",
+        "role": "Vocals",
+        "period": "1997-present"
+      },
+      {
+        "name": "Mick Thomson",
+        "role": "Guitar",
+        "period": "1996-present"
+      },
+      {
+        "name": "Jim Root",
+        "role": "Guitar",
+        "period": "1999-present"
+      },
+      {
+        "name": "Shawn Crahan",
+        "role": "Percussion",
+        "period": "1995-present"
+      },
+      {
+        "name": "Sid Wilson",
+        "role": "Turntables",
+        "period": "1998-present"
+      },
+      {
+        "name": "Craig Jones",
+        "role": "Samples, Keyboards",
+        "period": "1996-present"
+      },
+      {
+        "name": "Alessandro Venturella",
+        "role": "Bass",
+        "period": "2014-present"
+      },
+      {
+        "name": "Jay Weinberg",
+        "role": "Drums",
+        "period": "2014-present"
+      },
+      {
+        "name": "Paul Gray",
+        "role": "Bass",
+        "period": "1995-2010"
+      },
+      {
+        "name": "Joey Jordison",
+        "role": "Drums",
+        "period": "1995-2013"
+      },
+      {
+        "name": "Chris Fehn",
+        "role": "Percussion",
+        "period": "1998-2019"
+      },
+      {
+        "name": "Eloy Casagrande",
+        "role": "Drums",
+        "period": "2024-present"
+      }
+    ]
   },
   {
     "id": "13",
@@ -136,7 +568,34 @@
       "Orchestral Backing",
       "Inhuman Vocals"
     ],
-    "description": "Modern extreme metal leaders, mixing massive breakdowns with orchestral elements and vocal techniques that sound inhuman."
+    "description": "Modern extreme metal leaders, mixing massive breakdowns with orchestral elements and vocal techniques that sound inhuman.",
+    "members": [
+      {
+        "name": "Will Ramos",
+        "role": "Vocals",
+        "period": "2020-present"
+      },
+      {
+        "name": "Adam De Micco",
+        "role": "Guitar",
+        "period": "2013-present"
+      },
+      {
+        "name": "Andrew O'Connor",
+        "role": "Guitar",
+        "period": "2017-present"
+      },
+      {
+        "name": "Michael Cosentino",
+        "role": "Drums",
+        "period": "2021-present"
+      },
+      {
+        "name": "Aaron Evans",
+        "role": "Bass",
+        "period": "2010-2023"
+      }
+    ]
   },
   {
     "id": "14",
@@ -144,6 +603,1227 @@
     "subgenres": ["Progressive Metal", "Alternative R&B", "Djent"],
     "moods": ["Sexy", "Sad", "Mysterious", "Worship"],
     "features": ["Low Tuned Guitars", "Pop Vocals", "Trap Beats", "Piano"],
-    "description": "An anonymous masked collective that blends heavy metal breakdowns with soulful pop, R&B, and atmospheric electronics."
+    "description": "An anonymous masked collective that blends heavy metal breakdowns with soulful pop, R&B, and atmospheric electronics.",
+    "members": [
+      {
+        "name": "Vessel",
+        "role": "Vocals, Multi-instrumentalist",
+        "period": "2016-present"
+      }
+    ]
+  },
+  {
+    "id": "15",
+    "name": "Behemoth",
+    "subgenres": ["Blackened Death Metal", "Extreme Metal"],
+    "moods": ["Occult", "Aggressive", "Dark", "Epic"],
+    "features": [
+      "Blast Beats",
+      "Growls and Screams",
+      "Satanic Themes",
+      "Symphonic Elements"
+    ],
+    "description": "Polish extreme metal titans known for their blend of black and death metal, with occult themes and symphonic elements.",
+    "members": [
+      {
+        "name": "Nergal (Adam Darski)",
+        "role": "Vocals, Guitar",
+        "period": "1991-present"
+      },
+      {
+        "name": "Orion (Tomasz Wróblewski)",
+        "role": "Bass",
+        "period": "2003-present"
+      },
+      {
+        "name": "Inferno (Zbigniew Promiński)",
+        "role": "Drums",
+        "period": "2000-present"
+      }
+    ]
+  },
+  {
+    "id": "16",
+    "name": "Amon Amarth",
+    "subgenres": ["Melodic Death Metal", "Viking Metal"],
+    "moods": ["Epic", "Mythological", "Aggressive"],
+    "features": [
+      "Melodic Guitar Riffs",
+      "Growled Vocals",
+      "Viking Themes",
+      "Harmonized Leads"
+    ],
+    "description": "Swedish melodic death metal band known for their Viking-themed lyrics, melodic guitar work, and powerful growled vocals.",
+    "members": [
+      {
+        "name": "Johan Hegg",
+        "role": "Vocals",
+        "period": "1992-present"
+      },
+      {
+        "name": "Olavi Mikkonen",
+        "role": "Guitar",
+        "period": "1992-present"
+      },
+      {
+        "name": "Ted Lundström",
+        "role": "Bass",
+        "period": "1992-present"
+      },
+      {
+        "name": "Jocke Wallgren",
+        "role": "Drums",
+        "period": "2016-present"
+      },
+      {
+        "name": "Sami Koivisto",
+        "role": "Guitar",
+        "period": "2019-present"
+      }
+    ]
+  },
+  {
+    "id": "17",
+    "name": "Architects",
+    "subgenres": ["Metalcore", "Progressive Metalcore"],
+    "moods": ["Energetic", "Emotional", "Atmospheric"],
+    "features": [
+      "Breakdowns",
+      "Melodic Choruses",
+      "Technical Guitar Work",
+      "Atmospheric Elements"
+    ],
+    "description": "British metalcore band known for their energetic performances, emotional lyrics, and blend of heavy breakdowns with melodic elements.",
+    "members": [
+      {
+        "name": "Sam Carter",
+        "role": "Vocals",
+        "period": "2007-present"
+      },
+      {
+        "name": "Josh Middleton",
+        "role": "Guitar",
+        "period": "2009-present"
+      },
+      {
+        "name": "Adam Christianson",
+        "role": "Guitar",
+        "period": "2015-present"
+      },
+      {
+        "name": "Alex Dean",
+        "role": "Bass",
+        "period": "2006-present"
+      },
+      {
+        "name": "Dan Searle",
+        "role": "Drums",
+        "period": "2006-present"
+      }
+    ]
+  },
+  {
+    "id": "18",
+    "name": "Deafheaven",
+    "subgenres": ["Blackgaze", "Post-Metal"],
+    "moods": ["Ethereal", "Intense", "Melancholic"],
+    "features": [
+      "Blast Beats",
+      "Shoegaze Influences",
+      "Atmospheric Soundscapes",
+      "Emotional Vocals"
+    ],
+    "description": "An American band that fuses black metal intensity with shoegaze atmospherics, creating a unique and emotional sound.",
+    "members": [
+      {
+        "name": "George Clarke",
+        "role": "Vocals",
+        "period": "2010-present"
+      },
+      {
+        "name": "Kris Baldwin",
+        "role": "Guitar",
+        "period": "2010-present"
+      },
+      {
+        "name": "Daniel Tracy",
+        "role": "Drums",
+        "period": "2010-present"
+      },
+      {
+        "name": "Chris Johnson",
+        "role": "Guitar",
+        "period": "2012-present"
+      },
+      {
+        "name": "Stephen Clark",
+        "role": "Bass",
+        "period": "2018-present"
+      }
+    ]
+  },
+  {
+    "id": "19",
+    "name": "Mastodon",
+    "subgenres": ["Progressive Metal", "Sludge Metal"],
+    "moods": ["Epic", "Complex", "Heavy"],
+    "features": [
+      "Complex Time Signatures",
+      "Harmonized Guitars",
+      "Concept Albums",
+      "Diverse Vocals"
+    ],
+    "description": "An American band known for their complex compositions, heavy sludge riffs, and thematic concept albums.",
+    "members": [
+      {
+        "name": "Brann Dailor",
+        "role": "Drums, Vocals",
+        "period": "2000-present"
+      },
+      {
+        "name": "Troy Sanders",
+        "role": "Bass, Vocals",
+        "period": "2000-present"
+      },
+      {
+        "name": "Bill Kelliher",
+        "role": "Guitar",
+        "period": "2000-present"
+      },
+      {
+        "name": "Brent Hinds",
+        "role": "Guitar, Vocals",
+        "period": "2000-present"
+      }
+    ]
+  },
+  {
+    "id": "20",
+    "name": "Black Veil Brides",
+    "subgenres": ["Metalcore", "Post Hardcore"],
+    "moods": ["Theatrical", "Anthemic", "Emotional"],
+    "features": [
+      "Melodic Choruses",
+      "Glam metal influences",
+      "Theatrical Image",
+      "Clean and Screamed Vocals"
+    ],
+    "description": "An American band known for their theatrical image, anthemic metalcore sound, and emotional lyrics.",
+    "members": [
+      {
+        "name": "Andy Biersack",
+        "role": "Vocals",
+        "period": "2006-present"
+      },
+      {
+        "name": "Jake Pitts",
+        "role": "Lead Guitar",
+        "period": "2009-present"
+      },
+      {
+        "name": "Jeremy 'Jinxx' Ferguson",
+        "role": "Rhythm Guitar, Violin",
+        "period": "2009-present"
+      },
+      {
+        "name": "Ashley Purdy",
+        "role": "Bass, Backing Vocals",
+        "period": "2009-2019"
+      },
+      {
+        "name": "Christian 'CC' Coma",
+        "role": "Drums",
+        "period": "2010-present"
+      }
+    ]
+  },
+  {
+    "id": "21",
+    "name": "Disturbed",
+    "subgenres": ["Alternative Metal", "Nu Metal"],
+    "moods": ["Aggressive", "Empowering", "Dark"],
+    "features": [
+      "Powerful Vocals",
+      "Heavy Riffs",
+      "Anthemic Choruses",
+      "Groove-oriented Drumming"
+    ],
+    "description": "An American band known for their powerful vocals, heavy riffs, and anthemic choruses that blend aggression with melody.",
+    "members": [
+      {
+        "name": "David Draiman",
+        "role": "Vocals",
+        "period": "1996-present"
+      },
+      {
+        "name": "Dan Donegan",
+        "role": "Guitar",
+        "period": "1996-present"
+      },
+      {
+        "name": "John Moyer",
+        "role": "Bass",
+        "period": "2004-present"
+      },
+      {
+        "name": "Mike Wengren",
+        "role": "Drums",
+        "period": "1996-present"
+      }
+    ]
+  },
+  {
+    "id": "22",
+    "name": "Avenged Sevenfold",
+    "subgenres": ["Heavy Metal", "Metalcore"],
+    "moods": ["Energetic", "Melodic", "Theatrical"],
+    "features": [
+      "Dual Guitar Harmonies",
+      "Melodic Vocals",
+      "Complex Drumming",
+      "Theatrical Elements"
+    ],
+    "description": "An American band known for their blend of metalcore and hard rock, featuring dual guitar harmonies and melodic vocals.",
+    "members": [
+      {
+        "name": "M. Shadows (Matthew Sanders)",
+        "role": "Vocals",
+        "period": "1999-present"
+      },
+      {
+        "name": "Zacky Vengeance (Zachary Baker)",
+        "role": "Rhythm Guitar, Backing Vocals",
+        "period": "1999-present"
+      },
+      {
+        "name": "Synyster Gates (Brian Haner Jr.)",
+        "role": "Lead Guitar, Backing Vocals",
+        "period": "2001-present"
+      },
+      {
+        "name": "Johnny Christ (Jonathan Seward)",
+        "role": "Bass",
+        "period": "2003-present"
+      },
+      {
+        "name": "Brooks Wackerman",
+        "role": "Drums",
+        "period": "2015-present"
+      }
+    ]
+  },
+  {
+    "id": "23",
+    "name": "Trivium",
+    "subgenres": ["Metalcore", "Thrash Metal", "Heavy Metal"],
+    "moods": [
+      "Aggressive",
+      "Melodic",
+      "Energetic",
+      "Hate",
+      "Anger",
+      "Suffering"
+    ],
+    "features": [
+      "Fast Riffs",
+      "Melodic Choruses",
+      "Double Bass Drumming",
+      "Screamed and Clean Vocals"
+    ],
+    "description": "An American band known for their blend of metalcore and thrash metal, featuring fast riffs and melodic choruses.",
+    "members": [
+      {
+        "name": "Matt Heafy",
+        "role": "Vocals, Guitar",
+        "period": "2000-present"
+      },
+      {
+        "name": "Corey Beaulieu",
+        "role": "Guitar, Backing Vocals",
+        "period": "2005-present"
+      },
+      {
+        "name": "Paolo Gregoletto",
+        "role": "Bass, Backing Vocals",
+        "period": "2004-present"
+      },
+      {
+        "name": "Alex Bent",
+        "role": "Drums",
+        "period": "2017-present"
+      }
+    ]
+  },
+  {
+    "id": "24",
+    "name": "Drowning Pool",
+    "subgenres": ["Alternative Metal", "Nu Metal"],
+    "moods": ["Aggressive", "Energetic", "Dark"],
+    "features": [
+      "Heavy Riffs",
+      "Powerful Vocals",
+      "Groove-oriented Drumming",
+      "Anthemic Choruses"
+    ],
+    "description": "An American band known for their heavy riffs, powerful vocals, and anthemic choruses.",
+    "members": [
+      {
+        "name": "Jasen Moreno",
+        "role": "Vocals",
+        "period": "2012-present"
+      },
+      {
+        "name": "C.J. Pierce",
+        "role": "Guitar",
+        "period": "2002-present"
+      },
+      {
+        "name": "Mike Luce",
+        "role": "Drums",
+        "period": "2002-present"
+      },
+      {
+        "name": "Steve Brown",
+        "role": "Bass",
+        "period": "2010-present"
+      }
+    ]
+  },
+  {
+    "id": "25",
+    "name": "Five Finger Death Punch",
+    "subgenres": ["Groove Metal", "Alternative Metal"],
+    "moods": [
+      "Aggressive",
+      "Empowering",
+      "Dark",
+      "Energetic",
+      "Angry",
+      "Determined"
+    ],
+    "features": [
+      "Heavy Riffs",
+      "Powerful Vocals",
+      "Groove-oriented Drumming",
+      "Anthemic Choruses",
+      "Melodic Elements",
+      "Harmonic Guitar Solos",
+      "Dynamic Vocal Range",
+      "Catchy Hooks"
+    ],
+    "description": "An American band known for their heavy riffs, powerful vocals, and anthemic choruses that blend aggression with melody.",
+    "members": [
+      {
+        "name": "Ivan Moody",
+        "role": "Vocals",
+        "period": "2005-present"
+      },
+      {
+        "name": "Zoltan Bathory",
+        "role": "Guitar",
+        "period": "2005-present"
+      },
+      {
+        "name": "Chris Kael",
+        "role": "Bass",
+        "period": "2011-present"
+      },
+      {
+        "name": "Charlie Engen",
+        "role": "Drums",
+        "period": "2018-present"
+      }
+    ]
+  },
+  {
+    "id": "26",
+    "name": "Mayhem",
+    "subgenres": ["Black Metal", "Extreme Metal", "True Norwegian Black Metal"],
+    "moods": ["Dark", "Ominous", "Aggressive", "Chaotic", "Satanic", "Raw"],
+    "features": [
+      "Tremolo Picking",
+      "Blast Beats",
+      "Shrieking Vocals",
+      "Lo-Fi Production",
+      "Atmospheric Elements",
+      "Dissonant Guitar Work",
+      "Raw Sound",
+      "Occult Themes"
+    ],
+    "description": "A pioneering Norwegian black metal band known for their raw sound, aggressive style, and dark, satanic themes.",
+    "members": [
+      {
+        "name": "Attila Csihar",
+        "role": "Vocals",
+        "period": "1993-1997, 2004-present"
+      },
+      {
+        "name": "Tomas 'Samoth' Haugen",
+        "role": "Guitar",
+        "period": "1984-present"
+      },
+      {
+        "name": "Necrobutcher (Jørn Stubberud)",
+        "role": "Bass",
+        "period": "1984-1991, 1995-present"
+      },
+      {
+        "name": "Hellhammer (Jan Axel Blomberg)",
+        "role": "Drums",
+        "period": "1988-present"
+      },
+      {
+        "name": "Per Yngve 'Dead' Ohlin",
+        "role": "Vocals",
+        "period": "1988-1991"
+      },
+      {
+        "name": "Euronymous (Øystein Aarseth)",
+        "role": "Guitar",
+        "period": "1984-1993"
+      },
+      {
+        "name": "Manheim (Kjetil Manheim)",
+        "role": "Drums",
+        "period": "1984-1988"
+      },
+      {
+        "name": "Maniac (Sven Erik Kristiansen)",
+        "role": "Vocals",
+        "period": "1986-1987, 1994-2004"
+      }
+    ]
+  },
+  {
+    "id": "27",
+    "name": "In Flames",
+    "subgenres": ["Melodic Death Metal", "Groove Metal"],
+    "moods": [
+      "Dystopia",
+      "Astronomy",
+      "Dark Fantasy",
+      "Inner Struggles",
+      "Melancholy",
+      "Aggression"
+    ],
+    "features": [
+      "Melodic Guitar Riffs",
+      "Growled and Clean Vocals",
+      "Harmonized Leads",
+      "Dynamic Song Structures",
+      "Atmospheric Elements",
+      "Electronic Influences",
+      "Powerful Drumming",
+      "Catchy Choruses"
+    ],
+    "description": "A Swedish band known for their melodic guitar work, dynamic vocals, and themes of dystopia and inner struggles.",
+    "members": [
+      {
+        "name": "Anders Fridén",
+        "role": "Vocals",
+        "period": "1995-present"
+      },
+      {
+        "name": "Björn Gelotte",
+        "role": "Guitar",
+        "period": "1995-present"
+      },
+      {
+        "name": "Peter Iwers",
+        "role": "Bass",
+        "period": "1997-2016"
+      },
+      {
+        "name": "Joe Rickard",
+        "role": "Drums",
+        "period": "2016-2019"
+      },
+      {
+        "name": "Chris Broderick",
+        "role": "Guitar",
+        "period": "2019-present"
+      },
+      {
+        "name": "Liam Wilson",
+        "role": "Bass",
+        "period": "2016-present"
+      }
+    ]
+  },
+  {
+    "id": "28",
+    "name": "Cannibal Corpse",
+    "subgenres": ["Death Metal", "Brutal Death Metal", "Slamming Death Metal"],
+    "moods": ["Brutal", "Gory", "Aggressive", "Dark", "Horrific", "Intense"],
+    "features": [
+      "Deep Growls",
+      "Blast Beats",
+      "Complex Guitar Riffs",
+      "Graphic Lyrics",
+      "Technical Drumming",
+      "Brutal Breakdown Sections",
+      "Fast Tempos",
+      "Dissonant Guitar Work"
+    ],
+    "description": "An American death metal band known for their brutal sound, graphic lyrics, and intense musicianship.",
+    "members": [
+      {
+        "name": "George 'Corpsegrinder' Fisher",
+        "role": "Vocals",
+        "period": "1995-present"
+      },
+      {
+        "name": "Rob Barrett",
+        "role": "Guitar",
+        "period": "1993-1997, 2005-present"
+      },
+      {
+        "name": "Alex Webster",
+        "role": "Bass",
+        "period": "1990-present"
+      },
+      {
+        "name": "Paul Mazurkiewicz",
+        "role": "Drums",
+        "period": "1988-present"
+      },
+      {
+        "name": "Erik Rutan",
+        "role": "Guitar",
+        "period": "2021-present"
+      }
+    ]
+  },
+  {
+    "id": "29",
+    "name": "Sepultura",
+    "subgenres": ["Thrash Metal", "Groove Metal", "Death Metal"],
+    "moods": ["Aggressive", "Energetic", "Dark", "Tribal"],
+    "features": [
+      "Heavy Riffs",
+      "Groove-oriented Drumming",
+      "Aggressive Vocals",
+      "Tribal Percussion"
+    ],
+    "description": "A Brazilian band known for their heavy riffs, aggressive vocals, and incorporation of tribal percussion into their metal sound.",
+    "members": [
+      {
+        "name": "Andreas Kisser",
+        "role": "Guitar",
+        "period": "1987-present"
+      },
+      {
+        "name": "Paulo Jr.",
+        "role": "Bass",
+        "period": "1984-present"
+      },
+      {
+        "name": "Eloy Casagrande",
+        "role": "Drums",
+        "period": "2011-present"
+      },
+      {
+        "name": "Derrick Green",
+        "role": "Vocals",
+        "period": "1997-present"
+      },
+      {
+        "name": "Max Cavalera",
+        "role": "Vocals, Guitar",
+        "period": "1984-1996"
+      },
+      {
+        "name": "Igor Cavalera",
+        "role": "Drums",
+        "period": "1984-2006"
+      },
+      {
+        "name": "Jairo Guedz",
+        "role": "Guitar",
+        "period": "1984-1987"
+      }
+    ]
+  },
+  {
+    "id": "30",
+    "name": "Ghost",
+    "subgenres": ["Heavy Metal", "Hard Rock"],
+    "moods": [
+      "Theatrical",
+      "Occult",
+      "Melodic",
+      "Dark",
+      "Satanism",
+      "Blasphemy"
+    ],
+    "features": [
+      "Clean Vocals",
+      "Harmonized Guitars",
+      "Catchy Melodies",
+      "Occult Themes"
+    ],
+    "description": "A Swedish band known for their theatrical stage presence, melodic heavy metal sound, and occult-themed lyrics.",
+    "members": [
+      {
+        "name": "Pope Emeritus (Tobias Forge)",
+        "role": "Vocals",
+        "period": "2006-present"
+      },
+      {
+        "name": "Nameless Ghouls",
+        "role": "Guitar, Bass, Drums, Keyboards",
+        "period": "2006-present"
+      }
+    ]
+  },
+  {
+    "id": "31",
+    "name": "Patriarkh",
+    "subgenres": ["Black Metal", "Atmospheric Black Metal"],
+    "moods": [
+      "Cold",
+      "Melancholic",
+      "Ethereal",
+      "Dark",
+      "Religious",
+      "Orthodoxic"
+    ],
+    "features": [
+      "Tremolo Picking",
+      "Atmospheric Soundscapes",
+      "Blast Beats",
+      "Chanting Vocals",
+      "Religious Themes",
+      "Melancholic Melodies",
+      "Lo-Fi Production",
+      "Dissonant Guitar Work"
+    ],
+    "description": "Patriarkh is a Polish black metal band with roots in Batushka, which split due to a legal dispute over the band's name. The band's music and lyrics draw inspiration from the Orthodox Church, traditional hymns, songs, history, and regional folklore.",
+    "members": [
+      {
+        "name": "Bartłomiej 'Bart' Krysiuk",
+        "role": "Vocals, Guitar",
+        "period": "2019-present"
+      },
+      {
+        "name": "Paweł Jaroszewicz",
+        "role": "Guitar",
+        "period": "2019-present"
+      },
+      {
+        "name": "Rafał Łyszczarz",
+        "role": "Bass",
+        "period": "2019-present"
+      },
+      {
+        "name": "Jakub Śliwowski",
+        "role": "Drums",
+        "period": "2019-present"
+      },
+      {
+        "name": "Jacek Wisniewsky",
+        "role": "Keyboards",
+        "period": "2019-present"
+      }
+    ]
+  },
+  {
+    "id": "32",
+    "name": "Bathory",
+    "subgenres": ["Black Metal", "Viking Metal", "First Wave Black Metal"],
+    "moods": ["Epic", "Mythological", "Dark", "Aggressive", "Raw", "Satanic"],
+    "features": [
+      "Tremolo Picking",
+      "Blast Beats",
+      "Epic Song Structures",
+      "Mythological Themes",
+      "Raw Production",
+      "Dissonant Guitar Work",
+      "Atmospheric Elements",
+      "Chanting Vocals"
+    ],
+    "description": "Bathory was a Swedish band formed in 1983 by Quorthon (Thomas Börje Forsberg). They are considered pioneers of both black metal and Viking metal, known for their raw sound, epic compositions, and mythological themes.",
+    "members": [
+      {
+        "name": "Quorthon (Thomas Börje Forsberg)",
+        "role": "Vocals, Guitar, Bass, Drums",
+        "period": "1983-2004"
+      }
+    ]
+  },
+  {
+    "id": "33",
+    "name": "Mgła",
+    "subgenres": ["Black Metal", "Atmospheric Black Metal"],
+    "moods": [
+      "Cold",
+      "Melancholic",
+      "Ethereal",
+      "Dark",
+      "Philosophical",
+      "Introspective",
+      "Misanthropic",
+      "Nihiilistic"
+    ],
+    "features": [
+      "Tremolo Picking",
+      "Atmospheric Soundscapes",
+      "Blast Beats",
+      "Chanting Vocals",
+      "Philosophical Themes",
+      "Melancholic Melodies",
+      "Lo-Fi Production",
+      "Dissonant Guitar Work"
+    ],
+    "description": "Mgła is a Polish black metal band formed in 2000 by M. (Mikołaj Żentara) and Darkside (Maciej Kowalski). Known for their atmospheric sound, melancholic melodies, and introspective lyrics, Mgła has gained a significant following in the black metal community.",
+    "members": [
+      {
+        "name": "M. (Mikołaj Żentara)",
+        "role": "Vocals, Guitar, Bass",
+        "period": "2000-present"
+      },
+      {
+        "name": "Darkside (Maciej Kowalski)",
+        "role": "Drums",
+        "period": "2006-present"
+      }
+    ]
+  },
+  {
+    "id": "34",
+    "name": "Emperor",
+    "subgenres": ["Black Metal", "Symphonic Black Metal"],
+    "moods": [
+      "Epic",
+      "Dark",
+      "Aggressive",
+      "Atmospheric",
+      "Mythological",
+      "Satanic",
+      "Raw",
+      "Complex",
+      "Mysticism",
+      "Nature",
+      "Divination"
+    ],
+    "features": [
+      "Tremolo Picking",
+      "Blast Beats",
+      "Symphonic Elements",
+      "Complex Song Structures",
+      "Mythological Themes",
+      "Raw Production",
+      "Dissonant Guitar Work",
+      "Chanting Vocals"
+    ],
+    "description": "Emperor is a Norwegian black metal band formed in 1991 by Ihsahn (Vegard Sverre Tveitan) and Samoth (Tomas Thormodsæter Haugen). They are known for their complex compositions, symphonic elements, and dark, mythological themes.",
+    "members": [
+      {
+        "name": "Ihsahn (Vegard Sverre Tveitan)",
+        "role": "Vocals, Guitar, Keyboards",
+        "period": "1991-present"
+      },
+      {
+        "name": "Samoth (Tomas Thormodsæter Haugen)",
+        "role": "Guitar",
+        "period": "1991-present"
+      },
+      {
+        "name": "Trym Torson (Kai Johnny Mosaker)",
+        "role": "Drums",
+        "period": "1992-2005, 2013-present"
+      },
+      {
+        "name": "Mortiis (Håvard Ellefsen)",
+        "role": "Bass",
+        "period": "1992-1993"
+      },
+
+      {
+        "name": "Hellhammer (Jan Axel Blomberg)",
+        "role": "Drums",
+        "period": "1992"
+      }
+    ]
+  },
+  {
+    "id": "35",
+    "name": "Darkthrone",
+    "subgenres": ["Black Metal", "True Norwegian Black Metal"],
+    "moods": [
+      "Raw",
+      "Aggressive",
+      "Dark",
+      "Cold",
+      "Satanic",
+      "Lo-Fi",
+      "Minimalistic",
+      "Atmospheric"
+    ],
+    "features": [
+      "Tremolo Picking",
+      "Blast Beats",
+      "Lo-Fi Production",
+      "Minimalistic Song Structures",
+      "Satanic Themes",
+      "Dissonant Guitar Work",
+      "Atmospheric Elements",
+      "Shrieking Vocals"
+    ],
+    "description": "Darkthrone is a Norwegian black metal band formed in 1986 by Fenriz (Gylve Fenris Nagell) and Nocturno Culto (Ted Skjellum). They are considered pioneers of the true Norwegian black metal scene, known for their raw sound, lo-fi production, and minimalistic approach.",
+    "members": [
+      {
+        "name": "Fenriz (Gylve Fenris Nagell)",
+        "role": "Drums, Vocals, Guitar, Bass",
+        "period": "1986-present"
+      },
+      {
+        "name": "Nocturno Culto (Ted Skjellum)",
+        "role": "Vocals, Guitar, Bass",
+        "period": "1988-present"
+      }
+    ]
+  },
+  {
+    "id": "36",
+    "name": "Burzum",
+    "subgenres": ["Black Metal", "Ambient"],
+    "moods": [
+      "Dark",
+      "Atmospheric",
+      "Melancholic",
+      "Ethereal",
+      "Raw",
+      "Aggressive",
+      "Mythological",
+      "Nature",
+      "Isolation",
+      "Introspective"
+    ],
+    "features": [
+      "Tremolo Picking",
+      "Blast Beats",
+      "Ambient Soundscapes",
+      "Minimalistic Song Structures",
+      "Mythological Themes",
+      "Raw Production",
+      "Dissonant Guitar Work",
+      "Chanting Vocals"
+    ],
+    "description": "Burzum is a Norwegian black metal project formed in 1991 by Varg Vikernes. Known for its raw sound, atmospheric elements, and introspective lyrics, Burzum has been influential in the black metal scene.",
+    "members": [
+      {
+        "name": "Varg Vikernes",
+        "role": "Everything",
+        "period": "1991-present"
+      }
+    ]
+  },
+  {
+    "id": "37",
+    "name": "Dark Funeral",
+    "subgenres": ["Black Metal", "Extreme Metal"],
+    "moods": [
+      "Aggressive",
+      "Dark",
+      "Ominous",
+      "Satanic",
+      "Raw",
+      "Chaotic",
+      "Atmospheric",
+      "Brutal",
+      "Death",
+      "Apocalypse"
+    ],
+    "features": [
+      "Tremolo Picking",
+      "Blast Beats",
+      "Shrieking Vocals",
+      "Satanic Themes",
+      "Raw Production",
+      "Dissonant Guitar Work",
+      "Atmospheric Elements",
+      "Fast Tempos"
+    ],
+    "description": "Dark Funeral is a Swedish black metal band formed in 1993 by Lord Ahriman (Mikael Svanberg) and Blackmoon (David Parland). Known for their aggressive style, satanic themes, and raw sound, Dark Funeral has been a prominent figure in the black metal scene.",
+    "members": [
+      {
+        "name": "Lord Ahriman (Mikael Svanberg)",
+        "role": "Guitar",
+        "period": "1993-present"
+      },
+      {
+        "name": "Heljarmadr (Andreas Vingbäck)",
+        "role": "Vocals",
+        "period": "2014-present"
+      },
+      {
+        "name": "Chaq Mol (Bo Anders Nymann)",
+        "role": "Guitar",
+        "period": "2003-present"
+      },
+
+      {
+        "name": "Adra-Melek (Fredrik Isaksson)",
+        "role": "Bass",
+        "period": "2018-present"
+      },
+      {
+        "name": "Jalomaa (Emil Svensson)",
+        "role": "Drums",
+        "period": "2018-present"
+      }
+    ]
+  },
+  {
+    "id": "38",
+    "name": "Dream Theater",
+    "subgenres": ["Progressive Metal", "Progressive Rock"],
+    "moods": ["Complex", "Epic", "Emotional", "Technical"],
+    "features": [
+      "Complex Time Signatures",
+      "Extended Instrumental Sections",
+      "Concept Albums",
+      "Diverse Vocals"
+    ],
+    "description": "An American band known for their complex compositions, technical proficiency, and epic concept albums that blend metal and progressive rock.",
+    "members": [
+      {
+        "name": "James LaBrie",
+        "role": "Vocals",
+        "period": "1991-present"
+      },
+      {
+        "name": "John Petrucci",
+        "role": "Guitar",
+        "period": "1988-present"
+      },
+      {
+        "name": "John Myung",
+        "role": "Bass",
+        "period": "1988-present"
+      },
+      {
+        "name": "Jordan Rudess",
+        "role": "Keyboards",
+        "period": "1999-present"
+      },
+      {
+        "name": "Mike Portnoy",
+        "role": "Drums",
+        "period": "1988-present"
+      }
+    ]
+  },
+  {
+    "id": "39",
+    "name": "Judas Priest",
+    "subgenres": ["Heavy Metal", "Classic Metal"],
+    "moods": ["Epic", "Aggressive", "Anthemic"],
+    "features": [
+      "Twin Guitar Harmonies",
+      "Powerful Vocals",
+      "Driving Rhythms",
+      "Anthemic Choruses"
+    ],
+    "description": "A legendary British band known for their twin guitar harmonies, powerful vocals, and anthemic choruses that helped define the heavy metal genre.",
+    "members": [
+      {
+        "name": "Rob Halford",
+        "role": "Vocals",
+        "period": "1973-1992, 2003-present"
+      },
+      {
+        "name": "Glenn Tipton",
+        "role": "Guitar",
+        "period": "1974-present"
+      },
+      {
+        "name": "Richie Faulkner",
+        "role": "Guitar",
+        "period": "2011-present"
+      },
+      {
+        "name": "Ian Hill",
+        "role": "Bass",
+        "period": "1970-present"
+      },
+      {
+        "name": "Scott Travis",
+        "role": "Drums",
+        "period": "1989-present"
+      },
+      {
+        "name": "K.K. Downing",
+        "role": "Guitar",
+        "period": "1970-2011"
+      },
+      {
+        "name": "Dave Holland",
+        "role": "Drums",
+        "period": "1979-1989"
+      },
+      {
+        "name": "Les Binks",
+        "role": "Drums",
+        "period": "1977-1979"
+      },
+      {
+        "name": "Alan Moore",
+        "role": "Drums",
+        "period": "1973-1975"
+      },
+      {
+        "name": "John Hinch",
+        "role": "Drums",
+        "period": "1975-1976"
+      }
+    ]
+  },
+  {
+    "id": "40",
+    "name": "Megadeth",
+    "subgenres": ["Thrash Metal", "Heavy Metal"],
+    "moods": [
+      "Aggressive",
+      "Energetic",
+      "Society",
+      "Political",
+      "War",
+      "Corruption"
+    ],
+    "features": [
+      "Fast Riffs",
+      "Complex Guitar Solos",
+      "Aggressive Vocals",
+      "Political Lyrics"
+    ],
+    "description": "An American band known for their fast riffs, complex guitar solos, and politically charged lyrics that address themes of war, corruption, and society. Pioneers of the thrash metal genre.",
+    "members": [
+      {
+        "name": "Dave Mustaine",
+        "role": "Vocals, Guitar",
+        "period": "1983-present"
+      },
+      {
+        "name": "Kiko Loureiro",
+        "role": "Guitar",
+        "period": "2015-present"
+      },
+      {
+        "name": "James LoMenzo",
+        "role": "Bass",
+        "period": "2022-present"
+      },
+      {
+        "name": "Dirk Verbeuren",
+        "role": "Drums",
+        "period": "2016-present"
+      },
+      {
+        "name": "Teemu Mäntysaari",
+        "role": "Guitar",
+        "period": "2023-present"
+      }
+    ]
+  },
+  {
+    "id": "41",
+    "name": "Helloween",
+    "subgenres": ["Power Metal", "Speed Metal", "Heavy Metal"],
+    "moods": ["Uplifting", "Epic", "Energetic"],
+    "features": [
+      "Fast Riffs",
+      "Melodic Vocals",
+      "Harmonized Guitar Solos",
+      "Epic Song Structures"
+    ],
+    "description": "A German band known for their fast riffs, melodic vocals, and epic song structures that helped define the power metal genre.",
+    "members": [
+      {
+        "name": "Andi Deris",
+        "role": "Vocals",
+        "period": "1994-present"
+      },
+      {
+        "name": "Michael Weikath",
+        "role": "Guitar",
+        "period": "1984-present"
+      },
+      {
+        "name": "Sascha Gerstner",
+        "role": "Guitar",
+        "period": "2002-present"
+      },
+      {
+        "name": "Markus Grosskopf",
+        "role": "Bass",
+        "period": "1984-present"
+      },
+      {
+        "name": "Daniel Löble",
+        "role": "Drums",
+        "period": "2005-present"
+      },
+      {
+        "name": "Kai Hansen",
+        "role": "Guitar, Vocals",
+        "period": "1984-1988, 2016-present"
+      }
+    ]
+  },
+  {
+    "id": "42",
+    "name": "Slayer",
+    "subgenres": ["Thrash Metal", "Speed Metal"],
+    "moods": [
+      "Aggressive",
+      "Dark",
+      "Intense",
+      "Satanic",
+      "War",
+      "Death",
+      "Violent",
+      "Murder",
+      "Politics"
+    ],
+    "features": [
+      "Fast Riffs",
+      "Aggressive Vocals",
+      "Blast Beats",
+      "Dark Lyrics",
+      "Satanic Themes",
+      "Complex Guitar Solos",
+      "Thrash Metal Elements",
+      "Intense Drumming"
+    ],
+    "description": "An American band known for their fast riffs, aggressive vocals, and dark lyrics that often explore themes of Satanism, war, and death. Pioneers of the thrash metal genre.",
+    "members": [
+      {
+        "name": "Tom Araya",
+        "role": "Vocals, Bass",
+        "period": "1981-2019, 2024-present"
+      },
+      {
+        "name": "Kerry King",
+        "role": "Guitar",
+        "period": "1981-2019, 2024-present"
+      },
+      {
+        "name": "Jeff Hanneman",
+        "role": "Guitar",
+        "period": "1981-2013"
+      },
+      {
+        "name": "Paul Bostaph",
+        "role": "Drums",
+        "period": "1992-2001, 2002-2013, 2013-2019, 2024-present"
+      },
+      {
+        "name": "Dave Lombardo",
+        "role": "Drums",
+        "period": "1981-1986, 1987-1992, 2001-2002, 2013"
+      }
+    ]
   }
 ]

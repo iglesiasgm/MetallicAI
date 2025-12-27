@@ -6,6 +6,7 @@ export class RecommendationApiRepository implements RecommendationRepository {
   async getRecommendations(input: {
     favoriteBands: string[];
     targetMood: string;
+    language: "es" | "en" | "de" | "it" | "pt";
   }): Promise<Recommendation[]> {
     const response = await fetch(`${env.API_URL}/recommend`, {
       method: "POST",

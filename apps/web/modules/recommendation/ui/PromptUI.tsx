@@ -4,16 +4,43 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { RecommendationApiRepository } from "../infraestructure/RecommendationApiRepository";
 import { getRecommendations } from "../application/getRecommendations";
-import { BandTagsInput } from "./BandTagsInput";
+import { BandTagsChips, BandTagsField } from "./BandTagsInput";
 import { MoodInput } from "./MoodInput";
 import { RecommendationResponse } from "./RecommendationResponse";
 import { env } from "@/shared/config/env";
+import { Lang, LanguageDropdown } from "./LanguageDropdown";
+
+const PLACEHOLDERS: Record<Lang, { tags: string; mood: string }> = {
+  es: {
+    tags: "Agregar banda y presionar Enter",
+    mood: "Describe el mood que estás buscando...",
+  },
+  en: {
+    tags: "Add a band and press Enter",
+    mood: "Describe the mood you're looking for...",
+  },
+  de: {
+    tags: "Band hinzufügen und Enter drücken",
+    mood: "Beschreibe die Stimmung, die du suchst...",
+  },
+  it: {
+    tags: "Aggiungi una band e premi Invio",
+    mood: "Descrivi il mood che stai cercando...",
+  },
+  pt: {
+    tags: "Adicionar banda e pressionar Enter",
+    mood: "Descreva o mood que você está procurando...",
+  },
+};
 
 export default function PromptUI() {
   const [bands, setBands] = useState<string[]>([]);
   const [mood, setMood] = useState("");
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
+  const [lang, setLang] = useState<Lang>("es");
+
+  const ph = PLACEHOLDERS[lang];
 
   async function handleRecommend() {
     setLoading(true);
@@ -26,6 +53,7 @@ export default function PromptUI() {
       const recommendations = await getRecommendations(repo, {
         favoriteBands: bands,
         targetMood: mood,
+        language: lang,
       });
 
       console.log("recommendations raw:", recommendations);
@@ -57,13 +85,29 @@ export default function PromptUI() {
       transition={{ duration: 0.5 }}
       className="flex flex-col items-center gap-4 z-10"
     >
-      {/* Input bandas */}
+      <div className="w-[420px]">
+        <div className="mb-2">
+          <BandTagsChips
+            value={bands}
+            onRemove={(band) => setBands(bands.filter((b) => b !== band))}
+          />
+        </div>
 
-      <BandTagsInput value={bands} onChange={setBands} />
+        <div className="flex items-center gap-[5px]">
+          <div className="shrink-0">
+            <LanguageDropdown value={lang} onChange={setLang} />
+          </div>
 
-      {/* Textarea mood */}
-
-      <MoodInput value={mood} onChange={setMood} />
+          <div className="flex-1">
+            <BandTagsField
+              value={bands}
+              placeholder={ph.tags}
+              onAdd={(band) => setBands([...bands, band])}
+            />
+          </div>
+        </div>
+      </div>
+      <MoodInput value={mood} onChange={setMood} placeholder={ph.mood} />
 
       {/* Botón */}
       <button
