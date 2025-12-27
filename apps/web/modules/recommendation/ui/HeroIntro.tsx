@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 interface Props {
   onStart: () => void;
@@ -25,10 +26,10 @@ export default function HeroIntro({ onStart }: Props) {
           >
             No sabes que banda escuchar hoy?
           </p>
-
-          <button
-            onClick={onStart}
-            className="
+          <div className="gap-5">
+            <button
+              onClick={onStart}
+              className="
           px-10 py-4
           border border-red-900 border-4
           rounded-md
@@ -38,10 +39,28 @@ export default function HeroIntro({ onStart }: Props) {
           text-white
           font-semibold
           tracking-wide
+          mr-5
         "
-          >
-            Comenzar
-          </button>
+            >
+              Comenzar
+            </button>
+            <Link
+              href={"/catalog"}
+              className="
+          px-10 py-5
+          border border-red-900 border-4
+          rounded-md
+          bg-black
+          hover:bg-red-950
+          transition
+          text-white
+          font-semibold
+          tracking-wide
+        "
+            >
+              La Kripta
+            </Link>
+          </div>
         </div>
       </div>
     </motion.div>
