@@ -9,9 +9,7 @@ export async function getRecommendations(
     language: Lang;
   }
 ) {
-  if (input.favoriteBands.length === 0) {
-    throw new Error("Debe ingresar al menos una banda");
-  }
+
 
   return repository.getRecommendations(input);
 }
