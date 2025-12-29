@@ -3,11 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-interface Props {
-  onStart: () => void;
-}
-
-export default function HeroIntro({ onStart }: Props) {
+export default function HeroIntro() {
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -27,8 +23,8 @@ export default function HeroIntro({ onStart }: Props) {
             No sabes que banda escuchar hoy?
           </p>
           <div className="gap-5">
-            <button
-              onClick={onStart}
+            <Link
+              href="/recommend"
               className="
           px-10 py-4
           border border-red-900 border-4
@@ -43,7 +39,7 @@ export default function HeroIntro({ onStart }: Props) {
         "
             >
               Comenzar
-            </button>
+            </Link>
             <Link
               href={"/catalog"}
               className="

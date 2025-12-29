@@ -2,13 +2,13 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { RecommendationApiRepository } from "../infraestructure/RecommendationApiRepository";
-import { getRecommendations } from "../application/getRecommendations";
-import { BandTagsChips, BandTagsField } from "./BandTagsInput";
-import { MoodInput } from "./MoodInput";
+import { RecommendationApiRepository } from "../../infraestructure/RecommendationApiRepository";
+import { getRecommendations } from "../../application/getRecommendations";
+import { BandTagsChips, BandTagsField } from "../BandTagsInput";
+import { MoodInput } from "../MoodInput";
 import { RecommendationResponse } from "./RecommendationResponse";
 import { env } from "@/shared/config/env";
-import { Lang, LanguageDropdown } from "./LanguageDropdown";
+import { Lang, LanguageDropdown } from "../LanguageDropdown";
 
 const PLACEHOLDERS: Record<Lang, { tags: string; mood: string }> = {
   es: {

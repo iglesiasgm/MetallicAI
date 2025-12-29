@@ -7,9 +7,8 @@ export async function getRecommendations(
     favoriteBands: string[];
     targetMood: string;
     language: Lang;
+    excludeBandIds?: string[]; // ✅ NUEVO
   }
 ) {
-
-
   return repository.getRecommendations(input);
 }
