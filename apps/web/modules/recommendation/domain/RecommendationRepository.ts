@@ -1,10 +1,11 @@
-import { Lang } from "../ui/LanguageDropdown";
 import { Recommendation } from "./Recommendation";
+import { Lang } from "../ui/LanguageDropdown";
 
 export interface RecommendationRepository {
   getRecommendations(input: {
     favoriteBands: string[];
     targetMood: string;
-    language: "es" | "en" | "de" | "it" | "pt";
+    language: Lang;
+    excludeBandIds?: string[]; // ✅ NUEVO
   }): Promise<Recommendation[]>;
 }

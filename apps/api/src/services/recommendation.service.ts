@@ -1,4 +1,9 @@
-import { Band, UserInput, RecommendationResult, LanguageCode } from "../domain/types";
+import {
+  Band,
+  UserInput,
+  RecommendationResult,
+  LanguageCode,
+} from "../domain/types";
 import { GeminiService } from "./gemini.service";
 import { jaccardSimilarity } from "../utils/math";
 import { QdrantClient } from "@qdrant/js-client-rest";
@@ -10,11 +15,14 @@ const OFFLINE_MESSAGES: Record<LanguageCode, string> = {
   en: "Mathematical recommendation based on style matching (Offline Mode).",
   it: "Raccomandazione basata sulla corrispondenza di stile (Modalità Offline).",
   de: "Mathematische Empfehlung basierend auf Stilübereinstimmung (Offline-Modus).",
-  pt: "Recomendação matemática baseada em correspondência de estilo (Modo Offline)."
+  pt: "Recomendação matemática baseada em correspondência de estilo (Modo Offline).",
 };
 
 function stripCodeFences(s: string) {
-  return s.replace(/```json/gi, "```").replace(/```/g, "").trim();
+  return s
+    .replace(/```json/gi, "```")
+    .replace(/```/g, "")
+    .trim();
 }
 
 function extractJsonArray(s: string) {
@@ -59,7 +67,10 @@ export class RecommendationService {
       console.log("Trying AI-based recommendation strategy");
       return await this.runAiStrategy(input);
     } catch (error) {
-      console.error("AI recommendation failed, trying Jaccard fallback strategy", error);
+      console.error(
+        "AI recommendation failed, trying Jaccard fallback strategy",
+        error
+      );
       return this.runJaccardStrategy(input);
     }
   }
@@ -69,15 +80,20 @@ export class RecommendationService {
 
     const userVector = await this.aiService.getEmbedding(embeddingText);
 
-    const searchResult = await this.qdrant.search('bands', {
+    const excludeIds = (input.excludeBandIds ?? []).map((x) => String(x));
+
+    const searchResult = await this.qdrant.search("bands", {
       vector: userVector,
       limit: 15,
       with_payload: true,
       filter: {
         must_not: [
-          { key: "name", match: { any: input.favoriteBands } }
-        ]
-      }
+          { key: "name", match: { any: input.favoriteBands } },
+          ...(excludeIds.length
+            ? [{ key: "id", match: { any: excludeIds } }]
+            : []),
+        ],
+      },
     });
 
     if (searchResult.length === 0) return [];
@@ -96,9 +112,9 @@ export class RecommendationService {
 
     const topPicksRaw = sortedCandidates.slice(0, 3);
 
-    const topPicks = topPicksRaw.map(hit => ({
+    const topPicks = topPicksRaw.map((hit) => ({
       band: hit.payload as unknown as Band,
-      score: hit.score
+      score: hit.score,
     }));
 
     const bandsForPrompt = topPicks.map(({ band }) => {
@@ -117,7 +133,7 @@ export class RecommendationService {
       en: "ENGLISH, use metalhead slang (riffs, shredding, brutal).",
       it: "ITALIANO, usa slang metal (pesante, oscuro).",
       de: "DEUTSCH, use metal slang.",
-      pt: "PORTUGUÊS, use gírias de metal."
+      pt: "PORTUGUÊS, use gírias de metal.",
     };
 
     const langInstruction = languageInstructionMap[input.language];
@@ -160,6 +176,8 @@ BANDAS A EXPLICAR:
 ${JSON.stringify(bandsForPrompt)}
     `.trim();
 
+    //dale alejo no seas puto como que hay que respetar al usuario del sistema
+
     const raw = await this.aiService.generateExplanation(megaPrompt);
     const parsed = safeParseExplanationArray(raw);
 
@@ -171,16 +189,19 @@ ${JSON.stringify(bandsForPrompt)}
     return topPicks.map(({ band, score }) => {
       const { embedding, ...bandData } = band as any;
       const id = String((band as any).id ?? band.name);
-      
+
       const fallbackMap: Record<LanguageCode, string> = {
         es: "Riffs brutales para tu mood. Dale play.",
         en: "Brutal riffs for your mood. Just play it.",
         it: "Riffs brutali per il tuo umore. Ascolta.",
         de: "Brutale Riffs für deine Stimmung.",
-        pt: "Riffs brutais para o seu humor."
+        pt: "Riffs brutais para o seu humor.",
       };
-      
-      const explanation = explanationById.get(id) ?? fallbackMap[input.language] ?? fallbackMap['es'];
+
+      const explanation =
+        explanationById.get(id) ??
+        fallbackMap[input.language] ??
+        fallbackMap["es"];
 
       return {
         band: {
@@ -194,45 +215,52 @@ ${JSON.stringify(bandsForPrompt)}
     });
   }
 
-  private async runJaccardStrategy(input: UserInput): Promise<RecommendationResult[]> {
-    
-    const keywords = input.targetMood.split(" ")
-      .filter(w => w.length > 3)
-      .map(w => w.toLowerCase());
+  private async runJaccardStrategy(
+    input: UserInput
+  ): Promise<RecommendationResult[]> {
+    const keywords = input.targetMood
+      .split(" ")
+      .filter((w) => w.length > 3)
+      .map((w) => w.toLowerCase());
 
-    const shouldConditions = keywords.flatMap(k => [
-        { key: "subgenres", match: { text: k } },
-        { key: "moods", match: { text: k } }
+    const shouldConditions = keywords.flatMap((k) => [
+      { key: "subgenres", match: { text: k } },
+      { key: "moods", match: { text: k } },
     ]);
 
     if (shouldConditions.length === 0) return [];
 
-    const response = await this.qdrant.scroll('bands', {
-      limit: 50, 
+    const excludeIds = (input.excludeBandIds ?? []).map((x) => String(x));
+
+    const response = await this.qdrant.scroll("bands", {
+      limit: 50,
       with_vector: false,
       with_payload: true,
       filter: {
         should: shouldConditions,
         must_not: [
-          { key: "name", match: { any: input.favoriteBands } } 
-        ]
-      }
+          { key: "name", match: { any: input.favoriteBands } },
+          ...(excludeIds.length
+            ? [{ key: "id", match: { any: excludeIds } }]
+            : []),
+        ],
+      },
     });
 
-    const scoredCandidates = response.points.map(record => {
+    const scoredCandidates = response.points.map((record) => {
       const bandData = record.payload as unknown as Band;
-      
+
       const bandTags = [
-        ...(bandData.subgenres || []), 
+        ...(bandData.subgenres || []),
         ...(bandData.moods || []),
-        ...(bandData.features || [])
+        ...(bandData.features || []),
       ];
 
       const score = jaccardSimilarity(keywords, bandTags);
 
       return {
         band: bandData,
-        score: score
+        score: score,
       };
     });
 
@@ -254,9 +282,10 @@ ${JSON.stringify(bandsForPrompt)}
         return popB - popA;
     }).slice(0, 3);
 
-    const staticExplanation = OFFLINE_MESSAGES[input.language] ?? OFFLINE_MESSAGES['es'];
+    const staticExplanation =
+      OFFLINE_MESSAGES[input.language] ?? OFFLINE_MESSAGES["es"];
 
-    return topPicks.map(item => {
+    return topPicks.map((item) => {
       const { embedding, ...bandData } = item.band as any;
       return {
         band: {
@@ -265,7 +294,9 @@ ${JSON.stringify(bandsForPrompt)}
             popularity: bandData.popularity || 0
         },
         score: item.score,
-        explanation: `${staticExplanation} (${item.band.subgenres.slice(0, 2).join(", ")}).`,
+        explanation: `${staticExplanation} (${item.band.subgenres
+          .slice(0, 2)
+          .join(", ")}).`,
       };
     });
   }

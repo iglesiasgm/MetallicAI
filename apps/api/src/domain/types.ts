@@ -2,9 +2,9 @@ export interface Band {
   id: string;
   name: string;
   subgenres: string[];
-  moods: string[]; 
+  moods: string[];
   features: string[];
-  description: string; 
+  description: string;
   members: Member[];
   embedding?: number[]; 
   links?: BandLinks;
@@ -13,8 +13,8 @@ export interface Band {
 }
 export interface Member {
   name: string;
-  role: string; 
-  period?: string; 
+  role: string;
+  period?: string;
 }
 
 export interface BandLinks {
@@ -28,6 +28,7 @@ export interface UserInput {
   targetMood: string;
   language: LanguageCode;
   popularityMode?: PopularityMode;
+  excludeBandIds?: string[];
 }
 
 export interface RecommendationResult {
@@ -36,7 +37,7 @@ export interface RecommendationResult {
   explanation?: string;
 }
 
-export type LanguageCode = 'es' | 'en' | 'it' | 'de' | 'pt';
+export type LanguageCode = "es" | "en" | "it" | "de" | "pt";
 
 export const SUPPORTED_LANGUAGES: Record<LanguageCode, string> = {
   es: 'Español (Metalero Latino)',
