@@ -27,7 +27,10 @@
         "role": "Bass",
         "period": "2000-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/0GDGKpJFhVpcjIGF8N6Ewt?si=m1-itQcASxuwr4E14X5aSA"
+    }
   },
   {
     "id": "2",
@@ -62,7 +65,10 @@
         "role": "Keyboards",
         "period": "2011-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/0ybFZ2Ab08V8hueghSXm6E?si=vabeGIKLRk-yfUPwI4FK6Q"
+    }
   },
   {
     "id": "3",
@@ -97,7 +103,10 @@
         "role": "Vocals",
         "period": "1979-1982, 1991-1992"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/5M52tdBnJaKSvOpJGz8mfZ?si=IC_2yDKwQNGi6SykzOLc9A"
+    }
   },
   {
     "id": "4",
@@ -147,7 +156,10 @@
         "role": "Vocals",
         "period": "1978-1981"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/6mdiAmATAx73kdxrNrnlao?si=938d28c8f5d842be"
+    }
   },
   {
     "id": "5",
@@ -208,7 +220,11 @@
         "role": "Lead Guitar",
         "period": "1982"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/2ye2Wgw4gimLv2eAKyk1NB?si=Q2vEvYZISIKunllHysA79w",
+      "youtube": "https://www.youtube.com/user/MetallicaTV"
+    }
   },
   {
     "id": "6",
@@ -263,7 +279,10 @@
         "role": "Guitar",
         "period": "1993-1996"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/4f5V3PQ66nIrBCqugJtaGn?si=IGmgFsuNT6ebwOeOdqTizg"
+    }
   },
   {
     "id": "7",
@@ -303,7 +322,11 @@
         "role": "Drums",
         "period": "1994-1997"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/5eAWCfyUhZtHHtBdNk56l1?si=42dcb476986c471e",
+      "youtube": "https://www.youtube.com/user/systemofadown"
+    }
   },
   {
     "id": "8",
@@ -355,7 +378,10 @@
         "role": "Drums",
         "period": "1993-2006"
       }
-    ]
+    ],
+    "links":{
+      "spotify": "https://open.spotify.com/intl-es/artist/3RNrq3jvMZxD9ZyoOZbQOD?si=fd6d7a0841224c20"
+    }
   },
   {
     "id": "9",
@@ -400,7 +426,11 @@
         "role": "Drums",
         "period": "2014-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/2NPduAUeLVsfIauhRwuft1?si=fT3dwYn8TGOg2D4Szxjoug",
+      "youtube": "https://www.youtube.com/user/NightwishOfficial"
+    }
   },
   {
     "id": "10",
@@ -440,7 +470,11 @@
         "role": "Bass",
         "period": "1990-1995"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/2yEwvVSSSUkcLeSTNyHKh8?si=3cb433ec8e964994",
+      "youtube": "https://www.youtube.com/user/ToolBand"
+    }
   },
   {
     "id": "11",
@@ -485,7 +519,11 @@
         "role": "Keyboards",
         "period": "1994-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/6wWVKhxIU2cEi0K81v7HvP?si=0055b65ec57849f6",
+      "youtube": "https://www.youtube.com/user/RammsteinOfficial"
+    }
   },
   {
     "id": "12",
@@ -555,7 +593,11 @@
         "role": "Drums",
         "period": "2024-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/05fG473iIaoy82BF1aGhL8?si=e812d5801f73483d",
+      "youtube": "https://www.youtube.com/user/slipknot"
+    }
   },
   {
     "id": "13",
@@ -595,7 +637,10 @@
         "role": "Bass",
         "period": "2010-2023"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/6vXYoy8ouRVib302zxaxFF?si=1abfd65d30524dc9"
+    }
   },
   {
     "id": "14",
@@ -610,7 +655,10 @@
         "role": "Vocals, Multi-instrumentalist",
         "period": "2016-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/2n2RSaZqBuUUukhbLlpnE6?si=8c71a4119b2c4948"
+    }
   },
   {
     "id": "15",
@@ -640,7 +688,10 @@
         "role": "Drums",
         "period": "2000-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/1MK0sGeyTNkbefYGj673e9?si=f0595064cd494ddd"
+    }
   },
   {
     "id": "16",
@@ -680,7 +731,10 @@
         "role": "Guitar",
         "period": "2019-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/3pulcT2wt7FEG10lQlqDJL?si=6cbb2cd4d27f4762"
+    }
   },
   {
     "id": "17",
@@ -720,7 +774,11 @@
         "role": "Drums",
         "period": "2006-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/3ZztVuWxHzNpl0THurTFCv?si=e47ee3f0d771402f",
+      "youtube": "https://www.youtube.com/user/ArchitectsUK"
+    }
   },
   {
     "id": "18",
@@ -760,7 +818,10 @@
         "role": "Bass",
         "period": "2018-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/4XpPveeg7RuYS3CgLo75t9?si=a8abc0fe59e24f6e"
+    }
   },
   {
     "id": "19",
@@ -795,7 +856,10 @@
         "role": "Guitar, Vocals",
         "period": "2000-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/1Dvfqq39HxvCJ3GvfeIFuT?si=8332e5e25b6d48bf"
+    }
   },
   {
     "id": "20",
@@ -835,7 +899,10 @@
         "role": "Drums",
         "period": "2010-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/6O7MpKrY91vlCd4Osi6XKs?si=2bb1da83b0ad4f24"
+    }
   },
   {
     "id": "21",
@@ -870,7 +937,10 @@
         "role": "Drums",
         "period": "1996-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/3TOqt5oJwL9BE2NG9MEwDa?si=461053cd4461497e"
+    }
   },
   {
     "id": "22",
@@ -910,7 +980,11 @@
         "role": "Drums",
         "period": "2015-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/0nmQIMXWTXfhgOBdNzhGOs?si=8c28331693a142d3",
+      "youtube": "https://www.youtube.com/user/AvengedSevenfold"
+    }
   },
   {
     "id": "23",
@@ -952,7 +1026,10 @@
         "role": "Drums",
         "period": "2017-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/278ZYwGhdK6QTzE3MFePnP?si=8b001e53f545439a"
+    }
   },
   {
     "id": "24",
@@ -987,7 +1064,10 @@
         "role": "Bass",
         "period": "2010-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/1E4r4z7ivGUcSAnCbINJ9v?si=0ae8caf43ab64b06"
+    }
   },
   {
     "id": "25",
@@ -1033,7 +1113,10 @@
         "role": "Drums",
         "period": "2018-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/5t28BP42x2axFnqOOMg3CM?si=faec2b47fabe4e52"
+    }
   },
   {
     "id": "26",
@@ -1092,7 +1175,10 @@
         "role": "Vocals",
         "period": "1986-1987, 1994-2004"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/0dR10i73opHXuRuLbgxltM?si=7431464a8c764c11"
+    }
   },
   {
     "id": "27",
@@ -1148,7 +1234,10 @@
         "role": "Bass",
         "period": "2016-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/57ylwQTnFnIhJh4nu4rxCs?si=3ad615c7564a49d0"
+    }
   },
   {
     "id": "28",
@@ -1192,7 +1281,10 @@
         "role": "Guitar",
         "period": "2021-present"
       }
-    ]
+    ],
+    "links":{
+      "spotify": "https://open.spotify.com/intl-es/artist/0yLwGBQiBqhXOvmTfH2A7n?si=10f097d12b7b45d1"
+    }
   },
   {
     "id": "29",
@@ -1242,7 +1334,10 @@
         "role": "Guitar",
         "period": "1984-1987"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/6JW8wliOEwaDZ231ZY7cf4?si=2dc1612a29e64f9d"
+    }
   },
   {
     "id": "30",
@@ -1274,7 +1369,10 @@
         "role": "Guitar, Bass, Drums, Keyboards",
         "period": "2006-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/1Qp56T7n950O3EGMsSl81D?si=6e5c0ad645394608"
+    }
   },
   {
     "id": "31",
@@ -1325,7 +1423,10 @@
         "role": "Keyboards",
         "period": "2019-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/15LsRgSmN0t8VLcsUFYW5J?si=387901caace54ff4"
+    }
   },
   {
     "id": "32",
@@ -1349,7 +1450,10 @@
         "role": "Vocals, Guitar, Bass, Drums",
         "period": "1983-2004"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/6rBvjnvdsRxFRSrq1StGOM?si=4b766623f9814482"
+    }
   },
   {
     "id": "33",
@@ -1387,7 +1491,10 @@
         "role": "Drums",
         "period": "2006-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/2hbkBlGBgvJkC3tpUn9w4C?si=0dca1b1c691243c6"
+    }
   },
   {
     "id": "34",
@@ -1444,7 +1551,10 @@
         "role": "Drums",
         "period": "1992"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/6jPWrSmxOd9mj7Xaj4EP2Y?si=bd4dda2d74464d54"
+    }
   },
   {
     "id": "35",
@@ -1482,7 +1592,10 @@
         "role": "Vocals, Guitar, Bass",
         "period": "1988-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/7kWnE981vITXDnAD2cZmCV?si=41edd93e7e714104"
+    }
   },
   {
     "id": "36",
@@ -1517,7 +1630,10 @@
         "role": "Everything",
         "period": "1991-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/7L6u6TyhjuwubrcojPeNgf?si=4f2adff23da44217"
+    }
   },
   {
     "id": "37",
@@ -1573,7 +1689,10 @@
         "role": "Drums",
         "period": "2018-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/21ojeH5LNADIGzJKc3hIlE?si=c890430c9b2b4638"
+    }
   },
   {
     "id": "38",
@@ -1613,7 +1732,10 @@
         "role": "Drums",
         "period": "1988-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/2aaLAng2L2aWD2FClzwiep?si=c1e2aeedb3b44655"
+    }
   },
   {
     "id": "39",
@@ -1678,7 +1800,10 @@
         "role": "Drums",
         "period": "1975-1976"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/2tRsMl4eGxwoNabM08Dm4I?si=f3129e4212c84f94"
+    }
   },
   {
     "id": "40",
@@ -1725,7 +1850,10 @@
         "role": "Guitar",
         "period": "2023-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/1Yox196W7bzVNZI7RBaPnf?si=84c7290de85e4bff"
+    }
   },
   {
     "id": "41",
@@ -1770,7 +1898,10 @@
         "role": "Guitar, Vocals",
         "period": "1984-1988, 2016-present"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/4pQN0GB0fNEEOfQCaWotsY?si=d80da12a3bbe4c29"
+    }
   },
   {
     "id": "42",
@@ -1824,6 +1955,9 @@
         "role": "Drums",
         "period": "1981-1986, 1987-1992, 2001-2002, 2013"
       }
-    ]
+    ],
+    "links": {
+      "spotify": "https://open.spotify.com/intl-es/artist/1IQ2e1buppatiN1bxUVkrk?si=34d925b5809f4774"
+    }
   }
 ]

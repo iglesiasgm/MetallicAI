@@ -1,21 +1,9 @@
 import { Band, UserInput, RecommendationResult, LanguageCode } from "../domain/types";
 import { GeminiService } from "./gemini.service";
-import { cosineSimilarity, jaccardSimilarity } from "../utils/math";
+import { jaccardSimilarity } from "../utils/math";
 import { QdrantClient } from "@qdrant/js-client-rest";
 
 type ExplanationItem = { id: string; explanation: string };
-
-const CONTROVERSIAL_POSER_BANDS = new Set(
-  [
-    "sleep token",
-    "babymetal",
-    "deftones",
-    "slipknot",
-    "limp bizkit",
-    "mayhem",
-    "burzum",
-  ].map((s) => s.toLowerCase())
-);
 
 const OFFLINE_MESSAGES: Record<LanguageCode, string> = {
   es: "Recomendación matemática por coincidencia de estilos (Modo Offline).",
@@ -76,16 +64,15 @@ export class RecommendationService {
     }
   }
 
-private async runAiStrategy(input: UserInput): Promise<RecommendationResult[]> {
-const userProfileText = `Metal recs. Mood: ${
-  input.targetMood
-}. Favorites: ${input.favoriteBands.join(", ")}.`;
+  private async runAiStrategy(input: UserInput): Promise<RecommendationResult[]> {
+    const embeddingText = input.targetMood;
 
-const userVector = await this.aiService.getEmbedding(userProfileText);
+    const userVector = await this.aiService.getEmbedding(embeddingText);
 
     const searchResult = await this.qdrant.search('bands', {
       vector: userVector,
-      limit: 6, 
+      limit: 15,
+      with_payload: true,
       filter: {
         must_not: [
           { key: "name", match: { any: input.favoriteBands } }
@@ -95,7 +82,19 @@ const userVector = await this.aiService.getEmbedding(userProfileText);
 
     if (searchResult.length === 0) return [];
 
-    const topPicksRaw = searchResult.slice(0, 3);
+    const mode = input.popularityMode || 'popular';
+
+    const sortedCandidates = searchResult.sort((a, b) => {
+      const popA = (a.payload?.popularity as number) || 0;
+      const popB = (b.payload?.popularity as number) || 0;
+
+      if (mode === 'underground') {
+        return popA - popB;
+      }
+      return popB - popA;
+    });
+
+    const topPicksRaw = sortedCandidates.slice(0, 3);
 
     const topPicks = topPicksRaw.map(hit => ({
       band: hit.payload as unknown as Band,
@@ -103,22 +102,13 @@ const userVector = await this.aiService.getEmbedding(userProfileText);
     }));
 
     const bandsForPrompt = topPicks.map(({ band }) => {
-      const nameLower = band.name.toLowerCase().trim();
-      const poserRisk =
-        CONTROVERSIAL_POSER_BANDS.has(nameLower) ||
-        (Array.isArray((band as any).features) &&
-          (band as any).features.some((f: string) =>
-            String(f).toLowerCase().includes("tiktok")
-          ));
-
       return {
         id: String((band as any).id ?? band.name),
         name: band.name,
         subgenres: (band.subgenres ?? []).slice(0, 4),
         moods: ((band as any).moods ?? []).slice(0, 4),
-        features: ((band as any).features ?? []).slice(0, 6),
         description: clampText(band.description ?? "", 180),
-        poserRisk,
+        popularityScore: (band as any).popularity || 0,
       };
     });
 
@@ -133,20 +123,30 @@ const userVector = await this.aiService.getEmbedding(userProfileText);
     const langInstruction = languageInstructionMap[input.language];
 
     const megaPrompt = `
-Eres "EL METALERO TRUE", un veterano dueño de una disquera under que huele a humedad y cebolla. Llevas chaleco de parches y odias lo moderno.
+Eres "EL METALERO TRUE", un veterano dueño de una disquera.
 
 IDIOMA OBLIGATORIO: ${langInstruction}
 
+CONTEXTO DEL USUARIO:
+- Mood deseado: ${input.targetMood}
+- Preferencia de Escena: ${mode.toUpperCase()} (Quiere bandas ${mode === 'underground' ? 'desconocidas/culto' : 'famosas/clásicos'}).
+- Favoritos: ${input.favoriteBands.join(", ")}
+
 TU MISIÓN:
-Generar una mini-explicación para una lista de bandas recomendadas basándote en el mood y favoritos del usuario.
+Explicar estas 3 recomendaciones. Debes cruzar la preferencia del usuario con el 'popularityScore' real de la banda.
+
+REGLAS DE JUICIO (Basadas en popularityScore 0-100):
+1. SI EL USUARIO PIDIÓ UNDERGROUND y LAS RECOMENDACIONES SON UNDERGROUND, vendelo como una joya oculta, pero si alguna es popular, reconocelo.
+2. SI EL USUARIO PIDIÓ POPULAR y LAS RECOMENDACIONES SON POPULARES, enfatizá su legado y hits, si alguna es underground, mencioná que es una sorpresa.
+USA TU CRITERIO PARA ADAPTARTE A CADA CASO Y DEFINIR EN BASE A POPULARIDAD Y LEGADO SI UNA BANDA ES MAS O MENOS POPULAR O UNDERGROUND.
 
 MANDAMIENTOS ABSOLUTOS:
+
 1. PRIORIDAD TOTAL AL PEDIDO: Si el usuario pide "voz femenina", "lento", o "black metal", TU EXPLICACIÓN DEBE CONFIRMAR QUE LA BANDA TIENE ESO.
 2. CERO CONTRADICCIONES: Prohibido decir "Sé que querías X, pero tomá Y".
-3. ANTI-POSER: Si detectas vibra TikTok/viral, meté "poser" con sarcasmo.
-4. ESTILO: Usá jerga: riffs, breakdown, blast beats, podrido, satánico, gutural.
-5. FORMATO: JSON puro.
-6. RESPETO: NO OFENDAS al usuario ni a sus gustos. Si el usuario busca voz femenina, no digas "DEJATE DE JODER". Tene en que el usuario es metalero y busca música, es el usuario del sistema y hay que respetarlo.
+3. ESTILO: Usá jerga: riffs, breakdown, blast beats, podrido, satánico, gutural.
+4. FORMATO: JSON puro.
+5. RESPETO: NO OFENDAS al usuario ni a sus gustos. Si el usuario busca voz femenina, no digas "DEJATE DE JODER". Tene en que el usuario es metalero y busca música, es el usuario del sistema y hay que respetarlo.
 
 RESTRICCIONES:
 - Máximo 2 oraciones por banda.
@@ -155,10 +155,6 @@ RESTRICCIONES:
 
 FORMATO DE SALIDA (JSON ARRAY):
 [ { "id": "<id>", "explanation": "<texto>" } ]
-
-DATOS DEL USUARIO:
-- Mood Actual (LO MÁS IMPORTANTE): ${input.targetMood}
-- Favoritos (Solo para contexto/comparación): ${input.favoriteBands.join(", ")}
 
 BANDAS A EXPLICAR:
 ${JSON.stringify(bandsForPrompt)}
@@ -187,7 +183,11 @@ ${JSON.stringify(bandsForPrompt)}
       const explanation = explanationById.get(id) ?? fallbackMap[input.language] ?? fallbackMap['es'];
 
       return {
-        band: bandData,
+        band: {
+            ...bandData,
+            imageUrl: bandData.imageUrl || null,
+            popularity: bandData.popularity || 0
+        },
         score,
         explanation: explanation.trim(),
       };
@@ -236,16 +236,34 @@ ${JSON.stringify(bandsForPrompt)}
       };
     });
 
-    const topPicks = scoredCandidates
+    const mode = input.popularityMode || 'popular';
+
+    // 1. Filtramos las más relevantes por coincidencia de texto (Mood)
+    const topRelevant = scoredCandidates
       .sort((a, b) => b.score - a.score)
-      .slice(0, 3);
+      .slice(0, 15);
+
+    // 2. Re-ordenamos esas relevantes según la preferencia de popularidad
+    const topPicks = topRelevant.sort((a, b) => {
+        const popA = (a.band as any).popularity || 0;
+        const popB = (b.band as any).popularity || 0;
+
+        if (mode === 'underground') {
+            return popA - popB;
+        }
+        return popB - popA;
+    }).slice(0, 3);
 
     const staticExplanation = OFFLINE_MESSAGES[input.language] ?? OFFLINE_MESSAGES['es'];
 
     return topPicks.map(item => {
       const { embedding, ...bandData } = item.band as any;
       return {
-        band: bandData,
+        band: {
+            ...bandData,
+            imageUrl: bandData.imageUrl || null,
+            popularity: bandData.popularity || 0
+        },
         score: item.score,
         explanation: `${staticExplanation} (${item.band.subgenres.slice(0, 2).join(", ")}).`,
       };
