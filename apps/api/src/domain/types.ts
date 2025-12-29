@@ -2,22 +2,23 @@ export interface Band {
   id: string;
   name: string;
   subgenres: string[];
-  moods: string[]; 
+  moods: string[];
   features: string[];
-  description: string; 
+  description: string;
   members: Member[];
-  embedding?: number[]; 
+  embedding?: number[];
 }
 export interface Member {
   name: string;
-  role: string; 
-  period?: string; 
+  role: string;
+  period?: string;
 }
 
 export interface UserInput {
   favoriteBands: string[];
   targetMood: string;
   language: LanguageCode;
+  excludeBandIds?: string[];
 }
 
 export interface RecommendationResult {
@@ -26,12 +27,12 @@ export interface RecommendationResult {
   explanation?: string;
 }
 
-export type LanguageCode = 'es' | 'en' | 'it' | 'de' | 'pt';
+export type LanguageCode = "es" | "en" | "it" | "de" | "pt";
 
 export const SUPPORTED_LANGUAGES: Record<LanguageCode, string> = {
-  es: 'Español (Metalero Latino)',
-  en: 'English (Metalhead slang)',
-  it: 'Italiano',
-  de: 'Deutsch',
-  pt: 'Português'
+  es: "Español (Metalero Latino)",
+  en: "English (Metalhead slang)",
+  it: "Italiano",
+  de: "Deutsch",
+  pt: "Português",
 };

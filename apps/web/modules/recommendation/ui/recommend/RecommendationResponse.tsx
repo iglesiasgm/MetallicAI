@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 
 interface Props {
   text: string;
+  onDone?: () => void; // ✅ nuevo
 }
 
-export function RecommendationResponse({ text }: Props) {
+export function RecommendationResponse({ text, onDone }: Props) {
   const [visible, setVisible] = useState("");
 
   useEffect(() => {
@@ -18,17 +19,21 @@ export function RecommendationResponse({ text }: Props) {
       const ch = text[i];
       if (ch == null) {
         clearInterval(interval);
+        onDone?.(); // ✅ avisa fin
         return;
       }
 
       setVisible((prev) => prev + ch);
       i++;
 
-      if (i >= text.length) clearInterval(interval);
+      if (i >= text.length) {
+        clearInterval(interval);
+        onDone?.(); // ✅ avisa fin
+      }
     }, 15);
 
     return () => clearInterval(interval);
-  }, [text]);
+  }, [text, onDone]);
 
   if (!text) return null;
 
@@ -36,7 +41,7 @@ export function RecommendationResponse({ text }: Props) {
     <section
       className="
         mt-6
-        w-full max-w-[700px]
+        w-full
         rounded-2xl
         border border-white/10
         bg-neutral-950/60
