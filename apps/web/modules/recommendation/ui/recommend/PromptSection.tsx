@@ -51,6 +51,9 @@ export default function PromptSection({
   const [bands, setBands] = useState<string[]>([]);
   const [mood, setMood] = useState("");
   const [lang, setLang] = useState<Lang>("es");
+  const [popularityMode, setPopularityMode] = useState<
+    "popular" | "underground"
+  >("underground");
 
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
@@ -60,6 +63,8 @@ export default function PromptSection({
 
   // ✅ NUEVO: para mostrar el botón solo al terminar el typewriter
   const [typingDone, setTypingDone] = useState(false);
+
+  const [recs, setRecs] = useState<any[]>([]);
 
   const ph = PLACEHOLDERS[lang];
 
@@ -75,6 +80,7 @@ export default function PromptSection({
         favoriteBands: bands,
         targetMood: mood,
         language: lang,
+        popularityMode,
         excludeBandIds: opts?.exclude,
       });
 
@@ -91,6 +97,8 @@ export default function PromptSection({
           return `🎸 ${name}\n${r.explanation}\n`;
         })
         .join("\n");
+
+      setRecs(recommendations);
 
       setResponse(text);
     } finally {
@@ -236,34 +244,50 @@ export default function PromptSection({
                 ],
               },
               {
-                label: "INTENSIDAD",
+                label: "POPULARIDAD",
                 options: [
-                  "Cualquiera",
-                  "🔥 Light",
-                  "🔥🔥 Medio",
-                  "🔥🔥🔥 Heavy",
-                  "🔥🔥🔥🔥 Extremo",
+                  { label: "🧟 UNDERGROUND", value: "underground" },
+                  { label: "🔥 POPULAR", value: "popular" },
                 ],
+                kind: "popularity",
               },
             ].map((f) => (
               <div key={f.label}>
                 <label className="block text-xs text-gray-400 mb-2">
                   {f.label}
                 </label>
-                <select
-                  className="
+
+                {f.kind === "popularity" ? (
+                  <select
+                    className="
+          w-full bg-black/60
+          border border-red-900/50
+          rounded px-3 py-2
+          text-gray-100 text-sm
+          focus:outline-none focus:border-red-600
+        "
+                    value={popularityMode}
+                    onChange={(e) => setPopularityMode(e.target.value as any)}
+                  >
+                    <option value="underground">🧟 UNDERGROUND</option>
+                    <option value="popular">🔥 POPULAR</option>
+                  </select>
+                ) : (
+                  <select
+                    className="
                     w-full bg-black/60
                     border border-red-900/50
                     rounded px-3 py-2
                     text-gray-100 text-sm
                     focus:outline-none focus:border-red-600
                   "
-                  disabled
-                >
-                  {f.options.map((o) => (
+                    disabled
+                  >
+                    {/*f.options.map((o) => (
                     <option key={o}>{o}</option>
-                  ))}
-                </select>
+                  ))*/}
+                  </select>
+                )}
               </div>
             ))}
           </div>
@@ -323,7 +347,8 @@ export default function PromptSection({
         {/* RESPONSE */}
         <div className="mt-8 w-full">
           <RecommendationResponse
-            text={response}
+            recommendations={recs}
+            //text={response}
             onDone={() => setTypingDone(true)}
           />
         </div>

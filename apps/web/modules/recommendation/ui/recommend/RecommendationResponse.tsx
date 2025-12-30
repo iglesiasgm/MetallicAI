@@ -1,47 +1,63 @@
 "use client";
 import { useEffect, useState } from "react";
+import { FaSpotify } from "react-icons/fa";
+
+type BandLinks = { spotify?: string };
+type Band = { id: string; name: string; links?: BandLinks };
+type Recommendation = { band: Band; explanation?: string };
 
 interface Props {
-  text: string;
-  onDone?: () => void; // ✅ nuevo
+  recommendations: Recommendation[];
+  onDone?: () => void;
 }
 
-export function RecommendationResponse({ text, onDone }: Props) {
-  const [visible, setVisible] = useState("");
+export function RecommendationResponse({ recommendations, onDone }: Props) {
+  const [visible, setVisible] = useState<string[]>([]);
 
   useEffect(() => {
-    if (!text) return;
+    if (!recommendations?.length) return;
 
-    setVisible("");
-    let i = 0;
+    const texts = recommendations.map((r) => (r.explanation ?? "").trim());
+    setVisible(texts.map(() => ""));
+
+    let bandIdx = 0;
+    let charIdx = 0;
 
     const interval = setInterval(() => {
-      const ch = text[i];
+      const full = texts[bandIdx] ?? "";
+      const ch = full[charIdx];
+
+      // terminó este item
       if (ch == null) {
-        clearInterval(interval);
-        onDone?.(); // ✅ avisa fin
+        bandIdx++;
+        charIdx = 0;
+
+        // terminó todo
+        if (bandIdx >= texts.length) {
+          clearInterval(interval);
+          onDone?.();
+        }
         return;
       }
 
-      setVisible((prev) => prev + ch);
-      i++;
+      setVisible((prev) => {
+        const next = [...prev];
+        next[bandIdx] = (next[bandIdx] ?? "") + ch;
+        return next;
+      });
 
-      if (i >= text.length) {
-        clearInterval(interval);
-        onDone?.(); // ✅ avisa fin
-      }
-    }, 15);
+      charIdx++;
+    }, 12);
 
     return () => clearInterval(interval);
-  }, [text, onDone]);
+  }, [recommendations, onDone]);
 
-  if (!text) return null;
+  if (!recommendations?.length) return null;
 
   return (
     <section
       className="
-        mt-6
-        w-full
+        mt-6 w-full
         rounded-2xl
         border border-white/10
         bg-neutral-950/60
@@ -54,17 +70,56 @@ export function RecommendationResponse({ text, onDone }: Props) {
         <p className="text-sm font-semibold text-white/90">Respuesta</p>
       </div>
 
-      <div
-        className="
-          px-4 py-4
-          max-h-[45vh]
-          overflow-y-auto
-          whitespace-pre-wrap
-          text-sm leading-6
-          text-white/80
-        "
-      >
-        {visible}
+      <div className="px-4 py-4 max-h-[55vh] overflow-y-auto">
+        <div className="space-y-5">
+          {recommendations.map((r, idx) => (
+            <div
+              key={r.band.id ?? r.band.name ?? idx}
+              className="rounded-xl border border-white/10 bg-black/30 p-4"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <p className="text-sm font-bold text-white/90">
+                  🎸 {r.band.name}
+                </p>
+
+                {r.band.links?.spotify && (
+                  <a
+                    href={r.band.links.spotify}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="
+                      inline-flex items-center gap-2
+                      text-xs font-semibold
+                      text-green-400 hover:text-green-300
+                      transition
+                    "
+                    title="Abrir en Spotify"
+                  >
+                    <FaSpotify className="text-base" />
+                    Spotify
+                  </a>
+                )}
+              </div>
+
+              <p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-white/80">
+                {visible[idx] ?? ""}
+              </p>
+
+              {/* Link debajo de la explicación (por si querés que sea “debajo” sí o sí) */}
+              {r.band.links?.spotify && (
+                <a
+                  href={r.band.links.spotify}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-2 inline-flex items-center gap-2 text-xs text-green-400 hover:text-green-300"
+                >
+                  <FaSpotify />
+                  Escuchar en Spotify
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
