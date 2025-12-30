@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node src/main.ts",
     "build": "tsc",
-    "start": "node dist/main.js"
+    "start": "node dist/main.js",
+    "update-stats": "ts-node src/scripts/update-stats-qdrant.ts"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +27,7 @@
   "dependencies": {
     "@fastify/cors": "^11.2.0",
     "@google/generative-ai": "^0.24.1",
+    "@qdrant/js-client-rest": "^1.16.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",

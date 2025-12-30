@@ -1,4 +1,7 @@
-import { RecommendationRepository } from "../domain/RecommendationRepository";
+import {
+  PopularityMode,
+  RecommendationRepository,
+} from "../domain/RecommendationRepository";
 import { Recommendation } from "../domain/Recommendation";
 import { env } from "@/shared/config/env";
 
@@ -6,6 +9,9 @@ export class RecommendationApiRepository implements RecommendationRepository {
   async getRecommendations(input: {
     favoriteBands: string[];
     targetMood: string;
+    language: "es" | "en" | "de" | "it" | "pt";
+    excludeBandIds?: string[];
+    popularityMode?: PopularityMode;
   }): Promise<Recommendation[]> {
     const response = await fetch(`${env.API_URL}/recommend`, {
       method: "POST",

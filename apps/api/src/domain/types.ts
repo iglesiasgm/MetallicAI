@@ -2,16 +2,33 @@ export interface Band {
   id: string;
   name: string;
   subgenres: string[];
-  moods: string[]; 
+  moods: string[];
   features: string[];
-  description: string; 
+  description: string;
+  members: Member[];
   embedding?: number[]; 
+  links?: BandLinks;
+  popularity?: number;
+  imageUrl?: string;
+}
+export interface Member {
+  name: string;
+  role: string;
+  period?: string;
+}
+
+export interface BandLinks {
+  spotify?: string;
+  youtube?: string;
+  instagram?: string;
 }
 
 export interface UserInput {
   favoriteBands: string[];
   targetMood: string;
   language: LanguageCode;
+  popularityMode?: PopularityMode;
+  excludeBandIds?: string[];
 }
 
 export interface RecommendationResult {
@@ -20,7 +37,7 @@ export interface RecommendationResult {
   explanation?: string;
 }
 
-export type LanguageCode = 'es' | 'en' | 'it' | 'de' | 'pt';
+export type LanguageCode = "es" | "en" | "it" | "de" | "pt";
 
 export const SUPPORTED_LANGUAGES: Record<LanguageCode, string> = {
   es: 'Español (Metalero Latino)',
@@ -29,3 +46,5 @@ export const SUPPORTED_LANGUAGES: Record<LanguageCode, string> = {
   de: 'Deutsch',
   pt: 'Português'
 };
+
+export type PopularityMode = 'popular' | 'underground';
