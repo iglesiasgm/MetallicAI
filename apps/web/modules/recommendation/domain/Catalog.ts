@@ -12,4 +12,9 @@ export type Band = {
   features: string[];
   description: string;
   members: BandMember[];
+  imageUrl?: string;
+  links?: {
+    spotify?: string;
+    youtube?: string;
+  };
 };

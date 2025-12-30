@@ -1,4 +1,7 @@
-import { RecommendationRepository } from "../domain/RecommendationRepository";
+import {
+  PopularityMode,
+  RecommendationRepository,
+} from "../domain/RecommendationRepository";
 import { Lang } from "../ui/LanguageDropdown";
 
 export async function getRecommendations(
@@ -7,7 +10,8 @@ export async function getRecommendations(
     favoriteBands: string[];
     targetMood: string;
     language: Lang;
-    excludeBandIds?: string[]; // ✅ NUEVO
+    excludeBandIds?: string[];
+    popularityMode?: PopularityMode;
   }
 ) {
   return repository.getRecommendations(input);

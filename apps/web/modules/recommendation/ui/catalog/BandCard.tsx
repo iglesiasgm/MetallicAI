@@ -6,7 +6,9 @@ import {
   FaFireAlt,
   FaMoon,
   FaRadiation,
+  FaSpotify,
   FaUsers,
+  FaYoutube,
 } from "react-icons/fa";
 import { Band } from "../../domain/Catalog";
 
@@ -61,13 +63,13 @@ export default function BandCard({
       </div>
 
       <div className="h-48 overflow-hidden mb-4 rounded-lg">
-        <Image
-          src="/placeholder.jpg"
-          alt={`${band.name} placeholder`}
+        <img
+          src={band.imageUrl ?? "/images/placeholder-band.jpg"}
+          alt={band.name}
           width={800}
           height={500}
           className="w-full h-full object-cover"
-          priority={false}
+          //priority={false}
         />
       </div>
 
@@ -109,16 +111,46 @@ export default function BandCard({
         </div>
 
         <div>
-          <span className="text-xs text-gray-400 mb-1 block">MOODS:</span>
-          <div className="flex flex-wrap gap-1">
-            {moods.map((m) => (
-              <span
-                key={`${band.id}-${m}`}
-                className="bg-orange-900/60 text-orange-200 px-2 py-1 rounded text-xs"
-              >
-                {m}
-              </span>
-            ))}
+          <div className="flex items-start gap-3">
+            <span className="text-xs text-gray-400">MOODS:</span>
+
+            <div className="flex flex-wrap gap-1">
+              {(band.moods ?? []).slice(0, 3).map((mood: string) => (
+                <span
+                  key={mood}
+                  className="bg-orange-900 text-orange-200 px-2 py-1 rounded text-xs"
+                >
+                  {mood}
+                </span>
+              ))}
+            </div>
+
+            {/* ICONOS derecha */}
+            <div className="ml-auto flex items-center gap-3">
+              {band.links?.youtube && (
+                <a
+                  href={band.links.youtube}
+                  target="_blank"
+                  rel="noreferrer"
+                  title="Abrir en YouTube"
+                  className="text-red-500 hover:text-red-400 transition"
+                >
+                  <FaYoutube className="text-2xl" />
+                </a>
+              )}
+
+              {band.links?.spotify && (
+                <a
+                  href={band.links.spotify}
+                  target="_blank"
+                  rel="noreferrer"
+                  title="Abrir en Spotify"
+                  className="text-green-500 hover:text-green-400 transition"
+                >
+                  <FaSpotify className="text-2xl" />
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </div>
