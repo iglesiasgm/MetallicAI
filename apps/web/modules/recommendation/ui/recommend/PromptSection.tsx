@@ -84,6 +84,7 @@ export default function PromptSection({
     setLoading(true);
     setTypingDone(false);
     setResponse("");
+    setRecs([]);
 
     try {
       const repo = new RecommendationApiRepository();
@@ -351,32 +352,12 @@ export default function PromptSection({
           <RecommendationResponse
             recommendations={recs}
             onDone={() => setTypingDone(true)}
+            isTypingFinished={typingDone} // ✅ Pasamos el estado de escritura
+            onRetry={handleReroll}
           />
         </div>
 
-        {/* RE-ROLL BUTTON */}
-        {response && typingDone && (
-          <motion.button
-            type="button"
-            onClick={handleReroll}
-            disabled={loading}
-            whileHover={{ scale: 1.01 }}
-            whileTap={{ scale: 0.99 }}
-            className="
-              mt-4 w-full
-              bg-gradient-to-r from-red-600 to-red-800
-              hover:from-red-700 hover:to-red-900
-              text-white font-bold
-              py-4 rounded
-              transition-all
-              shadow-[0_0_30px_rgba(220,38,38,0.8),0_0_60px_rgba(220,38,38,0.4)]
-              flex items-center justify-center gap-3 text-lg
-              disabled:opacity-60 disabled:cursor-not-allowed
-            "
-          >
-            Generar otras bandas
-          </motion.button>
-        )}
+        
       </div>
     </main>
   );
