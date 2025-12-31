@@ -22,7 +22,7 @@ export default function RecommendOrchestrator({
       <div className="relative z-10">
         <RecommendHeader />
         <PromptSection horrorFont={horrorFont} metalFont={metalFont} />
-        <RecommendFooter />
+        {/*<RecommendFooter />*/}
       </div>
     </main>
   );
