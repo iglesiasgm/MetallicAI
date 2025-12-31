@@ -29,6 +29,7 @@ export interface UserInput {
   language: LanguageCode;
   popularityMode?: PopularityMode;
   excludeBandIds?: string[];
+  subgenrePreferences?: string[];
 }
 
 export interface RecommendationResult {

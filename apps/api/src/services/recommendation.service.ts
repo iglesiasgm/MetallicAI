@@ -1,9 +1,4 @@
-import {
-  Band,
-  UserInput,
-  RecommendationResult,
-  LanguageCode,
-} from "../domain/types";
+import { Band, UserInput, RecommendationResult, LanguageCode } from "../domain/types";
 import { GeminiService } from "./gemini.service";
 import { jaccardSimilarity } from "../utils/math";
 import { QdrantClient } from "@qdrant/js-client-rest";
@@ -15,14 +10,11 @@ const OFFLINE_MESSAGES: Record<LanguageCode, string> = {
   en: "Mathematical recommendation based on style matching (Offline Mode).",
   it: "Raccomandazione basata sulla corrispondenza di stile (Modalità Offline).",
   de: "Mathematische Empfehlung basierend auf Stilübereinstimmung (Offline-Modus).",
-  pt: "Recomendação matemática baseada em correspondência de estilo (Modo Offline).",
+  pt: "Recomendação matemática baseada em correspondência de estilo (Modo Offline)."
 };
 
 function stripCodeFences(s: string) {
-  return s
-    .replace(/```json/gi, "```")
-    .replace(/```/g, "")
-    .trim();
+  return s.replace(/```json/gi, "```").replace(/```/g, "").trim();
 }
 
 function extractJsonArray(s: string) {
@@ -67,54 +59,88 @@ export class RecommendationService {
       console.log("Trying AI-based recommendation strategy");
       return await this.runAiStrategy(input);
     } catch (error) {
-      console.error(
-        "AI recommendation failed, trying Jaccard fallback strategy",
-        error
-      );
+      console.error("AI recommendation failed, trying Jaccard fallback strategy", error);
       return this.runJaccardStrategy(input);
     }
   }
 
-  private async runAiStrategy(input: UserInput): Promise<RecommendationResult[]> {
-    const embeddingText = input.targetMood;
-
-    const userVector = await this.aiService.getEmbedding(embeddingText);
-
-    const excludeIds = (input.excludeBandIds ?? []).map((x) => String(x));
-
-    const searchResult = await this.qdrant.search("bands", {
-      vector: userVector,
-      limit: 15,
-      with_payload: true,
-      filter: {
-        must_not: [
-          { key: "name", match: { any: input.favoriteBands } },
-          ...(excludeIds.length
-            ? [{ key: "id", match: { any: excludeIds } }]
-            : []),
-        ],
-      },
-    });
-
-    if (searchResult.length === 0) return [];
-
-    const mode = input.popularityMode || 'popular';
-
-    const sortedCandidates = searchResult.sort((a, b) => {
-      const popA = (a.payload?.popularity as number) || 0;
-      const popB = (b.payload?.popularity as number) || 0;
+  private sortCandidates(candidates: any[], mode: 'popular' | 'underground') {
+    return candidates.sort((a, b) => {
+      const popA = (a.payload?.popularity ?? a.band?.popularity) || 0;
+      const popB = (b.payload?.popularity ?? b.band?.popularity) || 0;
 
       if (mode === 'underground') {
         return popA - popB;
       }
       return popB - popA;
     });
+  }
 
-    const topPicksRaw = sortedCandidates.slice(0, 3);
+  private async runAiStrategy(input: UserInput): Promise<RecommendationResult[]> {
+    const embeddingText = input.targetMood;
+    const userVector = await this.aiService.getEmbedding(embeddingText);
+    const mode = input.popularityMode || 'popular';
 
-    const topPicks = topPicksRaw.map((hit) => ({
+    const baseMustNot = [{ key: "name", match: { any: input.favoriteBands } }];
+
+    let finalCandidates: any[] = [];
+
+    if (input.subgenrePreferences && input.subgenrePreferences.length > 0) {
+        
+        const strictFilter = {
+            must_not: baseMustNot,
+            must: [{ key: "subgenres", match: { any: input.subgenrePreferences } }]
+        };
+
+        const strictResult = await this.qdrant.search('bands', {
+            vector: userVector,
+            limit: 10,
+            with_payload: true,
+            filter: strictFilter
+        });
+
+        const sortedStrict = this.sortCandidates(strictResult, mode);
+
+        if (sortedStrict.length < 3) {
+            const broadFilter = { must_not: baseMustNot };
+            
+            const broadResult = await this.qdrant.search('bands', {
+                vector: userVector,
+                limit: 10, 
+                with_payload: true,
+                filter: broadFilter
+            });
+
+            const sortedBroad = this.sortCandidates(broadResult, mode);
+
+            finalCandidates = [...sortedStrict];
+            const existingNames = new Set(finalCandidates.map(c => c.payload.name));
+
+            for (const cand of sortedBroad) {
+                if (finalCandidates.length >= 3) break; // Ya tenemos 3
+                if (!existingNames.has(cand.payload.name)) {
+                    finalCandidates.push(cand);
+                }
+            }
+        } else {
+            finalCandidates = sortedStrict.slice(0, 3);
+        }
+
+    } else {
+        const result = await this.qdrant.search('bands', {
+            vector: userVector,
+            limit: 15,
+            with_payload: true,
+            filter: { must_not: baseMustNot }
+        });
+        finalCandidates = this.sortCandidates(result, mode).slice(0, 3);
+    }
+    
+    if (finalCandidates.length === 0) return [];
+
+    const topPicks = finalCandidates.map(hit => ({
       band: hit.payload as unknown as Band,
-      score: hit.score,
+      score: hit.score
     }));
 
     const bandsForPrompt = topPicks.map(({ band }) => {
@@ -133,20 +159,24 @@ export class RecommendationService {
       en: "ENGLISH, use metalhead slang (riffs, shredding, brutal).",
       it: "ITALIANO, usa slang metal (pesante, oscuro).",
       de: "DEUTSCH, use metal slang.",
-      pt: "PORTUGUÊS, use gírias de metal.",
+      pt: "PORTUGUÊS, use gírias de metal."
     };
 
     const langInstruction = languageInstructionMap[input.language];
+    const subgenresText = input.subgenrePreferences?.length 
+        ? input.subgenrePreferences.join(", ") 
+        : "Cualquiera";
 
     const megaPrompt = `
 Eres "EL METALERO TRUE", un veterano dueño de una disquera.
-
 IDIOMA OBLIGATORIO: ${langInstruction}
 
 CONTEXTO DEL USUARIO:
+
 - Mood deseado: ${input.targetMood}
 - Preferencia de Escena: ${mode.toUpperCase()} (Quiere bandas ${mode === 'underground' ? 'desconocidas/culto' : 'famosas/clásicos'}).
 - Favoritos: ${input.favoriteBands.join(", ")}
+- Subgéneros preferidos: ${subgenresText}
 
 TU MISIÓN:
 Explicar estas 3 recomendaciones. Debes cruzar la preferencia del usuario con el 'popularityScore' real de la banda.
@@ -165,6 +195,7 @@ MANDAMIENTOS ABSOLUTOS:
 5. RESPETO: NO OFENDAS al usuario ni a sus gustos. Si el usuario busca voz femenina, no digas "DEJATE DE JODER". Tene en que el usuario es metalero y busca música, es el usuario del sistema y hay que respetarlo.
 
 RESTRICCIONES:
+
 - Máximo 2 oraciones por banda.
 - Máximo 220 caracteres.
 - NO repitas el nombre de la banda.
@@ -176,11 +207,8 @@ BANDAS A EXPLICAR:
 ${JSON.stringify(bandsForPrompt)}
     `.trim();
 
-    //dale alejo no seas puto como que hay que respetar al usuario del sistema
-
     const raw = await this.aiService.generateExplanation(megaPrompt);
     const parsed = safeParseExplanationArray(raw);
-
     const explanationById = new Map<string, string>();
     if (parsed) {
       for (const it of parsed) explanationById.set(it.id, it.explanation);
@@ -189,19 +217,16 @@ ${JSON.stringify(bandsForPrompt)}
     return topPicks.map(({ band, score }) => {
       const { embedding, ...bandData } = band as any;
       const id = String((band as any).id ?? band.name);
-
+      
       const fallbackMap: Record<LanguageCode, string> = {
-        es: "Riffs brutales para tu mood. Dale play.",
-        en: "Brutal riffs for your mood. Just play it.",
-        it: "Riffs brutali per il tuo umore. Ascolta.",
-        de: "Brutale Riffs für deine Stimmung.",
-        pt: "Riffs brutais para o seu humor.",
+        es: "Riffs brutales para tu mood.",
+        en: "Brutal riffs for your mood.",
+        it: "Riffs brutali.",
+        de: "Brutale Riffs.",
+        pt: "Riffs brutais."
       };
-
-      const explanation =
-        explanationById.get(id) ??
-        fallbackMap[input.language] ??
-        fallbackMap["es"];
+      
+      const explanation = explanationById.get(id) ?? fallbackMap[input.language] ?? fallbackMap['es'];
 
       return {
         band: {
@@ -215,77 +240,72 @@ ${JSON.stringify(bandsForPrompt)}
     });
   }
 
-  private async runJaccardStrategy(
-    input: UserInput
-  ): Promise<RecommendationResult[]> {
-    const keywords = input.targetMood
-      .split(" ")
-      .filter((w) => w.length > 3)
-      .map((w) => w.toLowerCase());
+  private async runJaccardStrategy(input: UserInput): Promise<RecommendationResult[]> {
+    const keywords = input.targetMood.split(" ")
+      .filter(w => w.length > 3)
+      .map(w => w.toLowerCase());
 
-    const shouldConditions = keywords.flatMap((k) => [
-      { key: "subgenres", match: { text: k } },
-      { key: "moods", match: { text: k } },
+    const shouldConditions = keywords.flatMap(k => [
+        { key: "subgenres", match: { text: k } },
+        { key: "moods", match: { text: k } }
     ]);
 
     if (shouldConditions.length === 0) return [];
 
-    const excludeIds = (input.excludeBandIds ?? []).map((x) => String(x));
-
-    const response = await this.qdrant.scroll("bands", {
-      limit: 50,
-      with_vector: false,
-      with_payload: true,
-      filter: {
-        should: shouldConditions,
-        must_not: [
-          { key: "name", match: { any: input.favoriteBands } },
-          ...(excludeIds.length
-            ? [{ key: "id", match: { any: excludeIds } }]
-            : []),
-        ],
-      },
-    });
-
-    const scoredCandidates = response.points.map((record) => {
-      const bandData = record.payload as unknown as Band;
-
-      const bandTags = [
-        ...(bandData.subgenres || []),
-        ...(bandData.moods || []),
-        ...(bandData.features || []),
-      ];
-
-      const score = jaccardSimilarity(keywords, bandTags);
-
-      return {
-        band: bandData,
-        score: score,
-      };
-    });
-
+    const baseMustNot = [{ key: "name", match: { any: input.favoriteBands } }];
     const mode = input.popularityMode || 'popular';
+    let finalCandidates: any[] = [];
 
-    // 1. Filtramos las más relevantes por coincidencia de texto (Mood)
-    const topRelevant = scoredCandidates
-      .sort((a, b) => b.score - a.score)
-      .slice(0, 15);
+    const processJaccard = (points: any[]) => {
+        return points.map(record => {
+            const bandData = record.payload as unknown as Band;
+            const bandTags = [...(bandData.subgenres || []), ...(bandData.moods || []), ...(bandData.features || [])];
+            return { band: bandData, score: jaccardSimilarity(keywords, bandTags) };
+        }).sort((a, b) => b.score - a.score);
+    };
 
-    // 2. Re-ordenamos esas relevantes según la preferencia de popularidad
-    const topPicks = topRelevant.sort((a, b) => {
-        const popA = (a.band as any).popularity || 0;
-        const popB = (b.band as any).popularity || 0;
+    if (input.subgenrePreferences && input.subgenrePreferences.length > 0) {
+        const strictFilter = {
+            should: shouldConditions,
+            must_not: baseMustNot,
+            must: [{ key: "subgenres", match: { any: input.subgenrePreferences } }]
+        };
+        
+        const strictResponse = await this.qdrant.scroll('bands', { limit: 50, with_payload: true, filter: strictFilter });
+        const strictScored = processJaccard(strictResponse.points);
+        const strictSorted = this.sortCandidates(strictScored.slice(0, 15), mode);
 
-        if (mode === 'underground') {
-            return popA - popB;
+        if (strictSorted.length < 3) {
+             const broadFilter = {
+                should: shouldConditions,
+                must_not: baseMustNot
+            };
+            const broadResponse = await this.qdrant.scroll('bands', { limit: 50, with_payload: true, filter: broadFilter });
+            const broadScored = processJaccard(broadResponse.points);
+            const broadSorted = this.sortCandidates(broadScored.slice(0, 15), mode);
+
+            finalCandidates = [...strictSorted];
+            const existingNames = new Set(finalCandidates.map(c => c.band.name));
+            
+            for (const item of broadSorted) {
+                if (finalCandidates.length >= 3) break;
+                if (!existingNames.has(item.band.name)) {
+                    finalCandidates.push(item);
+                }
+            }
+        } else {
+            finalCandidates = strictSorted.slice(0, 3);
         }
-        return popB - popA;
-    }).slice(0, 3);
+    } else {
+        const filter = { should: shouldConditions, must_not: baseMustNot };
+        const response = await this.qdrant.scroll('bands', { limit: 50, with_payload: true, filter });
+        const scored = processJaccard(response.points);
+        finalCandidates = this.sortCandidates(scored.slice(0, 15), mode).slice(0, 3);
+    }
 
-    const staticExplanation =
-      OFFLINE_MESSAGES[input.language] ?? OFFLINE_MESSAGES["es"];
+    const staticExplanation = OFFLINE_MESSAGES[input.language] ?? OFFLINE_MESSAGES['es'];
 
-    return topPicks.map((item) => {
+    return finalCandidates.map(item => {
       const { embedding, ...bandData } = item.band as any;
       return {
         band: {
@@ -294,9 +314,7 @@ ${JSON.stringify(bandsForPrompt)}
             popularity: bandData.popularity || 0
         },
         score: item.score,
-        explanation: `${staticExplanation} (${item.band.subgenres
-          .slice(0, 2)
-          .join(", ")}).`,
+        explanation: `${staticExplanation} (${item.band.subgenres.slice(0, 2).join(", ")}).`,
       };
     });
   }
