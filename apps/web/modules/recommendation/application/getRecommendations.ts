@@ -12,6 +12,7 @@ export async function getRecommendations(
     language: Lang;
     excludeBandIds?: string[];
     popularityMode?: PopularityMode;
+    subgenrePreferences?: string[];
   }
 ) {
   return repository.getRecommendations(input);

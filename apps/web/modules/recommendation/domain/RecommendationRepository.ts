@@ -1,8 +1,6 @@
 import { Recommendation } from "./Recommendation";
 import { Lang } from "../ui/LanguageDropdown";
 
-//(Quiere bandas ${mode === 'underground' ? 'desconocidas/culto' : 'famosas/clásicos'}).
-
 export type PopularityMode = "popular" | "underground";
 
 export interface RecommendationRepository {
@@ -10,7 +8,8 @@ export interface RecommendationRepository {
     favoriteBands: string[];
     targetMood: string;
     language: Lang;
-    popularityMode?: PopularityMode; // ✅ NUEVO
-    excludeBandIds?: string[]; // ✅ NUEVO
+    popularityMode?: PopularityMode;
+    excludeBandIds?: string[];
+    subgenrePreferences?: string[]; 
   }): Promise<Recommendation[]>;
 }

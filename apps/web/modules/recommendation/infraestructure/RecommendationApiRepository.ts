@@ -12,6 +12,7 @@ export class RecommendationApiRepository implements RecommendationRepository {
     language: "es" | "en" | "de" | "it" | "pt";
     excludeBandIds?: string[];
     popularityMode?: PopularityMode;
+    subgenrePreferences?: string[]; // ✅ AGREGADO AQUI TAMBIÉN
   }): Promise<Recommendation[]> {
     const response = await fetch(`${env.API_URL}/recommend`, {
       method: "POST",

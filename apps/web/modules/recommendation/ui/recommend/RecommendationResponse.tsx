@@ -1,6 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
-import { FaSpotify } from "react-icons/fa";
+import { useEffect, useState, useRef } from "react";
+import { FaSpotify, FaSyncAlt } from "react-icons/fa";
 
 type BandLinks = { spotify?: string };
 type Band = { id: string; name: string; links?: BandLinks };
@@ -9,15 +9,35 @@ type Recommendation = { band: Band; explanation?: string };
 interface Props {
   recommendations: Recommendation[];
   onDone?: () => void;
+  onRetry?: () => void;
+  isTypingFinished?: boolean;
 }
 
-export function RecommendationResponse({ recommendations, onDone }: Props) {
+export function RecommendationResponse({ 
+  recommendations, 
+  onDone, 
+  onRetry, 
+  isTypingFinished = false 
+}: Props) {
   const [visible, setVisible] = useState<string[]>([]);
+  
+  // ✅ TRUCO DE EXPERTO:
+  // Guardamos onDone en una referencia para poder llamarlo
+  // sin que obligue al useEffect a reiniciarse cuando el padre se actualiza.
+  const onDoneRef = useRef(onDone);
+
+  // Mantenemos la referencia actualizada siempre
+  useEffect(() => {
+    onDoneRef.current = onDone;
+  }, [onDone]);
 
   useEffect(() => {
     if (!recommendations?.length) return;
 
+    // Preparamos los textos finales
     const texts = recommendations.map((r) => (r.explanation ?? "").trim());
+    
+    // Inicializamos vacíos
     setVisible(texts.map(() => ""));
 
     let bandIdx = 0;
@@ -27,30 +47,37 @@ export function RecommendationResponse({ recommendations, onDone }: Props) {
       const full = texts[bandIdx] ?? "";
       const ch = full[charIdx];
 
-      // terminó este item
+      // Terminó este item (banda actual)
       if (ch == null) {
         bandIdx++;
         charIdx = 0;
 
-        // terminó todo
+        // Terminaron TODAS las bandas
         if (bandIdx >= texts.length) {
           clearInterval(interval);
-          onDone?.();
+          // ✅ Llamamos a la referencia, NO a la prop directa
+          onDoneRef.current?.();
         }
         return;
       }
 
+      // Agregamos un caracter
       setVisible((prev) => {
         const next = [...prev];
+        // Protección extra por si el array cambia muy rápido
+        if (!next[bandIdx] && charIdx === 0) next[bandIdx] = "";
         next[bandIdx] = (next[bandIdx] ?? "") + ch;
         return next;
       });
 
       charIdx++;
-    }, 12);
+    }, 12); // Velocidad de escritura
 
     return () => clearInterval(interval);
-  }, [recommendations, onDone]);
+    
+    // ✅ CLAVE: Quitamos 'onDone' de las dependencias.
+    // Solo se reinicia si CAMBIAN las recomendaciones.
+  }, [recommendations]); 
 
   if (!recommendations?.length) return null;
 
@@ -68,9 +95,36 @@ export function RecommendationResponse({ recommendations, onDone }: Props) {
     >
       <div className="px-4 py-3 border-b border-white/10 flex items-center justify-between">
         <p className="text-sm font-semibold text-white/90">Respuesta</p>
+
+        {/* Botón de Reroll (Refresh) */}
+        <button
+          onClick={onRetry}
+          disabled={!isTypingFinished}
+          title="Generar otras bandas similares"
+          className={`
+            p-2 rounded-full 
+            border border-white/10
+            bg-white/5 
+            transition-all duration-300
+            flex items-center justify-center
+            group
+            ${!isTypingFinished 
+              ? "opacity-30 cursor-not-allowed" 
+              : "opacity-100 hover:bg-red-600 hover:border-red-500 cursor-pointer shadow-[0_0_10px_rgba(220,38,38,0.4)]"
+            }
+          `}
+        >
+          <FaSyncAlt 
+            className={`
+              text-xs text-white 
+              transition-transform duration-500
+              ${isTypingFinished ? "group-hover:rotate-180" : ""}
+            `} 
+          />
+        </button>
       </div>
 
-      <div className="px-4 py-4 max-h-[55vh] overflow-y-auto">
+      <div className="px-4 py-4 max-h-[55vh] overflow-y-auto custom-scrollbar">
         <div className="space-y-5">
           {recommendations.map((r, idx) => (
             <div
@@ -102,21 +156,9 @@ export function RecommendationResponse({ recommendations, onDone }: Props) {
               </div>
 
               <p className="mt-2 whitespace-pre-wrap text-sm leading-6 text-white/80">
+                {/* Mostramos lo que se ha escrito hasta ahora */}
                 {visible[idx] ?? ""}
               </p>
-
-              {/* Link debajo de la explicación (por si querés que sea “debajo” sí o sí) */}
-              {r.band.links?.spotify && (
-                <a
-                  href={r.band.links.spotify}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-2 inline-flex items-center gap-2 text-xs text-green-400 hover:text-green-300"
-                >
-                  <FaSpotify />
-                  Escuchar en Spotify
-                </a>
-              )}
             </div>
           ))}
         </div>

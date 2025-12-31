@@ -3,14 +3,15 @@
 import { motion } from "framer-motion";
 import { useMemo, useState } from "react";
 
-import { FaBolt, FaFire, FaGuitar, FaHeart, FaUsers } from "react-icons/fa";
+import { FaBolt, FaGuitar, FaHeart } from "react-icons/fa";
 import { Lang, LanguageDropdown } from "../LanguageDropdown";
 import { RecommendationApiRepository } from "../../infraestructure/RecommendationApiRepository";
 import { getRecommendations } from "../../application/getRecommendations";
 import { BandTagsChips, BandTagsField } from "../BandTagsInput";
 import { MoodInput } from "../MoodInput";
-import { FaWandMagicSparkles } from "react-icons/fa6";
 import { RecommendationResponse } from "./RecommendationResponse";
+
+// --- Constantes y Helpers ---
 
 const PLACEHOLDERS: Record<Lang, { bands: string; mood: string }> = {
   es: {
@@ -41,6 +42,18 @@ function uniqMerge(prev: string[], next: string[]) {
   return Array.from(set);
 }
 
+// Clase compartida para que todos los selects sean IDÉNTICOS
+const selectClasses = `
+  w-full bg-black/60
+  border border-red-900/50
+  rounded px-3 py-2
+  text-gray-100 text-sm
+  focus:outline-none focus:border-red-600
+  disabled:opacity-50 disabled:cursor-not-allowed
+`;
+
+// --- Componente Principal ---
+
 export default function PromptSection({
   horrorFont,
   metalFont,
@@ -48,33 +61,36 @@ export default function PromptSection({
   horrorFont: string;
   metalFont: string;
 }) {
+  // Estados principales
   const [bands, setBands] = useState<string[]>([]);
   const [mood, setMood] = useState("");
   const [lang, setLang] = useState<Lang>("es");
-  const [popularityMode, setPopularityMode] = useState<
-    "popular" | "underground"
-  >("underground");
+  
+  // Estados de filtros
+  const [popularityMode, setPopularityMode] = useState<"popular" | "underground">("underground");
+  const [subgenre, setSubgenre] = useState("Todos los Subgéneros"); // ✅ Estado para el subgénero
 
+  // Estados de UI/Respuesta
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
-
-  // ✅ NUEVO: ids ya mostrados alguna vez (NO repetir nunca)
   const [seenBandIds, setSeenBandIds] = useState<string[]>([]);
-
-  // ✅ NUEVO: para mostrar el botón solo al terminar el typewriter
   const [typingDone, setTypingDone] = useState(false);
-
   const [recs, setRecs] = useState<any[]>([]);
 
   const ph = PLACEHOLDERS[lang];
 
+  // Lógica de recomendación
   async function handleRecommend(opts?: { exclude?: string[] }) {
     setLoading(true);
     setTypingDone(false);
     setResponse("");
+    setRecs([]);
 
     try {
       const repo = new RecommendationApiRepository();
+
+      // ✅ Lógica: Si es "Todos...", enviamos array vacío. Si no, enviamos el seleccionado.
+      const subgenresToSend = subgenre === "Todos los Subgéneros" ? [] : [subgenre];
 
       const recommendations = await getRecommendations(repo, {
         favoriteBands: bands,
@@ -82,15 +98,16 @@ export default function PromptSection({
         language: lang,
         popularityMode,
         excludeBandIds: opts?.exclude,
+        subgenrePreferences: subgenresToSend, // ✅ Se envía al backend
       });
 
-      // ✅ Guardamos ids de esta tanda para nunca repetir
       const newIds = recommendations
         .map((r: any) => String(r?.band?.id ?? ""))
         .filter(Boolean);
 
       setSeenBandIds((prev) => uniqMerge(prev, newIds));
 
+      // Generamos texto plano por si se usa, aunque el componente usa 'recs'
       const text = recommendations
         .map((r: any) => {
           const name = typeof r.band === "string" ? r.band : r.band?.name ?? "";
@@ -99,7 +116,6 @@ export default function PromptSection({
         .join("\n");
 
       setRecs(recommendations);
-
       setResponse(text);
     } finally {
       setLoading(false);
@@ -107,7 +123,6 @@ export default function PromptSection({
   }
 
   function handleReroll() {
-    // ✅ excluye TODAS las bandas vistas en cualquier momento
     return handleRecommend({ exclude: seenBandIds });
   }
 
@@ -156,26 +171,6 @@ export default function PromptSection({
             shadow-[0_0_15px_rgba(220,38,38,0.5),inset_0_0_15px_rgba(0,0,0,0.5)]
           "
         >
-          {/* stats bar (mock) */}
-          <div className="flex items-center justify-between mb-6 pb-4 border-b border-red-900/30">
-            <div className="flex items-center gap-6">
-              <div className="flex items-center gap-2">
-                <FaFire className="text-red-600" />
-                <span className="text-sm text-gray-400">
-                  1.2M Recomendaciones
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <FaUsers className="text-red-600" />
-                <span className="text-sm text-gray-400">850K Metaleros</span>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-red-600 rounded-full animate-pulse" />
-              <span className="text-sm text-gray-400">IA Online</span>
-            </div>
-          </div>
-
           {/* favorite bands */}
           <div className="mb-6">
             <label className="block text-sm font-bold text-red-600 mb-3 flex items-center gap-2">
@@ -217,11 +212,12 @@ export default function PromptSection({
             <MoodInput value={mood} onChange={setMood} placeholder={ph.mood} />
           </div>
 
-          {/* advanced filters (MOCK) */}
+          {/* advanced filters */}
           <div className="mb-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
               {
                 label: "SUBGÉNEROS",
+                kind: "subgenre",
                 options: [
                   "Todos los Subgéneros",
                   "Thrash",
@@ -230,10 +226,17 @@ export default function PromptSection({
                   "Power",
                   "Doom",
                   "Progressive",
+                  "Nu",
+                  "Heavy",
+                  "Groove",
+                  "Sludge",
+                  "Grindcore",
+                  "Metalcore"
                 ],
               },
               {
                 label: "ERA",
+                kind: "era",
                 options: [
                   "Cualquier Era",
                   "70s",
@@ -245,11 +248,11 @@ export default function PromptSection({
               },
               {
                 label: "POPULARIDAD",
-                options: [
-                  { label: "🧟 UNDERGROUND", value: "underground" },
-                  { label: "🔥 POPULAR", value: "popular" },
-                ],
                 kind: "popularity",
+                options: [
+                  { label: "UNDERGROUND", value: "underground" },
+                  { label: "POPULAR", value: "popular" },
+                ],
               },
             ].map((f) => (
               <div key={f.label}>
@@ -257,35 +260,37 @@ export default function PromptSection({
                   {f.label}
                 </label>
 
+                {/* Renderizado Condicional del Select */}
                 {f.kind === "popularity" ? (
                   <select
-                    className="
-          w-full bg-black/60
-          border border-red-900/50
-          rounded px-3 py-2
-          text-gray-100 text-sm
-          focus:outline-none focus:border-red-600
-        "
+                    className={selectClasses}
                     value={popularityMode}
                     onChange={(e) => setPopularityMode(e.target.value as any)}
                   >
-                    <option value="underground">🧟 UNDERGROUND</option>
-                    <option value="popular">🔥 POPULAR</option>
+                    {f.options.map((opt: any) => (
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
+                ) : f.kind === "subgenre" ? (
+                  <select
+                    className={selectClasses}
+                    value={subgenre}
+                    onChange={(e) => setSubgenre(e.target.value)}
+                  >
+                    {f.options.map((opt: any) => (
+                      <option key={opt} value={opt}>
+                        {opt}
+                      </option>
+                    ))}
                   </select>
                 ) : (
-                  <select
-                    className="
-                    w-full bg-black/60
-                    border border-red-900/50
-                    rounded px-3 py-2
-                    text-gray-100 text-sm
-                    focus:outline-none focus:border-red-600
-                  "
-                    disabled
-                  >
-                    {/*f.options.map((o) => (
-                    <option key={o}>{o}</option>
-                  ))*/}
+                  // Select Deshabilitado (ERA)
+                  <select className={selectClasses} disabled>
+                    {f.options.map((opt: any) => (
+                      <option key={opt}>{opt}</option>
+                    ))}
                   </select>
                 )}
               </div>
@@ -311,9 +316,7 @@ export default function PromptSection({
               disabled:opacity-60 disabled:cursor-not-allowed
             "
           >
-            <FaWandMagicSparkles />
-            {loading ? "DESATANDO..." : "DESATA A LA BESTIA"}
-            <FaWandMagicSparkles />
+            {loading ? "RECOMENDANDO..." : "RECOMENDAR"}
           </motion.button>
 
           {/* quick moods */}
@@ -348,51 +351,13 @@ export default function PromptSection({
         <div className="mt-8 w-full">
           <RecommendationResponse
             recommendations={recs}
-            //text={response}
             onDone={() => setTypingDone(true)}
+            isTypingFinished={typingDone} // ✅ Pasamos el estado de escritura
+            onRetry={handleReroll}
           />
         </div>
 
-        {/* ✅ BOTÓN NUEVO: aparece SOLO cuando terminó de tipear */}
-        {response && typingDone && (
-          <motion.button
-            type="button"
-            onClick={handleReroll}
-            disabled={loading}
-            whileHover={{ scale: 1.01 }}
-            whileTap={{ scale: 0.99 }}
-            className="
-              mt-4 w-full
-              bg-gradient-to-r from-red-600 to-red-800
-              hover:from-red-700 hover:to-red-900
-              text-white font-bold
-              py-4 rounded
-              transition-all
-              shadow-[0_0_30px_rgba(220,38,38,0.8),0_0_60px_rgba(220,38,38,0.4)]
-              flex items-center justify-center gap-3 text-lg
-              disabled:opacity-60 disabled:cursor-not-allowed
-            "
-          >
-            Generar otras bandas
-          </motion.button>
-        )}
-
-        {/* community stats (MOCK) */}
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {[
-            { title: "1.2M", label: "Recomendaciones" },
-            { title: "850K", label: "Usuarios Activos" },
-            { title: "4.9/5", label: "Calificación de Usuarios" },
-          ].map((c) => (
-            <div
-              key={c.label}
-              className="bg-black/30 border border-red-900/30 rounded-lg p-4 text-center backdrop-blur-sm"
-            >
-              <div className="text-2xl font-bold text-white">{c.title}</div>
-              <div className="text-xs text-gray-400">{c.label}</div>
-            </div>
-          ))}
-        </div>
+        
       </div>
     </main>
   );
