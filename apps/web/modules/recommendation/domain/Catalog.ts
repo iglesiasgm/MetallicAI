@@ -18,3 +18,13 @@ export type Band = {
     youtube?: string;
   };
 };
+
+export type CreateBandDraft = {
+  name: string;
+  subgenres: string[];
+  moods: string[];
+  features: string[];
+  description: string;
+  members: BandMember[];
+  spotify: string;
+};
