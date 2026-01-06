@@ -7,10 +7,11 @@ export interface Band {
   description: string;
   members: Member[];
   embedding?: number[]; 
-  links?: BandLinks;
+  links?: BandLinks[];
   popularity?: number;
   imageUrl?: string;
 }
+
 export interface Member {
   name: string;
   role: string;
@@ -49,3 +50,13 @@ export const SUPPORTED_LANGUAGES: Record<LanguageCode, string> = {
 };
 
 export type PopularityMode = 'popular' | 'underground';
+
+export interface CreateBandInput {
+  name: string;
+  subgenres: string[];
+  moods: string[];
+  features: string[];
+  members: Member[];
+  description: string;
+  links: BandLinks[];
+}
