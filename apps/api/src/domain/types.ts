@@ -7,10 +7,11 @@ export interface Band {
   description: string;
   members: Member[];
   embedding?: number[]; 
-  links?: BandLinks;
+  links?: BandLinks[];
   popularity?: number;
   imageUrl?: string;
 }
+
 export interface Member {
   name: string;
   role: string;
