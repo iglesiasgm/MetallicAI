@@ -49,3 +49,13 @@ export const SUPPORTED_LANGUAGES: Record<LanguageCode, string> = {
 };
 
 export type PopularityMode = 'popular' | 'underground';
+
+export interface CreateBandInput {
+  name: string;
+  subgenres: string[];
+  moods: string[];
+  features: string[];
+  members: Member[];
+  description: string;
+  links: BandLinks[];
+}
