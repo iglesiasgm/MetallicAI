@@ -20,8 +20,17 @@ export class BandApiRepository implements BandRepository {
     });
 
     if (!res.ok) throw new Error(`Error GET /bands (${res.status})`);
-
-    // tu backend devuelve array directo
     return (await res.json()) as Band[];
+  }
+
+  async getBandById(id: string): Promise<Band> {
+    const res = await fetch(`${env.API_URL}/bands/${encodeURIComponent(id)}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      cache: "no-store",
+    });
+
+    if (!res.ok) throw new Error(`Error GET /bands/${id} (${res.status})`);
+    return (await res.json()) as Band;
   }
 }

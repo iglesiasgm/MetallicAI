@@ -6,4 +6,5 @@ export interface BandRepository {
     limit?: number;
     search?: string;
   }): Promise<Band[]>;
+  getBandById(id: string): Promise<Band>;
 }

@@ -4,6 +4,12 @@ export type BandMember = {
   period: string;
 };
 
+export type BandLink = {
+  spotify?: string;
+  youtube?: string;
+  instagram?: string;
+};
+
 export type Band = {
   id: string | number;
   name: string;
@@ -13,10 +19,8 @@ export type Band = {
   description: string;
   members: BandMember[];
   imageUrl?: string;
-  links?: {
-    spotify?: string;
-    youtube?: string;
-  };
+  popularity?: number;
+  links?: BandLink[]; // ✅ ahora coincide con backend
 };
 
 export type CreateBandDraft = {
