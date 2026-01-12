@@ -3,6 +3,7 @@ import Image from "next/image";
 import {
   FaBolt,
   FaCrown,
+  FaEye,
   FaFireAlt,
   FaMoon,
   FaRadiation,
@@ -30,13 +31,23 @@ function pickIcon(band: Band) {
 export default function BandCard({
   band,
   metalFont,
+  onDetails,
 }: {
   band: Band;
   metalFont: string;
+  onDetails: (id: string) => void;
 }) {
   const topMembers = (band.members ?? []).slice(0, 4);
   const genre = band.subgenres?.[0] ?? "Metal";
   const moods = (band.moods ?? []).slice(0, 3);
+  const linksArr = Array.isArray(band.links)
+    ? band.links
+    : band.links
+    ? [band.links]
+    : [];
+
+  const spotify = linksArr.find((l) => l?.spotify?.trim())?.spotify;
+  const youtube = linksArr.find((l) => l?.youtube?.trim())?.youtube;
 
   return (
     <div
@@ -50,16 +61,50 @@ export default function BandCard({
         hover:shadow-[0_20px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(220,38,38,0.35)]
       "
     >
-      <div className="flex items-center justify-between mb-4">
-        <h3
-          className={[
-            "text-2xl font-bold text-red-400 uppercase",
-            metalFont,
-          ].join(" ")}
-        >
-          {band.name}
-        </h3>
-        {pickIcon(band)}
+      <div className="flex items-start justify-between mb-4 gap-3">
+        <div className="min-w-0">
+          <h3
+            className={[
+              "text-2xl font-bold text-red-400 uppercase truncate",
+              metalFont,
+            ].join(" ")}
+          >
+            {band.name}
+          </h3>
+        </div>
+
+        {/* derecha: links + icono dinámico */}
+        <div className="flex items-center gap-3 shrink-0">
+          {/* links horizontales */}
+          <div className="flex items-center gap-3">
+            {youtube && (
+              <a
+                href={youtube}
+                target="_blank"
+                rel="noreferrer"
+                title="Abrir en YouTube"
+                className="text-red-500 hover:text-red-400 transition"
+              >
+                <FaYoutube className="text-2xl" />
+              </a>
+            )}
+
+            {spotify && (
+              <a
+                href={spotify}
+                target="_blank"
+                rel="noreferrer"
+                title="Abrir en Spotify"
+                className="text-green-500 hover:text-green-400 transition"
+              >
+                <FaSpotify className="text-2xl" />
+              </a>
+            )}
+          </div>
+
+          {/* icono dinámico (rayito, corona, etc.) */}
+          {pickIcon(band)}
+        </div>
       </div>
 
       <div className="h-48 overflow-hidden mb-4 rounded-lg">
@@ -125,31 +170,14 @@ export default function BandCard({
               ))}
             </div>
 
-            {/* ICONOS derecha */}
             <div className="ml-auto flex items-center gap-3">
-              {band.links?.youtube && (
-                <a
-                  href={band.links.youtube}
-                  target="_blank"
-                  rel="noreferrer"
-                  title="Abrir en YouTube"
-                  className="text-red-500 hover:text-red-400 transition"
-                >
-                  <FaYoutube className="text-2xl" />
-                </a>
-              )}
-
-              {band.links?.spotify && (
-                <a
-                  href={band.links.spotify}
-                  target="_blank"
-                  rel="noreferrer"
-                  title="Abrir en Spotify"
-                  className="text-green-500 hover:text-green-400 transition"
-                >
-                  <FaSpotify className="text-2xl" />
-                </a>
-              )}
+              <button
+                type="button"
+                onClick={() => onDetails(String(band.id))}
+                className="mt-4 w-full rounded-md  hover:bg-white/10   px-3 py-2 text-sm text-white"
+              >
+                <FaEye className="text-xl text-red-500" />
+              </button>
             </div>
           </div>
         </div>

@@ -11,6 +11,7 @@ import BandsGrid from "./BandsGrid";
 import LoadMoreButton from "./LoadMoreButton";
 import CatalogFooter from "./CatalogFooter";
 import BackHomeButton from "../BackHomeButton";
+import BandDetailsOffcanvas from "./BandDetailsOffcanvas";
 
 export default function CatalogOrchestrator({
   horrorFont,
@@ -24,6 +25,27 @@ export default function CatalogOrchestrator({
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [detailLoading, setDetailLoading] = useState(false);
+  const [detailError, setDetailError] = useState<string | null>(null);
+  const [selectedBand, setSelectedBand] = useState<Band | null>(null);
+
+  async function openDetails(id: string) {
+    setDetailOpen(true);
+    setDetailLoading(true);
+    setDetailError(null);
+
+    try {
+      const band = await repo.getBandById(id);
+      setSelectedBand(band);
+    } catch (e: any) {
+      setSelectedBand(null);
+      setDetailError(e?.message ?? "Failed to load band detail");
+    } finally {
+      setDetailLoading(false);
+    }
+  }
 
   const limit = 24;
 
@@ -85,7 +107,11 @@ export default function CatalogOrchestrator({
           </div>
 
           <div className="mt-10">
-            <BandsGrid bands={filtered} metalFont={metalFont} />
+            <BandsGrid
+              bands={filtered}
+              metalFont={metalFont}
+              onDetails={openDetails}
+            />
           </div>
 
           <div className="mt-10 flex justify-center">
@@ -96,6 +122,13 @@ export default function CatalogOrchestrator({
           </div>
 
           <CatalogFooter metalFont={metalFont} />
+          <BandDetailsOffcanvas
+            open={detailOpen}
+            onClose={() => setDetailOpen(false)}
+            loading={detailLoading}
+            error={detailError}
+            band={selectedBand}
+          />
         </div>
       </section>
     </main>
