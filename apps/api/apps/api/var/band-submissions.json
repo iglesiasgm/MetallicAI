@@ -1,0 +1,182 @@
+[
+  {
+    "id": "840324e3-d423-4c0d-aae1-b9561c110a2f",
+    "status": "REJECTED",
+    "contactEmail": "test@demo.com",
+    "payload": {
+      "features": [
+        "Fast riffs"
+      ],
+      "moods": [
+        "Aggressive"
+      ],
+      "name": "Test Submission Band",
+      "description": "Banda creada para probar la cola de moderación",
+      "members": [],
+      "subgenres": [
+        "Thrash Metal"
+      ],
+      "contactEmail": "test@demo.com",
+      "links": [
+        {
+          "spotify": "https://open.spotify.com/intl-es/artist/0WVXlaglIOtQueNbucPjZ0?si=MCikI9vNRuGyy3afN_YQLA"
+        }
+      ]
+    },
+    "createdAt": "2026-01-15T00:30:23.219Z",
+    "updatedAt": "2026-01-15T16:20:55.833Z",
+    "flags": {
+      "possibleDuplicate": false
+    },
+    "reviewReason": "Puto reventado",
+    "reviewedAt": "2026-01-15T16:20:55.830Z",
+    "reviewedBy": {
+      "username": "WindsOfMayhem",
+      "role": "ADMIN"
+    }
+  },
+  {
+    "id": "99d4689f-ea16-4a95-96e8-a82410acc46f",
+    "status": "REJECTED",
+    "contactEmail": "test@demo.com",
+    "payload": {
+      "name": "Test Submission Band",
+      "description": "Banda creada para probar la cola de moderación",
+      "subgenres": [
+        "Thrash Metal"
+      ],
+      "moods": [
+        "Aggressive"
+      ],
+      "features": [
+        "Fast riffs"
+      ],
+      "links": [
+        {
+          "spotify": "https://open.spotify.com/intl-es/artist/0WVXlaglIOtQueNbucPjZ0?si=MCikI9vNRuGyy3afN_YQLA"
+        }
+      ],
+      "members": [],
+      "contactEmail": "test@demo.com"
+    },
+    "createdAt": "2026-01-15T04:57:23.293Z",
+    "updatedAt": "2026-01-15T05:00:29.077Z",
+    "flags": {
+      "possibleDuplicate": false
+    },
+    "reviewReason": "Prueba: no cumple reglas",
+    "reviewedAt": "2026-01-15T05:00:29.074Z",
+    "reviewedBy": "admin"
+  },
+  {
+    "id": "8388c5c7-37c6-465d-9b34-3308dcef28fe",
+    "status": "PUBLISHED",
+    "contactEmail": "test@demo.com",
+    "payload": {
+      "name": "Test Submission Band",
+      "description": "Banda creada para probar la cola de moderación",
+      "subgenres": [
+        "Thrash Metal"
+      ],
+      "moods": [
+        "Aggressive"
+      ],
+      "features": [
+        "Fast riffs"
+      ],
+      "links": [
+        {
+          "spotify": "https://open.spotify.com/intl-es/artist/0WVXlaglIOtQueNbucPjZ0?si=MCikI9vNRuGyy3afN_YQLA"
+        }
+      ],
+      "members": [],
+      "contactEmail": "test@demo.com"
+    },
+    "createdAt": "2026-01-15T05:01:59.588Z",
+    "updatedAt": "2026-01-15T05:04:26.799Z",
+    "flags": {
+      "possibleDuplicate": false
+    },
+    "reviewedAt": "2026-01-15T05:04:26.797Z",
+    "reviewedBy": "admin",
+    "publishedAt": "2026-01-15T05:04:26.797Z",
+    "publishedBandId": "8388c5c7-37c6-465d-9b34-3308dcef28fe"
+  },
+  {
+    "id": "4e3345b8-7653-4ade-84b9-6162e867c8dc",
+    "status": "REJECTED",
+    "payload": {
+      "name": "Auth Test Band",
+      "description": "Probando createdBy desde JWT",
+      "subgenres": [
+        "Thrash Metal"
+      ],
+      "moods": [
+        "Aggressive"
+      ],
+      "features": [
+        "Fast riffs"
+      ],
+      "links": [
+        {
+          "spotify": "https://open.spotify.com/intl-es/artist/6Ghvu1VvMGScGpOUJBAHNH?si=GrdrIfi7QWC10XcKEQvyig"
+        }
+      ],
+      "members": []
+    },
+    "createdBy": {
+      "username": "usuario_test",
+      "role": "USER"
+    },
+    "createdAt": "2026-01-15T05:57:47.517Z",
+    "updatedAt": "2026-01-15T06:03:17.690Z",
+    "flags": {
+      "possibleDuplicate": false
+    },
+    "reviewReason": "Auth test reject",
+    "reviewedAt": "2026-01-15T06:03:17.688Z",
+    "reviewedBy": {
+      "username": "La Bestia Pop",
+      "role": "ADMIN"
+    }
+  },
+  {
+    "id": "f9331641-44c1-410c-8dc0-a42d010168cb",
+    "status": "PUBLISHED",
+    "payload": {
+      "name": "Auth Test Band",
+      "description": "Probando createdBy desde JWT",
+      "subgenres": [
+        "Thrash Metal"
+      ],
+      "moods": [
+        "Aggressive"
+      ],
+      "features": [
+        "Fast riffs"
+      ],
+      "links": [
+        {
+          "spotify": "https://open.spotify.com/intl-es/artist/6Ghvu1VvMGScGpOUJBAHNH?si=GrdrIfi7QWC10XcKEQvyig"
+        }
+      ],
+      "members": []
+    },
+    "createdBy": {
+      "username": "La Bestia Pop",
+      "role": "ADMIN"
+    },
+    "createdAt": "2026-01-15T06:04:24.206Z",
+    "updatedAt": "2026-01-15T06:05:36.254Z",
+    "flags": {
+      "possibleDuplicate": false
+    },
+    "reviewedAt": "2026-01-15T06:05:36.252Z",
+    "reviewedBy": {
+      "username": "La Bestia Pop",
+      "role": "ADMIN"
+    },
+    "publishedAt": "2026-01-15T06:05:36.252Z",
+    "publishedBandId": "f9331641-44c1-410c-8dc0-a42d010168cb"
+  }
+]

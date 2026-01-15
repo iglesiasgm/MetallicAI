@@ -1,0 +1,20 @@
+[
+  {
+    "id": "d31e9ad5-d4ef-4f0e-a490-f300cc798c77",
+    "username": "La Bestia Pop",
+    "role": "ADMIN",
+    "passwordHash": "$2b$10$qhxVphmj8xJS9Kn8Y8x6repVvLZ0ZQwQYgyKBv0BP3NSj6qkodKMy"
+  },
+  {
+    "id": "a0055458-6e70-4791-a21b-ac408e4c750f",
+    "username": "WindsOfMayhem",
+    "role": "ADMIN",
+    "passwordHash": "$2b$10$DxoIvCGUhEfwGoazdVX6N.t4H4dBVsRlh5CZZaTk2vmJiYlmURaQe"
+  },
+  {
+    "id": "9c5b6bbe-9477-4b0c-b4bb-1af4d61ac84f",
+    "username": "usuario_test",
+    "role": "USER",
+    "passwordHash": "$2b$10$.qWcFhxR5zx0.aszghYWMe9lH2oTRMKRGi0P85UigU26QO82jNofi"
+  }
+]

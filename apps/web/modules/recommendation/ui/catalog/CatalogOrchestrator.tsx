@@ -12,6 +12,8 @@ import LoadMoreButton from "./LoadMoreButton";
 import CatalogFooter from "./CatalogFooter";
 import BackHomeButton from "../BackHomeButton";
 import BandDetailsOffcanvas from "./BandDetailsOffcanvas";
+import { useAuth } from "@/auth/AuthContext";
+import Link from "next/dist/client/link";
 
 export default function CatalogOrchestrator({
   horrorFont,
@@ -70,6 +72,8 @@ export default function CatalogOrchestrator({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const { isAuthenticated } = useAuth();
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return bands;
@@ -97,6 +101,13 @@ export default function CatalogOrchestrator({
         <BackHomeButton />
         <div className="relative max-w-7xl mx-auto">
           <CatalogHeader horrorFont={horrorFont} metalFont={metalFont} />
+
+          <Link
+            href={isAuthenticated ? "/create" : "/login?redirect=/create"}
+            className="rounded-xl px-3 py-2 text-sm bg-white/10 hover:bg-white/15"
+          >
+            Crear banda
+          </Link>
 
           <div className="mt-10 flex justify-center">
             <CatalogSearch

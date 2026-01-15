@@ -16,6 +16,7 @@ import {
 import TagEditor from "./TagEditor";
 import MemberEditor from "./MemberEditor";
 import { CreateBandInput, Member } from "../../domain/Create";
+import { useAuth } from "@/auth/AuthContext";
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:3001";
@@ -99,6 +100,8 @@ export default function CreateBandForm() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [touched, setTouched] = useState(false);
 
+  const { authFetch } = useAuth();
+
   // ✅ Estado usando nombres del backend: CreateBandInput
   const [input, setInput] = useState<CreateBandInput>({
     name: "",
@@ -141,9 +144,8 @@ export default function CreateBandForm() {
 
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE_URL}/bands`, {
+      const res = await authFetch("/band-submissions", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(input),
       });
 

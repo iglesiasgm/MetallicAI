@@ -5,8 +5,11 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { FaCompactDisc, FaFire, FaSkull, FaUser } from "react-icons/fa";
 import { FaHouse } from "react-icons/fa6";
+import { useAuth } from "@/auth/AuthContext";
 
 export default function RecommendHeader() {
+  const { isAdmin } = useAuth();
+
   return (
     <header className="border-b border-red-900/30 bg-black/20 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -24,6 +27,8 @@ export default function RecommendHeader() {
         </div>
 
         <nav className="hidden md:flex items-center gap-8">
+          {isAdmin && <Link href="/admin/moderation">Moderation</Link>}
+
           <Link
             href="/"
             className="text-gray-300 hover:text-red-600 transition-colors flex items-center gap-2"

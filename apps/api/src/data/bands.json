@@ -2861,5 +2861,49 @@
     ],
     "imageUrl": "https://i.scdn.co/image/0b92dedbdbe552ac79e0b551c753ce7deb704a71",
     "popularity": 39
+  },
+  {
+    "id": "8388c5c7-37c6-465d-9b34-3308dcef28fe",
+    "name": "Test Submission Band",
+    "subgenres": [
+      "Thrash Metal"
+    ],
+    "moods": [
+      "Aggressive"
+    ],
+    "features": [
+      "Fast riffs"
+    ],
+    "description": "Banda creada para probar la cola de moderación",
+    "members": [],
+    "links": [
+      {
+        "spotify": "https://open.spotify.com/intl-es/artist/0WVXlaglIOtQueNbucPjZ0?si=MCikI9vNRuGyy3afN_YQLA"
+      }
+    ],
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5eb8f43c9184ba33172dbbe8ff2",
+    "popularity": 37
+  },
+  {
+    "id": "f9331641-44c1-410c-8dc0-a42d010168cb",
+    "name": "Auth Test Band",
+    "subgenres": [
+      "Thrash Metal"
+    ],
+    "moods": [
+      "Aggressive"
+    ],
+    "features": [
+      "Fast riffs"
+    ],
+    "description": "Probando createdBy desde JWT",
+    "members": [],
+    "links": [
+      {
+        "spotify": "https://open.spotify.com/intl-es/artist/6Ghvu1VvMGScGpOUJBAHNH?si=GrdrIfi7QWC10XcKEQvyig"
+      }
+    ],
+    "imageUrl": "https://i.scdn.co/image/ab6761610000e5ebe3ac5eb948e78d9285d1dbdb",
+    "popularity": 84
   }
 ]
